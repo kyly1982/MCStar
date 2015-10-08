@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mckuai.mcstar.fragment.PaperFragment">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/cover_paper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:minHeight="300dp"
+        android:minWidth="150dp" />
+
+    <TextView
+        android:id="@+id/hint_paper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/icon_circle_blue"
+        android:text="@string/hint1_paper" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_paper"
+        android:drawableLeft="@drawable/icon_circle_gray"
+        android:gravity="center"
+        android:text="@string/name_paper" />
+
+    <TextView
+        android:id="@+id/hint_examinee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/cover_paper"
+        android:text="@string/examinees_paper" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/hint2_paper" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/examineelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_examinee"
+        android:minHeight="20dp" />
+
+    <TextView
+        android:id="@+id/ready"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/examineelist"
+        android:layout_centerHorizontal="true"
+        android:text="@string/hint3_paper"/>
+
+    <TextView
+        android:id="@+id/time_paper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ready"
+        android:layout_centerHorizontal="true"
+        android:text="10"/>
+
+
+
+</RelativeLayout>

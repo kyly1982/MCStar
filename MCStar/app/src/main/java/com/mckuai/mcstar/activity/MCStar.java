@@ -4,7 +4,11 @@ import android.app.Application;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.mckuai.mcstar.bean.MCUser;
+import com.mckuai.mcstar.utils.LruImageCache;
 
 /**
  * Created by kyly on 2015/9/29.
@@ -13,8 +17,10 @@ public class MCStar extends Application{
     static MCUser mUserInfo;
     static final String TAG = "application";
     static MCStar instance;
+    public RequestQueue queue;
+    public ImageLoader loader;
 
-    static MCStar getInstance(){
+    public static MCStar getInstance(){
         return instance;
     }
 
@@ -22,6 +28,8 @@ public class MCStar extends Application{
     public void onCreate() {
         super.onCreate();
         instance = this;
+        queue = Volley.newRequestQueue(this);
+        loader = new ImageLoader(queue,new LruImageCache());
         Log.e(TAG,"onCreate");
     }
 

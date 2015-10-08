@@ -2,20 +2,20 @@ package com.mckuai.mcstar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.mckuai.mcstar.R;
 
 import java.util.ArrayList;
 
-public class LeadActivity extends BaseActivity implements ViewPager.OnPageChangeListener,View.OnClickListener {
-
-    ViewPager mViewPager;
+public class LeadActivity extends BaseActivity{
+    NetworkImageView mImageView;
     ArrayList<ImageView> mIndications;
+    ArrayList<String> urls;
     int mLastPosition = 0;
     static final String TAG = "LA";
 
@@ -24,36 +24,37 @@ public class LeadActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate");
         setContentView(R.layout.activity_lead);
-        init();
+        mActionBar.hide();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e(TAG, "onStart");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.e(TAG, "onRestart");
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        init();
         Log.e(TAG, "onResume");
     }
 
-    private void init(){
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+    private void readPrefiles(){
 
-        initIndication(3);
-        findViewById(R.id.skip).setOnClickListener(this);
     }
 
-    private void initIndication(int count){
-        if ( 0 < count && 5 > count) {
+    private void savePrefiles(){
+
+    }
+
+    private void init(){
+        urls = new ArrayList<>(10);
+        urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/92001444245157450.png");
+        urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/42301444245394430.png");
+        urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/75731444246261854.png");
+        mImageView = (NetworkImageView) findViewById(R.id.ads);
+
+        mImageView.setImageUrl(urls.get(mLastPosition),mApplication.loader);
+
+        int count = urls.size();
+        //画点
+        if ( 1 < count) {
             LinearLayout indicationRoot = (LinearLayout) findViewById(R.id.ll_indication);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(30,30);
             params.setMargins(5,5,5,5);
@@ -67,39 +68,22 @@ public class LeadActivity extends BaseActivity implements ViewPager.OnPageChange
                 mIndications.add(imageView);
                 indicationRoot.addView(imageView);
             }
-
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
         }
     }
 
-
-
-
-
-
-
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_gray);
-        mIndications.get(position).setImageResource(R.drawable.icon_circle_blue);
-        mLastPosition = position;
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        this.finish();
+    public void onFABClicked() {
+        if (mLastPosition == urls.size() - 1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            this.finish();
+        }else {
+            mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_gray);
+            mLastPosition++;
+            mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
+            mImageView.setImageUrl(urls.get(mLastPosition),mApplication.loader);
+        }
     }
 }
