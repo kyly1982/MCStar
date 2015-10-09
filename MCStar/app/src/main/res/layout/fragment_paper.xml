@@ -41,18 +41,13 @@
         android:layout_alignParentRight="true"
         android:text="@string/hint2_paper" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/examineelist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hint_examinee"
-        android:minHeight="20dp" />
+
 
     <TextView
         android:id="@+id/ready"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/examineelist"
+        android:layout_below="@id/hint_examinee"
         android:layout_centerHorizontal="true"
         android:text="@string/hint3_paper"/>
 
