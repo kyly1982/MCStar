@@ -1,122 +1,125 @@
 package com.mckuai.mcstar.activity;
 
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.MenuRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
 
 /**
  * Created by kyly on 2015/9/29.
  */
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener {
+public class BaseActivity extends AppCompatActivity {
     int mContentViewId;
     MCStar mApplication = MCStar.getInstance();
-    Toolbar mToolBar;
-    FloatingActionButton mFloatingActionButton;
-    android.support.v7.app.ActionBar mActionBar;
+    static Toolbar mToolBar;
+    static TextView mTitle;
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(R.layout.activity_base);
-        View view = LayoutInflater.from(this).inflate(layoutResID,null,false);
+        View view = LayoutInflater.from(this).inflate(layoutResID, null, false);
         mContentViewId = view.getId();
+        mTitle = (TextView) findViewById(R.id.title);
         addContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
-
-        mActionBar = getSupportActionBar();
-        mToolBar.setNavigationIcon(R.drawable.icon_circle_blue);
-        mToolBar.setOnMenuItemClickListener(this);
-        mActionBar.setHomeButtonEnabled(true);//图标可点击
-        mActionBar.setDisplayShowHomeEnabled(true);  //显示左上角图标
-//     mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
-        /*mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.action_edit:
-                        break;
-                    case R.id.action_share:
-                        break;
-                }
-                return true;
-            }
-        });*/
-
-
-        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        mFloatingActionButton.setOnClickListener(this);
     }
 
-    public void showMessage(final int level,String msg){
+    public void showMessage(final int level, String msg) {
         Snackbar.make(null, msg, 0 == level ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
     }
 
-    public void showMessage(final int level,final String msg,final String actionName,final View.OnClickListener listener){
-        Snackbar.make(null,msg,Snackbar.LENGTH_LONG).setAction(actionName, listener).show();
+    public void showMessage(final int level, final String msg, final String actionName, final View.OnClickListener listener) {
+        Snackbar.make(null, msg, Snackbar.LENGTH_LONG).setAction(actionName, listener).show();
     }
+
+    public static void setmTitle(final String title) {
+        if (null != title) {
+            mTitle.setText(title);
+        }
+    }
+
+    public static void setToolBarTitle(final String title) {
+        if (null != title) {
+            mToolBar.setTitle(title);
+        }
+    }
+
+    public static void setToolBarSubTitle(final String subTitle) {
+        if (null != subTitle) {
+            mToolBar.setSubtitle(subTitle);
+        }
+    }
+
+    public static void setTitles(final String title, final String toolbarTitle, final String toolbarSubTitle) {
+        if (null != title) {
+            mTitle.setText(title);
+        }
+        if (null != toolbarTitle) {
+            mToolBar.setTitle(toolbarTitle);
+        }
+        if (null != toolbarSubTitle) {
+            mToolBar.setSubtitle(toolbarSubTitle);
+        }
+    }
+
+    public static void setTitles(@StringRes final int titleId, @StringRes final int toolbarTitleId, @StringRes final int toolbarSubTitleId) {
+        if (0 != titleId) {
+            mTitle.setText(titleId);
+        } else {
+            mTitle.setText("");
+        }
+
+        if (0 != toolbarTitleId) {
+            mToolBar.setTitle(toolbarTitleId);
+        } else {
+            mToolBar.setTitle("");
+        }
+
+        if (0 != toolbarSubTitleId) {
+            mToolBar.setSubtitle(toolbarSubTitleId);
+        } else {
+            mToolBar.setSubtitle("");
+        }
+    }
+
+    public static void setToolBarListener(Toolbar.OnMenuItemClickListener itemClickListener, View.OnClickListener navigationClickListener) {
+        if (null != itemClickListener) {
+            mToolBar.setOnMenuItemClickListener(itemClickListener);
+        }
+
+        if (null != navigationClickListener) {
+            mToolBar.setNavigationOnClickListener(navigationClickListener);
+        }
+    }
+
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU){
-            if (onMenuKeyPressed()){
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            if (onMenuKeyPressed()) {
                 return true;
             }
-        }
-        else if (keyCode == KeyEvent.KEYCODE_BACK){
-            if (onBackKeyPressed()){
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (onBackKeyPressed()) {
                 return true;
             }
         }
         return super.onKeyUp(keyCode, event);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.fab:
-                onFABClicked();
-                break;
-
-        }
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_edit:
-                break;
-            case R.id.action_share:
-                break;
-            case R.id.action_progress:
-                break;
-            default:
-                Log.e("",item.toString()+",itemid="+item.getItemId());
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return true;
-    }
-
-
-
-    public boolean onMenuKeyPressed(){
+    public boolean onMenuKeyPressed() {
         return false;
     }
 
@@ -124,7 +127,4 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    public void onFABClicked(){
-
-    }
 }

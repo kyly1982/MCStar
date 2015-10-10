@@ -13,17 +13,17 @@ public class LoginActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
+//        mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
     }
 
 
 
-    @Override
+ /*   @Override
     public void onFABClicked() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         this.finish();
-    }
+    }*/
 }
 

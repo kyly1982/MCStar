@@ -1,17 +1,79 @@
 <resources>
-    <string name="app_name">MC wa</string>
-    <string name="title_activity_main">MC Wa</string>
+    <string name="app_name">MC Wa</string>
 
-    <string name="title_activity_examinations">ExaminationsActivity</string>
+    <!--通用-->
+     <string name="scores">%d分</string>
+    <string name="scores_unit">分</string>
+    <string name="NO.">NO.</string>
+    <string name="flaunt">炫耀一下</string>
 
-    <!-- 题库 -->
-    <string name="hint1_paper">Wa~ 你挖到了</string>
-    <string name="name_paper">知识大考验</string>
+    <!-- 菜单-->
+    <string name="contribution">贡献</string>
+    <string name="ranking">排行</string>
+    <string name="time">时间</string>
+    <string name="add">添加</string>
+    <string name="music_enable">开启音乐</string>
+    <string name="music_disable">关闭音乐</string>
+    
+    <!--标题-->
+    <string name="title_main">MC Wa</string>
+    <string name="title_contribution">贡献</string>
+    <string name="title_achievement">成绩</string>
+    <string name="title_makequestion">出题</string>
+    <string name="title_rankinglist">排行榜</string>
+
+    <!--引导页-->
+    <string name="show_np">下一页</string>
+    <string name="show_ma">开始</string>
+
+    <!--主页-->
+    <string name="main_title"></string>
+    <string name="getpaper">挖一下</string>
+
+    <!-- 准备 -->
+    <string name="paper_hint">Wa~ 你挖到了</string>
+    <string name="paper_seckill">秒杀TA</string>
+    <string name="paper_ready">深呼吸… 预备</string>
+    <string name="paper_name">知识大考验</string>
     <string name="examinees_paper" >Ta们也在答题</string>
-    <string name="hint2_paper">秒杀TA</string>
-    <string name="hint3_paper">深呼吸…预备</string>
+    <string name="paper_more">更多宝藏准备中…</string>
+    <string name="second_unit">s</string>
+
+    <!--题-->
+    <string name="contributor">贡献者：%s</string>
+
+    <!--成绩-->
+    <string name="transcend">超越TA</string>
+    <string name="KO">KO 了</string>
+    <string name="regetpaper">再挖一下</string>
+
+    <!--出题-->
+    <string name="selecttype">选择类型</string>
+    <string name="type_choice">选择题</string>
+    <string name="type_judgment">判断题</string>
+    <string name="question_titlehint">这里写题目</string>
+    <string name="worldscount">%字</string>
+    <string name="question_imagehint">添加图片（可选）</string>
+    <string name="result_right">正确答案</string>
+    <string name="result_false">错误答案</string>
+    <string name="submitquestion">提交</string>
 
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--贡献-->
+    <string name="answer_count">%d人回答</string>
+    <string name="correct_rate">正确率：%d%</string>
+    <string name="status_auditing">审核中…</string>
+    <string name="status_audit_false">未通过！</string>
+    
+    <!--个人中心-->
+    <string name="papercount">答题次数</string>
+    <string name="questioncount">贡献题目</string>
+    <string name="scores_totle">总分</string>
+    <string name="scores_avg">平均得分</string>
+    <string name="name">用户名字</string>
+
+    <!--排行榜-->
+    <string name="myself">自己</string>
+
 </resources>

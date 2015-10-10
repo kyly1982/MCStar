@@ -14,9 +14,9 @@ public class ExaminationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_examination);
-        mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
+//        mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
         mFragmentManager = getFragmentManager();
-        mActionBar.setDisplayHomeAsUpEnabled(false);
+//        mActionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -39,15 +39,5 @@ public class ExaminationActivity extends BaseActivity {
             case 2:
                 break;
         }
-    }
-
-
-    @Override
-    public void onFABClicked() {
-        position++;
-        if (2 == position){
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        switchFragment(position);
     }
 }

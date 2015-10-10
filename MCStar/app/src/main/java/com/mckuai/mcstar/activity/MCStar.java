@@ -28,9 +28,20 @@ public class MCStar extends Application{
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Log.e(TAG,"onCreate");
+    }
+
+    public void init(){
         queue = Volley.newRequestQueue(this);
         loader = new ImageLoader(queue,new LruImageCache());
-        Log.e(TAG,"onCreate");
+    }
+
+    public void readPreference(){
+
+    }
+
+    public void writePreference(){
+
     }
 
     @Override
