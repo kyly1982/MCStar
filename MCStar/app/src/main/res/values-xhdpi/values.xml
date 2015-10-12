@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="divi_height">10dp</dimen>
+    <dimen name="divi_height2">5dp</dimen>
+
+    <!--ready-->
+    <dimen name="paper_cover_width">140dp</dimen>
+    <dimen name="paper_cover_height">170dp</dimen>
+    <dimen name="paper_head_width">186dp</dimen>
+    <dimen name="paper_width">326dp</dimen>
+    <dimen name="userlist_height">43dp</dimen>
+    <!--answer-->
+    <dimen name="image_height">135dp</dimen>
+    <dimen name="option_height">49dp</dimen>
+    <!--result-->
+    <dimen name="otheruser_height">65dp</dimen>
+    <dimen name="my_height">223dp</dimen>
+    <dimen name="ranking_height">64dp</dimen>
+    <dimen name="ranking_width">53dp</dimen>
+    <dimen name="usercover_diameter_big">75dp</dimen>
+    <dimen name="usercover_radii_big">37.5dp</dimen>
+    <dimen name="usercover_diameter_small">31dp</dimen>
+    <dimen name="usercover_radii_small">15.5dp</dimen>
+    <dimen name="bottom_height">150dp</dimen>
+    <!--Contribution-->
+    <dimen name="contribution_height">100dp</dimen>
+    <dimen name="contributiontitle_height">70dp</dimen>
+    <!--question-->
+    <dimen name="questiontype_height">35dp</dimen>
+    <dimen name="questiontopic_height">83dp</dimen>
+    <dimen name="questionimage_height">135dp</dimen>
+    <dimen name="questionsubmit_height">71dp</dimen>
+</resources>

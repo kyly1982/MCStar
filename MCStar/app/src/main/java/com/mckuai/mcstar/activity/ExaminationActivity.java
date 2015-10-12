@@ -48,6 +48,7 @@ public class ExaminationActivity extends BaseActivity {
                 break;
             case 2:
                 mToolBar.setVisibility(View.VISIBLE);
+                mTitle.setText(R.string.title_achievement);
                 ResulltFragment resulltFragment = new ResulltFragment();
                 mFragmentManager.beginTransaction().replace(R.id.context,resulltFragment,"RESULT").commit();
                 break;

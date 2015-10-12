@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:padding="@dimen/divi_height"
     tools:context="com.mckuai.mcstar.activity.ContributionActivity">
 
     <include
         android:id="@+id/toolbar_layout"
         layout="@layout/toolbar" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
         android:id="@+id/questionlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ></android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/toolbar_layout"
+        app:layout_empty="@layout/view_empty"
+        ></com.malinskiy.superrecyclerview.SuperRecyclerView>
 
 </RelativeLayout>

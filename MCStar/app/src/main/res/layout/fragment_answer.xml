@@ -2,26 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     tools:context="com.mckuai.mcstar.fragment.AnswerFragment">
 
     <include
         android:id="@+id/toolbar_layout"
         layout="@layout/toolbar_question"></include>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/questionIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_layout"
+        android:layout_marginLeft="@dimen/divi_height"
+        android:layout_marginTop="@dimen/divi_height"
+        android:textColor="@color/fontcolor_Primary"
         android:text="1."/>
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/questionContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/questionIndex"
         android:layout_toRightOf="@id/questionIndex"
+        android:layout_marginRight="@dimen/divi_height"
+        android:layout_marginBottom="@dimen/divi_height"
+        android:maxLines="3"
+        android:textColor="@color/fontcolor_Primary"
         android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
 
     <com.android.volley.toolbox.NetworkImageView
@@ -29,6 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"
         android:layout_below="@id/questionContent"
+        android:layout_margin="@dimen/divi_height"
+        android:background="@color/background_image"
         android:scaleType="fitCenter"/>
 
     <RadioGroup
@@ -36,47 +43,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/questionImage"
+        android:layout_marginTop="@dimen/divi_height"
+        android:layout_marginBottom="@dimen/divi_height"
         android:orientation="vertical">
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/answerA"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/option_height"
+            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
+            android:background="@color/background_item"
             android:text="A. option A"
             />
 
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/answerB"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/option_height"
+            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
+            android:background="@color/background_item"
             android:text="B. option B"
             />
 
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/answerC"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/option_height"
+            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
+            android:background="@color/background_item"
             android:text="C. option C"
             />
 
-        <RadioButton
+        <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/answerD"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/option_height"
+            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
+            android:background="@color/background_item"
             android:text="D. option D"
             />
 
 
     </RadioGroup>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/contributioner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

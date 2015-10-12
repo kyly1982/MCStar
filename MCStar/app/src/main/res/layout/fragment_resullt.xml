@@ -10,29 +10,29 @@
         android:layout_height="@dimen/otheruser_height"
         android:background="@color/background_item">
 
-        <ImageView
+        <android.support.v4.widget.CircleImageView
             android:id="@+id/cover_frontuser"
             android:layout_width="@dimen/usercover_diameter_small"
             android:layout_height="@dimen/usercover_diameter_small"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@drawable/icon_circle_gray" />
+            android:src="@color/background_image" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/no_frontuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="NO." />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/ranking_frontuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="127" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/cover_frontuser"
@@ -40,7 +40,7 @@
             android:gravity="center"
             android:text="@string/transcend" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -108,25 +108,25 @@
             android:background="@color/green"
             />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/NO."
             android:layout_above="@id/v_center_4"/>
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/v_center_4"
             android:text="128"/>
 
-        <ImageView
+        <android.support.v4.widget.CircleImageView
             android:layout_width="@dimen/usercover_diameter_big"
             android:layout_height="@dimen/usercover_diameter_big"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/v_center_4"
             android:src="@drawable/icon_circle_gray"/>
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             android:layout_toLeftOf="@id/v_center_4"
             android:layout_centerHorizontal="true"
             android:text="152"/>
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/v_center_4"
@@ -152,7 +152,7 @@
         android:background="@color/background_item"
         >
 
-        <ImageView
+        <android.support.v4.widget.CircleImageView
             android:id="@+id/cover_backuser"
             android:layout_width="@dimen/usercover_diameter_small"
             android:layout_height="@dimen/usercover_diameter_small"
@@ -160,21 +160,21 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_circle_gray" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/no_backuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="NO." />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/ranking_backuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="127" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/cover_backuser"
@@ -182,7 +182,7 @@
             android:gravity="center"
             android:text="@string/KO" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

@@ -78,8 +78,7 @@
     <string name="myself">自己</string>
     <string name="title_activity_contribution">ContributionActivity</string>
 
-    <string name="title_activity_ranking">RankingActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!--空数据-->
+    <string name="data_empty">暂时还没有内容，向下动拉刷新！</string>
 
 </resources>

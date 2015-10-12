@@ -32,14 +32,14 @@
                 android:layout_height="0dp"
                 android:layout_centerInParent="true"/>
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/icon_circle_blue"
                 android:layout_above="@id/v_center"
                 android:text="@string/paper_hint" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/paper_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_height="0dp"
             android:layout_centerInParent="true"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/paper_examinees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:layout_below="@id/rl_paper_headinfo"
             android:text="@string/paper_examinees" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/paper_seckill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,15 +76,15 @@
             android:layout_centerHorizontal="true"
             android:text="@string/paper_seckill" />
 
-        <android.support.v7.widget.RecyclerView
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
             android:id="@+id/userlist"
             android:layout_width="match_parent"
             android:layout_height="@dimen/userlist_height"
             android:layout_below="@id/paper_examinees">
 
-        </android.support.v7.widget.RecyclerView>
+        </com.malinskiy.superrecyclerview.SuperRecyclerView>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/ready"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/paper_ready" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             android:layout_toLeftOf="@id/v_center_2"
             android:text="10"
             />
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/time"
@@ -111,7 +111,7 @@
     </RelativeLayout>
 
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/paper_head_layout"

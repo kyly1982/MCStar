@@ -3,6 +3,7 @@ package com.mckuai.mcstar.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,7 +54,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
 
         int count = urls.size();
         //画点
-        LinearLayout indicationRoot = (LinearLayout) findViewById(R.id.ll_indication);
+        LinearLayoutCompat indicationRoot = (LinearLayoutCompat) findViewById(R.id.ll_indication);
         if ( 1 < count) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(30,30);
             params.setMargins(5,5,5,5);

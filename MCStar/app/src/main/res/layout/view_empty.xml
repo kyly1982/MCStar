@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <include
-        android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar"></include>
-
+    android:layout_height="match_parent">
     <ImageButton
-        android:id="@+id/btn_getpaper"
+        android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@android:drawable/btn_star"/>
-
-    <android.support.v7.widget.AppCompatTextView
+        android:background="@drawable/icon_circle_blue"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/empty"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_getpaper"
-        android:text="@string/getpaper"/>
+        android:layout_margin="@dimen/divi_height"
+        android:textColor="@color/fontcolor_Secondary"
+        android:text="@string/data_empty"/>
+
 </RelativeLayout>

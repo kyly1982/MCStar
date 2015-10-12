@@ -2,8 +2,6 @@ package com.mckuai.mcstar.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.MCUser;
@@ -36,7 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login:
-                if (null == user || user.getIsServerActor() == 0){
+                if (null == user || user.getToken_QQ() != null){
                     loginQQ();
                 } else {
                     loginServer();

@@ -7,22 +7,23 @@ import java.io.Serializable;
  */
 public class MCUser implements Serializable {
     private int id;// 用户id
-    private int score;// 当前积分
+    private int topicCount;// 贡献题目数
+    private int paperCount;//答题次数
     private int level;// 当前等级
-    private int isServerActor;// 是否是腐竹或者名人 1:腐竹 2:名人 3:腐竹申请 4:名人申请
-    private int talkNum;// 发帖数
-    private int homeNum;// 小屋数
-    private int dynamicNum;// 动态数
-    private int messageNum;// 消息数
-    private int workNum;// 作品数
-    private float process; // 等级积分进度
+    private long score;// 当前积分
+    private String name;//用户名
     private String nike;// 昵称，显示用
-    private String headImg;// 头像
+    private String token_QQ;//qq令牌
+    private String cover;// 头像
     private String gender;// 性别
-    private String userType;
-    private String addr;// 定位
-    private String name;// 融云端的注册用户名，实为qq登录后的openid
-    private String token;//融云的token
+
+    public MCUser(){
+
+    }
+
+    public MCUser(String nike){
+        this.nike = nike;
+    }
 
     public int getId() {
         return id;
@@ -32,12 +33,20 @@ public class MCUser implements Serializable {
         this.id = id;
     }
 
-    public int getScore() {
-        return score;
+    public int getTopicCount() {
+        return topicCount;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setTopicCount(int topicCount) {
+        this.topicCount = topicCount;
+    }
+
+    public int getPaperCount() {
+        return paperCount;
+    }
+
+    public void setPaperCount(int paperCount) {
+        this.paperCount = paperCount;
     }
 
     public int getLevel() {
@@ -48,100 +57,12 @@ public class MCUser implements Serializable {
         this.level = level;
     }
 
-    public int getIsServerActor() {
-        return isServerActor;
+    public long getScore() {
+        return score;
     }
 
-    public void setIsServerActor(int isServerActor) {
-        this.isServerActor = isServerActor;
-    }
-
-    public int getTalkNum() {
-        return talkNum;
-    }
-
-    public void setTalkNum(int talkNum) {
-        this.talkNum = talkNum;
-    }
-
-    public int getHomeNum() {
-        return homeNum;
-    }
-
-    public void setHomeNum(int homeNum) {
-        this.homeNum = homeNum;
-    }
-
-    public int getDynamicNum() {
-        return dynamicNum;
-    }
-
-    public void setDynamicNum(int dynamicNum) {
-        this.dynamicNum = dynamicNum;
-    }
-
-    public int getMessageNum() {
-        return messageNum;
-    }
-
-    public void setMessageNum(int messageNum) {
-        this.messageNum = messageNum;
-    }
-
-    public int getWorkNum() {
-        return workNum;
-    }
-
-    public void setWorkNum(int workNum) {
-        this.workNum = workNum;
-    }
-
-    public float getProcess() {
-        return process;
-    }
-
-    public void setProcess(float process) {
-        this.process = process;
-    }
-
-    public String getNike() {
-        return nike;
-    }
-
-    public void setNike(String nike) {
-        this.nike = nike;
-    }
-
-    public String getHeadImg() {
-        return headImg;
-    }
-
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setScore(long score) {
+        this.score = score;
     }
 
     public String getName() {
@@ -152,11 +73,35 @@ public class MCUser implements Serializable {
         this.name = name;
     }
 
-    public String getToken() {
-        return token;
+    public String getNike() {
+        return nike;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setNike(String nike) {
+        this.nike = nike;
+    }
+
+    public String getToken_QQ() {
+        return token_QQ;
+    }
+
+    public void setToken_QQ(String token_QQ) {
+        this.token_QQ = token_QQ;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
