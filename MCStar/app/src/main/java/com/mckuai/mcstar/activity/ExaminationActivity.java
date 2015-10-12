@@ -2,9 +2,12 @@ package com.mckuai.mcstar.activity;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.View;
+
 import com.mckuai.mcstar.R;
-import com.mckuai.mcstar.fragment.PaperFragment;
-import com.mckuai.mcstar.fragment.QuestionFragment;
+import com.mckuai.mcstar.fragment.ReadyFragment;
+import com.mckuai.mcstar.fragment.AnswerFragment;
+import com.mckuai.mcstar.fragment.ResulltFragment;
 
 public class ExaminationActivity extends BaseActivity {
     FragmentManager mFragmentManager;
@@ -14,9 +17,10 @@ public class ExaminationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_examination);
-//        mActionBar.setDisplayHomeAsUpEnabled(true);//左上角图标左边添加返回图标
         mFragmentManager = getFragmentManager();
-//        mActionBar.setDisplayHomeAsUpEnabled(false);
+        initToolBar();
+        mTitle.setText("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -25,18 +29,27 @@ public class ExaminationActivity extends BaseActivity {
         switchFragment(position);
     }
 
+    public  void showNextFragment(){
+        position++;
+        switchFragment(position);
+    }
+
     private void switchFragment(int position){
         switch (position){
             case 0:
-                PaperFragment paperFragment = new PaperFragment();
-                mFragmentManager.beginTransaction().replace(R.id.ll_context,paperFragment,"PAPER").commit();
+                ReadyFragment paperFragment = new ReadyFragment();
+                mFragmentManager.beginTransaction().replace(R.id.context,paperFragment,"PAPER").commit();
                 break;
             case 1:
-                QuestionFragment questionFragment = new QuestionFragment();
-                mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag("PAPER")).commit();
-                mFragmentManager.beginTransaction().replace(R.id.ll_context,questionFragment,"QUESTION").commit();
+                mToolBar.setVisibility(View.GONE);
+                AnswerFragment questionFragment = new AnswerFragment();
+                //mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag("PAPER")).commit();
+                mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag("PAPER")).replace(R.id.context,questionFragment,"QUESTION").commit();
                 break;
             case 2:
+                mToolBar.setVisibility(View.VISIBLE);
+                ResulltFragment resulltFragment = new ResulltFragment();
+                mFragmentManager.beginTransaction().replace(R.id.context,resulltFragment,"RESULT").commit();
                 break;
         }
     }

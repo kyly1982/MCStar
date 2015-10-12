@@ -1,8 +1,195 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mckuai.mcstar.fragment.ResulltFragment">
 
+    <RelativeLayout
+        android:id="@+id/user_front"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/otheruser_height"
+        android:background="@color/background_item">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/cover_frontuser"
+            android:layout_width="@dimen/usercover_diameter_small"
+            android:layout_height="@dimen/usercover_diameter_small"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_circle_gray" />
+
+        <TextView
+            android:id="@+id/no_frontuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="NO." />
+
+        <TextView
+            android:id="@+id/ranking_frontuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="127" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/cover_frontuser"
+            android:layout_toRightOf="@id/ranking_frontuser"
+            android:gravity="center"
+            android:text="@string/transcend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="166分" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <View
+            android:id="@+id/v_center_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/getpaper"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/v_center_3"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:background="@color/background_item"
+            />
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/v_center_3"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_menu_share"
+            android:background="@color/green"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_height"
+        android:layout_below="@id/user_front"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="@dimen/divi_height"
+        android:layout_marginBottom="@dimen/divi_height">
+
+     <View
+         android:id="@+id/v_center_4"
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+         android:layout_marginTop="@dimen/divi_height"
+         android:layout_marginBottom="@dimen/divi_height"
+         android:layout_centerInParent="true"/>
+
+        <View
+            android:layout_width="@dimen/ranking_width"
+            android:layout_height="@dimen/ranking_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/green"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NO."
+            android:layout_above="@id/v_center_4"/>
+        <TextView
+            android:id="@+id/ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/v_center_4"
+            android:text="128"/>
+
+        <ImageView
+            android:layout_width="@dimen/usercover_diameter_big"
+            android:layout_height="@dimen/usercover_diameter_big"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/v_center_4"
+            android:src="@drawable/icon_circle_gray"/>
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/v_center_4"
+            android:layout_toLeftOf="@id/v_center_4"
+            android:layout_centerHorizontal="true"
+            android:text="152"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/v_center_4"
+            android:layout_toRightOf="@id/v_center_4"
+            android:layout_centerHorizontal="true"
+            android:text="分"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_back"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/otheruser_height"
+        android:layout_below="@id/mine"
+        android:background="@color/background_item"
+        >
+
+        <ImageView
+            android:id="@+id/cover_backuser"
+            android:layout_width="@dimen/usercover_diameter_small"
+            android:layout_height="@dimen/usercover_diameter_small"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_circle_gray" />
+
+        <TextView
+            android:id="@+id/no_backuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="NO." />
+
+        <TextView
+            android:id="@+id/ranking_backuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="127" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/cover_backuser"
+            android:layout_toRightOf="@id/ranking_backuser"
+            android:gravity="center"
+            android:text="@string/KO" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="166分" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,16 +1,11 @@
 package com.mckuai.mcstar.activity;
 
-import android.support.annotation.MenuRes;
-import android.support.annotation.StringRes;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
@@ -19,21 +14,21 @@ import com.mckuai.mcstar.R;
  * Created by kyly on 2015/9/29.
  */
 public class BaseActivity extends AppCompatActivity {
-    int mContentViewId;
     MCStar mApplication = MCStar.getInstance();
     static Toolbar mToolBar;
     static TextView mTitle;
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(R.layout.activity_base);
-        View view = LayoutInflater.from(this).inflate(layoutResID, null, false);
-        mContentViewId = view.getId();
+
+    public void initToolBar(){
         mTitle = (TextView) findViewById(R.id.title);
-        addContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mToolBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
+    }
+
+    public void callLogin(){
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivityForResult(intent,1);
     }
 
     public void showMessage(final int level, String msg) {
@@ -44,25 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         Snackbar.make(null, msg, Snackbar.LENGTH_LONG).setAction(actionName, listener).show();
     }
 
-    public static void setmTitle(final String title) {
-        if (null != title) {
-            mTitle.setText(title);
-        }
-    }
-
-    public static void setToolBarTitle(final String title) {
-        if (null != title) {
-            mToolBar.setTitle(title);
-        }
-    }
-
-    public static void setToolBarSubTitle(final String subTitle) {
-        if (null != subTitle) {
-            mToolBar.setSubtitle(subTitle);
-        }
-    }
-
-    public static void setTitles(final String title, final String toolbarTitle, final String toolbarSubTitle) {
+  /*  public static void setTitles(final String title, final String toolbarTitle, final String toolbarSubTitle) {
         if (null != title) {
             mTitle.setText(title);
         }
@@ -94,7 +71,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static void setToolBarListener(Toolbar.OnMenuItemClickListener itemClickListener, View.OnClickListener navigationClickListener) {
+    public static void setToolBarClickListener(Toolbar.OnMenuItemClickListener itemClickListener, View.OnClickListener navigationClickListener) {
         if (null != itemClickListener) {
             mToolBar.setOnMenuItemClickListener(itemClickListener);
         }
@@ -102,7 +79,7 @@ public class BaseActivity extends AppCompatActivity {
         if (null != navigationClickListener) {
             mToolBar.setNavigationOnClickListener(navigationClickListener);
         }
-    }
+    }*/
 
 
     @Override

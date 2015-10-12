@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    tools:context="com.mckuai.mcstar.fragment.AnswerFragment">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_question"></include>
+
+    <TextView
+        android:id="@+id/questionIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_layout"
+        android:text="1."/>
+    <TextView
+        android:id="@+id/questionContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/questionIndex"
+        android:layout_toRightOf="@id/questionIndex"
+        android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/questionImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_height"
+        android:layout_below="@id/questionContent"
+        android:scaleType="fitCenter"/>
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionImage"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/answerA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:maxLines="2"
+            android:text="A. option A"
+            />
+
+        <RadioButton
+            android:id="@+id/answerB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:maxLines="2"
+            android:text="B. option B"
+            />
+
+        <RadioButton
+            android:id="@+id/answerC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:maxLines="2"
+            android:text="C. option C"
+            />
+
+        <RadioButton
+            android:id="@+id/answerD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:maxLines="2"
+            android:text="D. option D"
+            />
+
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/contributioner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/rg"
+        android:text="贡献者：XXX"
+        />
+
+
+</RelativeLayout>

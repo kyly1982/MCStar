@@ -14,12 +14,11 @@ import com.mckuai.mcstar.utils.LruImageCache;
  * Created by kyly on 2015/9/29.
  */
 public class MCStar extends Application{
-    static MCUser mUserInfo;
     static final String TAG = "application";
+    public static MCUser mUserInfo;
     static MCStar instance;
     public RequestQueue queue;
     public ImageLoader loader;
-
     public static MCStar getInstance(){
         return instance;
     }

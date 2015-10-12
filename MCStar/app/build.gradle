@@ -21,9 +21,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/android-support-v7-recyclerview.jar')
-    compile 'com.android.support:support-v4:+'
-    compile 'com.android.support:design:+'
+    //    compile 'com.balysv.materialmenu:material-menu-toolbar:+'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:design:23.0.1'
     compile 'com.mcxiaoke.volley:library:+'
-//    compile 'com.balysv.materialmenu:material-menu-toolbar:+'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
 }

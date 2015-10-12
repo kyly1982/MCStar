@@ -31,7 +31,6 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         mApplication.readPreference();
-        mToolBar.setVisibility(View.GONE);
         mApplication.init();
         init();
     }
@@ -95,13 +94,6 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
             startActivity(intent);
             this.finish();
         }else {
-            /*mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_gray);
-            mLastPosition++;
-            mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
-            mImageView.setImageUrl(urls.get(mLastPosition),mApplication.loader);
-            if (mLastPosition == urls.size() - 1){
-
-            }*/
             showImage();
         }
     }
