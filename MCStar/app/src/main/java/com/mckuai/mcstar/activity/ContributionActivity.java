@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.LayoutDirection;
 import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +15,7 @@ import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.ContributionAdapter;
 import com.mckuai.mcstar.bean.Page;
 import com.mckuai.mcstar.bean.Questin;
+import com.umeng.message.PushAgent;
 
 import java.util.ArrayList;
 
@@ -61,7 +60,7 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     private void loadData() {
         mQuestions = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
-            Questin questin = new Questin(i, "用户" + i, i + ".题目题目题目题目题目题目", "这是正确的,这是错误的,这是错误的", "未知");
+            Questin questin = new Questin(i, "用户" + i, "题目题目题目题目题目题目", "这是正确的,这是错误的,这是错误的", "未知");
             mQuestions.add(questin);
         }
         showData();

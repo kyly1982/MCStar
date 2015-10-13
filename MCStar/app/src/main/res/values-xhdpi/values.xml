@@ -28,6 +28,7 @@
     <!--Contribution-->
     <dimen name="contribution_height">100dp</dimen>
     <dimen name="contributiontitle_height">70dp</dimen>
+    <dimen name="contributionattri_height">30dp</dimen>
     <!--question-->
     <dimen name="questiontype_height">35dp</dimen>
     <dimen name="questiontopic_height">83dp</dimen>

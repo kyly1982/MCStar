@@ -38,19 +38,27 @@ public class ExaminationActivity extends BaseActivity {
         switch (position){
             case 0:
                 ReadyFragment paperFragment = new ReadyFragment();
-                mFragmentManager.beginTransaction().replace(R.id.context,paperFragment,"PAPER").commit();
+                Bundle bundle = new Bundle();
+                bundle.putString(getString(R.string.tag_name),getString(R.string.title_ready));
+                paperFragment.setArguments(bundle);
+                mFragmentManager.beginTransaction().replace(R.id.context,paperFragment,getString(R.string.title_ready)).commit();
                 break;
             case 1:
                 mToolBar.setVisibility(View.GONE);
                 AnswerFragment questionFragment = new AnswerFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString(getString(R.string.tag_name),getString(R.string.title_answer));
+                questionFragment.setArguments(bundle1);
                 //mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag("PAPER")).commit();
-                mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag("PAPER")).replace(R.id.context,questionFragment,"QUESTION").commit();
+                mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag(getString(R.string.title_ready))).replace(R.id.context,questionFragment,getString(R.string.title_answer)).commit();
                 break;
             case 2:
                 mToolBar.setVisibility(View.VISIBLE);
                 mTitle.setText(R.string.title_achievement);
                 ResulltFragment resulltFragment = new ResulltFragment();
-                mFragmentManager.beginTransaction().replace(R.id.context,resulltFragment,"RESULT").commit();
+                Bundle bundle2 = new Bundle();
+                bundle2.putString(getString(R.string.tag_name),getString(R.string.title_achievement));
+                mFragmentManager.beginTransaction().replace(R.id.context,resulltFragment,getString(R.string.title_achievement)).commit();
                 break;
         }
     }

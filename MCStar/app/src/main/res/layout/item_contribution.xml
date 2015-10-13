@@ -12,46 +12,41 @@
         android:gravity="center_vertical"
         android:maxLines="2"
         android:background="@color/background_item"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="标题标题标题标题标题标题标标题标题标标题标题标题标题"/>
+        android:textColor="@color/fontcolor_Primary"/>
 
     <TextView
         android:id="@+id/ratio"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/contributionattri_height"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/topic"
         android:gravity="center"
         android:background="@color/background_auditing"
-        android:textColor="@color/fontcolor_Secondary"
-        android:text="正确率："/>
+        android:textColor="@color/fontcolor_Secondary"/>
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/contributionattri_height"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/topic"
-        android:layout_marginLeft="@dimen/divi_height"
+        android:paddingLeft="@dimen/divi_height"
         android:gravity="center"
-        android:drawableLeft="@android:drawable/ic_dialog_info"
         android:drawablePadding="@dimen/divi_height2"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="33"/>
+        android:textColor="@color/fontcolor_Primary"/>
 
 
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/contributionattri_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/divi_height"
+        android:paddingRight="@dimen/divi_height"
         android:layout_below="@id/topic"
         android:gravity="center"
-        android:textColor="@color/fontcolor_Secondary"
-        android:text="9-30"/>
+        android:textColor="@color/fontcolor_Secondary"/>
 
 
 </RelativeLayout>

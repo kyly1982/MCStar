@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.mckuai.mcstar.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
 public class LeadActivity extends BaseActivity implements View.OnClickListener{
-    NetworkImageView mImageView;
+    ImageView mImageView;
     AppCompatButton mBtn_Next;
     ArrayList<ImageView> mIndications;
     ArrayList<String> urls;
@@ -38,16 +38,16 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void onPause() {
-        mApplication.writePreference();
         super.onPause();
     }
+
 
     private void init(){
         urls = new ArrayList<>(10);
         urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/92001444245157450.png");
 /*        urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/42301444245394430.png");
         urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/75731444246261854.png");*/
-        mImageView = (NetworkImageView) findViewById(R.id.ads);
+        mImageView = (ImageView) findViewById(R.id.ads);
         mBtn_Next = (AppCompatButton) findViewById(R.id.btn_next);
         mBtn_Next.setOnClickListener(this);
         showImage();
@@ -81,7 +81,8 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
             mLastPosition++;
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
         }
-        mImageView.setImageUrl(urls.get(mLastPosition),mApplication.loader);
+        ImageLoader loader = ImageLoader.getInstance();
+        loader.displayImage(urls.get(mLastPosition),mImageView);
         if (mLastPosition == urls.size() -1){
             mBtn_Next.setText(R.string.show_ma);
         }

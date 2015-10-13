@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mckuai.mcstar.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener {
 

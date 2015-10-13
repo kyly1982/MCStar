@@ -7,22 +7,17 @@ import java.io.Serializable;
  */
 public class MCUser implements Serializable {
     private int id;// 用户id
-    private int topicCount;// 贡献题目数
-    private int paperCount;//答题次数
+    private int uploadNum;// 贡献题目数
+    private int answerNum;//答题次数
     private int level;// 当前等级
-    private long score;// 当前积分
-    private String name;//用户名
-    private String nike;// 昵称，显示用
-    private String token_QQ;//qq令牌
-    private String cover;// 头像
-    private String gender;// 性别
+    private long allScore;// 当前积分
+    private String userName;//用户名，实为openId
+    private String nickName;// 昵称，显示用
+    private String headImg;// 头像
+    private String sex;// 性别
 
     public MCUser(){
 
-    }
-
-    public MCUser(String nike){
-        this.nike = nike;
     }
 
     public int getId() {
@@ -33,20 +28,20 @@ public class MCUser implements Serializable {
         this.id = id;
     }
 
-    public int getTopicCount() {
-        return topicCount;
+    public int getUploadNum() {
+        return uploadNum;
     }
 
-    public void setTopicCount(int topicCount) {
-        this.topicCount = topicCount;
+    public void setUploadNum(int uploadNum) {
+        this.uploadNum = uploadNum;
     }
 
-    public int getPaperCount() {
-        return paperCount;
+    public int getAnswerNum() {
+        return answerNum;
     }
 
-    public void setPaperCount(int paperCount) {
-        this.paperCount = paperCount;
+    public void setAnswerNum(int answerNum) {
+        this.answerNum = answerNum;
     }
 
     public int getLevel() {
@@ -57,51 +52,44 @@ public class MCUser implements Serializable {
         this.level = level;
     }
 
-    public long getScore() {
-        return score;
+    public long getAllScore() {
+        return allScore;
     }
 
-    public void setScore(long score) {
-        this.score = score;
+    public void setAllScore(long allScore) {
+        this.allScore = allScore;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getNike() {
-        return nike;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNike(String nike) {
-        this.nike = nike;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getToken_QQ() {
-        return token_QQ;
+
+    public String getHeadImg() {
+        return headImg;
     }
 
-    public void setToken_QQ(String token_QQ) {
-        this.token_QQ = token_QQ;
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
-    public String getCover() {
-        return cover;
+    public String getSex() {
+        return sex;
     }
 
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }
