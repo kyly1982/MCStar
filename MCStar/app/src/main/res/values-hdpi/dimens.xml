@@ -52,8 +52,8 @@
     <dimen name="questionsubmit_height">63.9dp</dimen>
 
     <!--usercenter-->
-    <dimen name="usercover_width">108dp</dimen>
-    <dimen name="infolayout_height">200dp</dimen>
+    <dimen name="usercover_width">120dp</dimen>
+    <dimen name="infolayout_height">270dp</dimen>
     <dimen name="iteminfo_height">100dp</dimen>
 
     <!--ranking-->

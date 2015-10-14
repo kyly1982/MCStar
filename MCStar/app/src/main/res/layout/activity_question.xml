@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +9,12 @@
     <include
         android:id="@+id/toolbar_layout"
         layout="@layout/toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@mipmap/image_other">
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/submit"
@@ -24,12 +30,11 @@
         android:id="@+id/selecttype"
         android:layout_width="match_parent"
         android:layout_height="@dimen/questiontype_height"
-        android:layout_below="@id/toolbar_layout"
         android:layout_margin="@dimen/divi_height"
         android:paddingLeft="@dimen/divi_height"
         android:paddingRight="@dimen/divi_height"
         android:gravity="center_vertical"
-        android:drawableRight="@android:drawable/ic_notification_clear_all"
+        android:drawableRight="@mipmap/ic_arrow_right"
         android:background="@color/background_item"
         android:textColor="@color/fontcolor_Primary"
         android:text="@string/selecttype"/>
@@ -41,25 +46,28 @@
         android:orientation="horizontal"
         android:layout_below="@id/selecttype"
         android:layout_margin="@dimen/divi_height"
+        android:background="@drawable/background_stork"
         >
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/choice"
+            android:id="@+id/type_choice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:button="@null"
             android:layout_weight="1"
             android:checked="true"
-            android:background="@color/background_item"
+            android:background="@drawable/background_questiontype"
+            android:textColor="@drawable/textcolor_questiontype"
             android:text="@string/type_choice"/>
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/judgment"
+            android:id="@+id/type_judgment"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:button="@null"
             android:layout_weight="1"
-            android:background="@color/background_item"
+            android:background="@drawable/background_questiontype"
+            android:textColor="@drawable/textcolor_questiontype"
             android:text="@string/type_judgment"/>
     </RadioGroup>
     
@@ -72,7 +80,10 @@
         android:background="@color/white"
         android:hint="@string/question_titlehint"
         android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
+        app:hintAnimationEnabled="true"
+        app:errorEnabled="true"
+        >
+
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="@dimen/questiontopic_height"/>
@@ -84,22 +95,9 @@
         android:layout_height="@dimen/questionimage_height"
         android:layout_below="@id/questiontopic"
         android:layout_margin="@dimen/divi_height"
-        android:background="@color/background_image"/>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/option_a"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/questionimage"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"/>
-    </android.support.design.widget.TextInputLayout>
+        android:scaleType="center"
+        android:src="@mipmap/image_questionimage"
+        android:background="@drawable/background_newquestion_image"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/option_a"
@@ -146,6 +144,22 @@
             android:layout_height="@dimen/option_height"/>
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/option_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/option_c"
+        android:layout_margin="@dimen/divi_height"
+        android:background="@color/white"
+        android:hint="@string/question_titlehint"
+        android:textColorHint="@color/fontcolor_mauvepale"
+        app:hintAnimationEnabled="true">
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/option_height"/>
+    </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
 
 
 
@@ -154,4 +168,5 @@
 
 
 
-</RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

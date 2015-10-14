@@ -11,7 +11,7 @@ public class Paper implements Serializable{
 //    protected int id;
 //    protected String name;//名称
 //    protected String cover;//封面
-    protected ArrayList<Questin> question;//习题列表
+    protected ArrayList<Question> question;//习题列表
     protected ArrayList<MCUser> user; //贡献者
 
 //    public int getId() {
@@ -38,11 +38,11 @@ public class Paper implements Serializable{
 //        this.cover = cover;
 //    }
 
-    public ArrayList<Questin> getQuestion() {
+    public ArrayList<Question> getQuestion() {
         return question;
     }
 
-    public void setQuestion(ArrayList<Questin> question) {
+    public void setQuestion(ArrayList<Question> question) {
         this.question = question;
     }
 

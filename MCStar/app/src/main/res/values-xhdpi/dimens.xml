@@ -14,7 +14,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="divi_height">10dp</dimen>
+    <dimen name="divi_height">15dp</dimen>
     <dimen name="divi_height2">5dp</dimen>
 
     <!--main-->
@@ -52,7 +52,7 @@
     <dimen name="questionsubmit_height">71dp</dimen>
 
     <!--usercenter-->
-    <dimen name="usercover_width">120dp</dimen>
+    <dimen name="usercover_width">108dp</dimen>
     <dimen name="infolayout_height">303dp</dimen>
     <dimen name="iteminfo_height">151dp</dimen>
 

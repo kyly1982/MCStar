@@ -12,7 +12,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_center);
+        setContentView(R.layout.activity_usercenter);
     }
 
     @Override

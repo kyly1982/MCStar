@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * 习题信息
  * Created by kyly on 2015/10/12.
  */
-public class Questin implements Serializable {
+public class Question implements Serializable {
     private int id;
-    private String questionType;//选择题(choice) 判断题(judge)
+    private String questionType = "choice";//选择题(choice) 判断题(judge)
     private String title;//题目
     private int score;//分数
     private String icon;//封面
@@ -33,11 +33,11 @@ public class Questin implements Serializable {
     private int allCount;//答题总人数
     private int rightCount;//正确次数
 
-    public Questin() {
+    public Question() {
 
     }
 
-    public Questin(int id, String userName, String topic, String options, String image) {
+    public Question(int id, String userName, String topic, String options, String image) {
         this.id = id;
         this.title = topic;
         String[] option = options.split(",");

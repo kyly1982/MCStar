@@ -17,10 +17,7 @@ import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.adapter.UserListAdapter;
 import com.mckuai.mcstar.bean.Paper;
-import com.mckuai.mcstar.bean.Questin;
 import com.mckuai.mcstar.utils.NetInterface;
-
-import java.util.ArrayList;
 
 public class ReadyFragment extends BaseFragment  implements NetInterface.OnGetQrestionListener{
     private TextView mTimeCount;

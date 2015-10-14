@@ -167,24 +167,31 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ></RelativeLayout>
+
         <ImageView
             android:id="@+id/usercover"
             android:layout_width="@dimen/usercover_width"
             android:layout_height="@dimen/usercover_width"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/divi_height"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_circle_gray" />
+            android:background="@mipmap/image_cover_ring" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/userinfo"
             android:layout_below="@id/usercover"
             android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/divi_height"
             android:gravity="center"
             android:text="用户名字"
+            android:textSize="@dimen/fontsize_big"
             android:textColor="@color/fontcolor_Primary" />
 
 

@@ -5,21 +5,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.MCStar;
 import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.bean.Paper;
-import com.mckuai.mcstar.bean.Questin;
 
 import org.json.JSONObject;
 import org.apache.http.Header;
-
-import java.util.ArrayList;
 
 /**
  * Created by kyly on 2015/10/13.
@@ -68,7 +62,6 @@ public class NetInterface {
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
                 String result = parseResopnse(response,"dataObject");
                 if (null != response){
-//                    ArrayList<Questin> questins = MCStar.gson.fromJson(result,new TypeToken<ArrayList<Questin>>(){}.getType());
                     Gson gson = new Gson();
                     Paper paper = gson.fromJson(result,Paper.class);
                     listener.onSuccess(paper);
