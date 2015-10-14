@@ -41,7 +41,6 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         super.onPause();
     }
 
-
     private void init(){
         urls = new ArrayList<>(10);
         urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/92001444245157450.png");

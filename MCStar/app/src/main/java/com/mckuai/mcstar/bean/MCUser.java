@@ -11,6 +11,7 @@ public class MCUser implements Serializable {
     private int answerNum;//答题次数
     private int level;// 当前等级
     private long allScore;// 当前积分
+    private long ranking;//排名
     private String userName;//用户名，实为openId
     private String nickName;// 昵称，显示用
     private String headImg;// 头像
@@ -91,5 +92,13 @@ public class MCUser implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public long getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(long ranking) {
+        this.ranking = ranking;
     }
 }

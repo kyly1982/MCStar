@@ -1,17 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="divi_height">10dp</dimen>
+    <dimen name="divi_height">5dp</dimen>
     <dimen name="divi_height2">5dp</dimen>
+
+    <!--main-->
+    <dimen name="readybutton_width">238dp</dimen>
 
     <!--ready-->
     <dimen name="paper_cover_width">140dp</dimen>
     <dimen name="paper_cover_height">170dp</dimen>
     <dimen name="paper_head_width">186dp</dimen>
-    <dimen name="paper_width">326dp</dimen>
+    <dimen name="paper_width">325dp</dimen>
     <dimen name="userlist_height">43dp</dimen>
+    <dimen name="readarea_height">160dp</dimen>
     <!--answer-->
     <dimen name="image_height">135dp</dimen>
     <dimen name="option_height">49dp</dimen>
@@ -34,4 +41,11 @@
     <dimen name="questiontopic_height">83dp</dimen>
     <dimen name="questionimage_height">135dp</dimen>
     <dimen name="questionsubmit_height">71dp</dimen>
+
+    <!--usercenter-->
+    <dimen name="usercover_width">120dp</dimen>
+    <dimen name="infolayout_height">303dp</dimen>
+
+    <!--ranking-->
+    <dimen name="ranklable_width">35dp</dimen>
 </resources>

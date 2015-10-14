@@ -14,6 +14,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.proguard.Z;
 
 import org.json.JSONObject;
 
@@ -23,11 +24,11 @@ import org.json.JSONObject;
 public class LoginActivity extends BaseActivity implements View.OnClickListener,NetInterface.OnLoginServerListener{
 
     private static MCUser user;
-    private static long mQQToken_Birthday;
-    private static long mQQToken_Expires;
+//    private static long mQQToken_Birthday;
+//    private static long mQQToken_Expires;
     private static Tencent mTencent;
-
     private static boolean isLogin = false;
+    private static String mQQToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onResume() {
         super.onResume();
         initToolBar();
-        mTitle.setText(R.string.title_login);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolBar.setNavigationOnClickListener(this);
         findViewById(R.id.login).setOnClickListener(this);
 
         if (null == mApplication.readPreference()){
@@ -50,16 +48,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         } else {
             user = mApplication.user;
         }
+        mApplication.playMusic();
     }
 
-
-
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
+        mTitle.setText(R.string.title_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolBar.setNavigationOnClickListener(this);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login:
-                if (null == user || user.getUserName() != null){
+                if (null == user || user.getUserName() == null){
                     loginQQ();
                 } else {
                     loginServer();
@@ -75,12 +79,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void loginQQ(){
-        initTencent();
+//        initTencent();
+        if (null == mTencent) {
+            mTencent = mApplication.mTencent;
+        }
         mTencent.login(this,"all",new BaseUiListener()) ;
     }
 
     private void loginServer(){
-        NetInterface.loginServer(this, user, this);
+        NetInterface.loginServer(this, user,mQQToken, this);
     }
 
     private void handleResult(){
@@ -99,15 +106,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private static boolean initOpenidAndToken(JSONObject jsonObject) {
         try {
-            String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
+            mQQToken = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
             String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
             String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
             user.setUserName(openId);
 
             mApplication.mQQToken_Birthday = System.currentTimeMillis() - 600000;
             mApplication.mQQToken_Expires = jsonObject.getLong(Constants.PARAM_EXPIRES_IN);
-            if (!TextUtils.isEmpty(token) && !TextUtils.isEmpty(expires) && !TextUtils.isEmpty(openId)) {
-                mTencent.setAccessToken(token, expires);
+            if (!TextUtils.isEmpty(mQQToken) && !TextUtils.isEmpty(expires) && !TextUtils.isEmpty(openId)) {
+                mTencent.setAccessToken(mQQToken, expires);
                 mTencent.setOpenId(openId);
             }
         } catch (Exception e) {
@@ -212,8 +219,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onFalse() {
-        handleResult();
+    public void onFalse(String msg) {
+        setResult(null != user ? RESULT_OK : RESULT_CANCELED);
     }
 }
 

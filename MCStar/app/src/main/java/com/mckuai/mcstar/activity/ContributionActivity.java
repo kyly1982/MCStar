@@ -1,21 +1,29 @@
 package com.mckuai.mcstar.activity;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.github.magiepooh.recycleritemdecoration.ItemDecorations;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.ContributionAdapter;
 import com.mckuai.mcstar.bean.Page;
 import com.mckuai.mcstar.bean.Questin;
-import com.umeng.message.PushAgent;
 
 import java.util.ArrayList;
 
@@ -35,7 +43,7 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     @Override
     protected void onResume() {
-        Log.e("LT","onResume");
+        Log.e("LT", "onResume");
         super.onResume();
         if (null == mList) {
             initView();
@@ -47,14 +55,51 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     private void initView() {
         initToolBar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitle.setText(R.string.contribution);
         mList = (SuperRecyclerView) findViewById(R.id.questionlist);
         mList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
+        mList.setLoadingMore(false);
+//        mList.getRecyclerView().addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        RecyclerView.ItemDecoration decoration = ItemDecorations.vertical(this).first(getResources().getDrawable(R.drawable.divider)).last(getResources().getDrawable(R.drawable.divider)).create();
+//        mList.addItemDecoration(decoration);
+        mList.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+            Drawable mDivider = getResources().getDrawable(R.drawable.divider);
+
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent) {
+//                super.onDraw(c, parent);
+                final int top = parent.getPaddingTop();
+                final int bottom = parent.getHeight() - parent.getPaddingBottom();
+
+                final int childCount = parent.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    final View child = parent.getChildAt(i);
+                    final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
+                            .getLayoutParams();
+                    final int left = child.getRight() + params.rightMargin;
+                    final int right = left + mDivider.getIntrinsicHeight();
+                    mDivider.setBounds(left, top, right, bottom);
+                    mDivider.draw(c);
+                }
+            }
+
+
+            @Override
+            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+//                super.getItemOffsets(outRect, itemPosition, parent);
+                    outRect.set(0,0,0,mDivider.getIntrinsicHeight());
+            }
+        });
         mList.getRecyclerView().setHasFixedSize(true);
-        mList.setLoadingMore(true);
         mList.setupMoreListener(this, 2);
         mList.setRefreshListener(this);
+    }
+
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
+        mTitle.setText(R.string.contribution);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void loadData() {

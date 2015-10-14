@@ -29,6 +29,11 @@ public class RankingActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         initToolBar();
+    }
+
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
         mTitle.setText(R.string.title_rankinglist);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

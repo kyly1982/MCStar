@@ -58,6 +58,7 @@
     <string name="title_makequestion">出题</string>
     <string name="title_rankinglist">排行榜</string>
     <string name="title_login">登录</string>
+    <string name="title_usercenter">用户中心</string>
 
     <!--引导页-->
     <string name="show_np">下一页</string>
@@ -105,7 +106,7 @@
     <string name="rate_notused">还未回答过！</string>
     
     <!--个人中心-->
-    <string name="papercount">答题次数%1$d</string>
+    <string name="papercount">答题次数</string>
     <string name="questioncount">贡献题目</string>
     <string name="scores_totle">总分</string>
     <string name="scores_avg">平均得分</string>

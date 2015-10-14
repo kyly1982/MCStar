@@ -3,6 +3,7 @@ package com.mckuai.mcstar.fragment;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 
 public class ReadyFragment extends BaseFragment {
-    TextView paperName;
     TextView timeCount;
     int time = 10;
 
@@ -27,11 +27,11 @@ public class ReadyFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("RF","onResume");
         loadData();
     }
 
     private void initView(View view) {
-        paperName = (TextView) view.findViewById(R.id.paper_name);
         timeCount = (TextView) view.findViewById(R.id.time);
     }
 

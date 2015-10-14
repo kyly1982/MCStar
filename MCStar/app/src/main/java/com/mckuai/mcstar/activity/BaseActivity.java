@@ -3,6 +3,8 @@ package com.mckuai.mcstar.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -81,7 +83,8 @@ public class BaseActivity extends AppCompatActivity {
         if (null != toolbarSubTitle) {
             mToolBar.setSubtitle(toolbarSubTitle);
         }
-    }
+    }*/
+
 
     public static void setTitles(@StringRes final int titleId, @StringRes final int toolbarTitleId, @StringRes final int toolbarSubTitleId) {
         if (0 != titleId) {
@@ -111,8 +114,7 @@ public class BaseActivity extends AppCompatActivity {
         if (null != navigationClickListener) {
             mToolBar.setNavigationOnClickListener(navigationClickListener);
         }
-    }*/
-
+    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {

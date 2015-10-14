@@ -19,14 +19,19 @@ public class ExaminationActivity extends BaseActivity {
         setContentView(R.layout.activity_examination);
         mFragmentManager = getFragmentManager();
         initToolBar();
-        mTitle.setText("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         switchFragment(position);
+    }
+
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
+        mTitle.setText("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public  void showNextFragment(){

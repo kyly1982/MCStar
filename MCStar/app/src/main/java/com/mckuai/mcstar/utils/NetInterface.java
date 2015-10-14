@@ -4,6 +4,7 @@ package com.mckuai.mcstar.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -24,10 +25,38 @@ import java.util.ArrayList;
  */
 public class NetInterface {
 
-    public static void loginServer(@NonNull Context context,@NonNull MCUser user,@NonNull OnLoginServerListener listener){
+    public static void loginServer(@NonNull Context context,@NonNull final MCUser user,@NonNull String token,@NonNull final OnLoginServerListener listener){
         String url = context.getString(R.string.interface_domain)+context.getString(R.string.interface_loginserver);
         RequestParams params = new RequestParams();
-//        MCStar.mClient
+        params.put("accessToken",token);
+        params.put("openId", user.getUserName());
+        params.put("nickName", user.getNickName());
+        params.put("gender", user.getSex());
+        params.put("headImg", user.getHeadImg());
+        MCStar.client.get(url,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (null != response && response.has("dataObject")){
+                        Gson gson = new Gson();
+                        MCUser user1 = gson.fromJson(response.getString("dataObject"),MCUser.class);
+                        if (null != user1 && user1.getUserName().equals(user.getUserName())){
+                            listener.onSuccess(user1);
+                        }
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                listener.onFalse("解析失败!");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                listener.onFalse(throwable.getLocalizedMessage());
+            }
+        });
     }
 
     public static void getQuestions(@NonNull Context context,@NonNull final OnGetQrestionListener listener){
@@ -85,7 +114,7 @@ public class NetInterface {
 
     public static interface OnLoginServerListener{
         void onSuccess(MCUser user);
-        void onFalse();
+        void onFalse(String msg);
     }
 
     public static interface OnGetQrestionListener{

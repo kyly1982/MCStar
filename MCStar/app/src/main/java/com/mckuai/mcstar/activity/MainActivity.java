@@ -23,6 +23,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
         super.onResume();
         initToolBar();
         findViewById(R.id.btn_getpaper).setOnClickListener(this);
+    }
+
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
+        mToolBar.setNavigationIcon(R.drawable.umeng_socialize_wxcircle);
+        mToolBar.setOnMenuItemClickListener(this);
+        mToolBar.setNavigationOnClickListener(this);
         mTitle.setText(R.string.title_main);
     }
 
@@ -54,7 +62,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this,ExaminationActivity.class);
+        Intent intent;
+        switch (v.getId()){
+            case R.id.btn_getpaper:
+                intent = new Intent(this,ExaminationActivity.class);
+                break;
+            default:
+                intent = new Intent(this,UserCenterActivity.class);
+                break;
+        }
         startActivity(intent);
     }
 }

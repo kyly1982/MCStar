@@ -29,7 +29,7 @@
         android:textColor="@color/fontcolor_Primary"
         android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
 
-    <com.android.volley.toolbox.NetworkImageView
+    <ImageView
         android:id="@+id/questionImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"

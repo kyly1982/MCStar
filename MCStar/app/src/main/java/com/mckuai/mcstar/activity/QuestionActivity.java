@@ -1,7 +1,6 @@
 package com.mckuai.mcstar.activity;
 
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -33,7 +32,12 @@ public class QuestionActivity extends BaseActivity {
 
     private void initView(){
         initToolBar();
+    }
+
+    @Override
+    public void initToolBar() {
+        super.initToolBar();
         mTitle.setText(getString(R.string.title_makequestion));
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
