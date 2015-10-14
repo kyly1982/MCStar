@@ -63,6 +63,7 @@ public class MCStar extends Application {
         client = new AsyncHttpClient();
         gson = new Gson();
         initImageLoader();
+        readPreference();
 //        MobclickAgent.openActivityDurationTrack(false);
 //        MobclickAgent.updateOnlineConfig(this);
     }
@@ -101,9 +102,6 @@ public class MCStar extends Application {
             user.setAllScore(preferences.getLong(getString(R.string.preferences_score), 0));     //分数
             user.setAnswerNum(preferences.getInt(getString(R.string.preferences_answercount), 0));  //ac
             user.setUploadNum(preferences.getInt(getString(R.string.preferences_uploadcount), 0));
-        }
-        else {
-            mTencent = Tencent.createInstance("101155101", getApplicationContext());
         }
         return user;
     }

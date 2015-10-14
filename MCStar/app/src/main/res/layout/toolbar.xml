@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:text="标题"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/fontsize_title"
             android:textStyle="bold" />
     </android.support.v7.widget.Toolbar>
 

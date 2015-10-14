@@ -8,7 +8,9 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
@@ -17,7 +19,7 @@ import com.mckuai.mcstar.activity.ExaminationActivity;
  * A simple {@link Fragment} subclass.
  */
 public class AnswerFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
-
+    private ImageButton  mCover;
 
     public AnswerFragment() {
         // Required empty public constructor

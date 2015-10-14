@@ -24,7 +24,7 @@
         android:layout_alignTop="@id/questionIndex"
         android:layout_toRightOf="@id/questionIndex"
         android:layout_marginRight="@dimen/divi_height"
-        android:layout_marginBottom="@dimen/divi_height"
+        android:layout_marginBottom="@dimen/divi_height2"
         android:maxLines="3"
         android:textColor="@color/fontcolor_Primary"
         android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
@@ -34,7 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"
         android:layout_below="@id/questionContent"
-        android:layout_margin="@dimen/divi_height"
+        android:layout_marginLeft="@dimen/divi_height"
+        android:layout_marginRight="@dimen/divi_height"
+        android:layout_marginTop="@dimen/divi_height2"
+        android:layout_marginBottom="@dimen/divi_height2"
         android:background="@color/background_image"
         android:scaleType="fitCenter"/>
 
@@ -43,17 +46,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/questionImage"
-        android:layout_marginTop="@dimen/divi_height"
-        android:layout_marginBottom="@dimen/divi_height"
+        android:layout_margin="@dimen/divi_height"
         android:orientation="vertical">
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/answerA"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
-            android:background="@color/background_item"
+            android:background="@drawable/option_selector"
             android:text="A. option A"
             />
 
@@ -61,10 +62,11 @@
             android:id="@+id/answerB"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:layout_margin="@dimen/divi_height"
+            android:layout_marginTop="@dimen/divi_height"
+            android:layout_marginBottom="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
-            android:background="@color/background_item"
+            android:background="@drawable/option_selector"
             android:text="B. option B"
             />
 
@@ -72,10 +74,9 @@
             android:id="@+id/answerC"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:layout_margin="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
-            android:background="@color/background_item"
+            android:background="@drawable/option_selector"
             android:text="C. option C"
             />
 
@@ -83,10 +84,11 @@
             android:id="@+id/answerD"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:layout_margin="@dimen/divi_height"
+            android:layout_marginTop="@dimen/divi_height"
+            android:layout_marginBottom="@dimen/divi_height"
             android:button="@null"
             android:maxLines="2"
-            android:background="@color/background_item"
+            android:background="@drawable/option_selector"
             android:text="D. option D"
             />
 
@@ -98,7 +100,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/rg"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:textColor="@color/fontcolor_bottomhint"
         android:text="贡献者：XXX"
         />
 

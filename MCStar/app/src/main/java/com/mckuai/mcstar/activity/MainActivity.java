@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     @Override
     public void initToolBar() {
         super.initToolBar();
-        mToolBar.setNavigationIcon(R.drawable.umeng_socialize_wxcircle);
+        mToolBar.setNavigationIcon(R.mipmap.ic_menu_navigataion);
         mToolBar.setOnMenuItemClickListener(this);
         mToolBar.setNavigationOnClickListener(this);
         mTitle.setText(R.string.title_main);
@@ -39,14 +39,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mToolBar.setOnMenuItemClickListener(this);
         return true;
-//        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent;
         switch (item.getItemId()){
-            case R.id.action_edit:
+            case R.id.action_contribution:
                 intent = new Intent(this,ContributionActivity.class);
                 startActivity(intent);
                 break;
@@ -68,7 +67,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 intent = new Intent(this,ExaminationActivity.class);
                 break;
             default:
-                intent = new Intent(this,UserCenterActivity.class);
+                if (mApplication.isLogined()){
+                    intent = new Intent(this,UserCenterActivity.class);
+                } else {
+                    intent = new Intent(this,LoginActivity.class);
+                }
                 break;
         }
         startActivity(intent);

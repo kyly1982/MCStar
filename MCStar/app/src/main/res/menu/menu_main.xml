@@ -4,14 +4,14 @@
 
     >
     <item
-        android:id="@+id/action_edit"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/action_contribution"
+        android:icon="@drawable/ic_menu_contribution"
         android:orderInCategory="1"
-        android:title="@string/add"
+        android:title="@string/contribution"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_ranking"
-        android:icon="@android:drawable/btn_radio"
+        android:icon="@drawable/ic_menu_ranking"
         android:orderInCategory="2"
         android:title="@string/ranking"
         android:visible="true"

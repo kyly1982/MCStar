@@ -90,7 +90,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (mLastPosition == urls.size() - 1) {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             this.finish();

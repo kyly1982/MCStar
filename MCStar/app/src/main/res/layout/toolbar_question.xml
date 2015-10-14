@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
     <ImageButton
         android:id="@+id/userCover"
         android:layout_width="wrap_content"
@@ -9,20 +10,24 @@
         android:scaleType="fitCenter"
         android:src="@drawable/icon_circle_gray"/>
     <TextView
-        android:id="@+id/questionId"
+        android:id="@+id/scorecount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/userCover"
         android:layout_margin="5dp"
+        android:textSize="@dimen/fontsize_title"
+        android:textColor="@color/fontcolor_Primary"
         android:text="58"/>
 
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/questionId"
+        android:layout_toRightOf="@id/scorecount"
         android:layout_centerVertical="true"
+        android:textSize="@dimen/fontsize_smal"
+        android:textColor="@color/fontcolor_Primary"
         android:text="+10"/>
 
     <TextView

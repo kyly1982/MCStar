@@ -12,20 +12,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@mipmap/image_main"
+        android:focusable="false">
 
         <ImageButton
             android:id="@+id/btn_getpaper"
             android:layout_width="@dimen/readybutton_width"
-            android:layout_height="@dimen/readybutton_width"
+            android:layout_height="@dimen/readybutton_height"
             android:layout_centerInParent="true"
-            android:background="@android:drawable/btn_star"/>
+            android:background="@mipmap/btn_wa"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btn_getpaper"
+            android:layout_margin="@dimen/divi_height"
+            android:textColor="@color/fontcolor_bottomhint"
+            android:textSize="@dimen/fontsize_smal"
             android:text="@string/getpaper"/>
 
     </RelativeLayout>

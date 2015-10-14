@@ -10,13 +10,21 @@ import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.utils.NetInterface;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
+import com.tencent.open.utils.HttpUtils;
+import com.tencent.tauth.IRequestListener;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.proguard.Z;
 
+import org.apache.http.conn.ConnectTimeoutException;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 
 /**
  * A login screen that offers login via email/password.
@@ -29,11 +37,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private static Tencent mTencent;
     private static boolean isLogin = false;
     private static String mQQToken;
+    private IUiListener loginListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mTencent = Tencent.createInstance("1104907496", getApplicationContext());
+        if (null == mApplication.readPreference()){
+            user = new MCUser();
+        } else {
+            user = mApplication.user;
+        }
     }
 
 
@@ -42,13 +57,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         super.onResume();
         initToolBar();
         findViewById(R.id.login).setOnClickListener(this);
+//        mApplication.playMusic();
+    }
 
-        if (null == mApplication.readPreference()){
-            user = new MCUser();
-        } else {
-            user = mApplication.user;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_LOGIN){
+            mTencent.handleLoginData(data,loginListener);
         }
-        mApplication.playMusic();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -73,38 +90,42 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 handleResult();
                 break;
         }
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        this.finish();
     }
 
     private void loginQQ(){
 //        initTencent();
-        if (null == mTencent) {
-            mTencent = mApplication.mTencent;
+        Log.e("loginQQ","start");
+        if (!mTencent.isSessionValid()) {
+            loginListener = new BaseUiListener() {
+                @Override
+                protected void doComplete(JSONObject values) {
+                    super.doComplete(values);
+                    initOpenidAndToken(values);
+                }
+            };
+            mTencent.login(this, "all", loginListener);
+        } else {
+            Log.e("loginQQ","SessionInvalid");
         }
-        mTencent.login(this,"all",new BaseUiListener()) ;
     }
 
     private void loginServer(){
-        NetInterface.loginServer(this, user,mQQToken, this);
+        NetInterface.loginServer(this, user, mQQToken, this);
     }
 
     private void handleResult(){
+        if (null != user && 0 < user.getId() && !user.getUserName().isEmpty()){
+            setResult(RESULT_OK);
+            mApplication.saveProfile();
+        } else {
+            setResult(RESULT_CANCELED);
+        }
         setResult(null != user ? RESULT_OK : RESULT_CANCELED);
         this.finish();
     }
 
-
-
-    private void initTencent(){
-        if (null == mTencent) {
-            mTencent = Tencent.createInstance("101155101", getApplicationContext());
-        }
-    }
-
-
     private static boolean initOpenidAndToken(JSONObject jsonObject) {
+        Log.e("111","initOpenidAndToken");
         try {
             mQQToken = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
             String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
@@ -126,29 +147,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
 
     private class BaseUiListener implements IUiListener {
+        public BaseUiListener(){
+            Log.e("BaseUiListener","create");
+        }
 
         @Override
         public void onCancel() {
             // TODO Auto-generated method stub
             logoutQQ();
+            Log.e("BaseUiListener","onCancel");
             MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
         }
 
         @Override
         public void onComplete(Object response) {
             // TODO Auto-generated method stub
+            Log.e("BaseUiListener","onComplete");
             if (null == response) {
                 logoutQQ();
                 MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                 return;
             }
             JSONObject jsonResponse = (JSONObject) response;
-            if (null != jsonResponse && jsonResponse.length() == 0) {
+            if (null == jsonResponse || jsonResponse.length() == 0) {
                 logoutQQ();
                 MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                 return;
             }
-            initOpenidAndToken(jsonResponse);
+            doComplete(jsonResponse);
             updateUserInfo();
         }
 
@@ -157,6 +183,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             // TODO Auto-generated method stub
             mTencent.logout(LoginActivity.this);
             MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
+            Log.e("BaseUiListener","onError");
+        }
+
+        protected  void doComplete(JSONObject values){
+
         }
     }
 
@@ -167,12 +198,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 @Override
                 public void onError(UiError e) {
+                    Log.e("updateUserInfo","onError");
                     MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                     logoutQQ();
                 }
 
                 @Override
                 public void onComplete(final Object response) {
+                    Log.e("updateUserInfo","onComplete");
                     JSONObject json = (JSONObject) response;
                     if (json.has("nickname")) {
                         try {
@@ -200,6 +233,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             mInfo.getUserInfo(listener);
 
         } else {
+            Log.e("updateUserInfo","else");
             logoutQQ();
         }
     }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@mipmap/image_other"
     tools:context="com.mckuai.mcstar.activity.UserCenterActivity">
 
     <include
@@ -15,152 +16,156 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_share"
             android:layout_width="match_parent"
             android:layout_height="@dimen/questionsubmit_height"
-            android:background="@color/green"
             android:layout_alignParentBottom="true"
-            android:text="@string/flaunt"/>
-        
-        <GridLayout
+            android:background="@color/green"
+            android:text="@string/flaunt" />
+
+        <RelativeLayout
             android:id="@+id/userinfo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/infolayout_height"
-            android:layout_above="@id/btn_share"
-            android:rowCount="2"
-            android:columnCount="2"
-            >
+            android:layout_above="@id/btn_share">
+            <View
+                android:id="@+id/v_center5"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_centerInParent="true"  />
+
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:background="@color/background_image"
-                android:layout_marginRight="1px"
-                android:layout_marginBottom="1px"
-                >
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/v_center5"
+                android:layout_above="@id/v_center5"
+                android:background="@color/background_image">
+
                 <View
                     android:id="@+id/v_cent"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_centerInParent="true" />
+
                 <TextView
                     android:id="@+id/papercount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="12"/>
+                    android:text="12"
+                    android:textColor="@color/fontcolor_Primary" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/papercount"/>
+                    android:text="@string/papercount" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:background="@color/background_image"
-                android:layout_marginLeft="1px"
-                android:layout_marginBottom="1px"
-                >
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/v_center5"
+                android:layout_above="@id/v_center5"
+                android:background="@color/background_image">
+
                 <View
                     android:id="@+id/v_cent1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_centerInParent="true" />
+
                 <TextView
                     android:id="@+id/contribution"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent1"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="12"/>
+                    android:text="12"
+                    android:textColor="@color/fontcolor_Primary" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent1"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/questioncount"/>
+                    android:text="@string/questioncount" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:background="@color/background_image"
-                android:layout_marginTop="1px"
-                android:layout_marginRight="1px"
-                >
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/v_center5"
+                android:layout_toLeftOf="@id/v_center5"
+                android:background="@color/background_image">
+
                 <View
                     android:id="@+id/v_cent2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_centerInParent="true" />
+
                 <TextView
                     android:id="@+id/totlescore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent2"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="12"/>
+                    android:text="12"
+                    android:textColor="@color/fontcolor_Primary" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent2"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/scores_totle"/>
+                    android:text="@string/scores_totle" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_column="1"
-                android:layout_row="1"
-                android:background="@color/background_image"
-                android:layout_marginTop="1px"
-                android:layout_marginLeft="1px"
-                >
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/v_center5"
+                android:layout_below="@id/v_center5"
+                android:background="@color/background_image">
+
                 <View
                     android:id="@+id/v_cent3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_centerInParent="true" />
+
                 <TextView
                     android:id="@+id/avgscore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent3"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="12"/>
+                    android:text="12"
+                    android:textColor="@color/fontcolor_Primary" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent3"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/scores_avg"/>
+                    android:text="@string/scores_avg" />
             </RelativeLayout>
-        </GridLayout>
+
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/usercover"
@@ -169,18 +174,18 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_circle_gray"/>
+            android:src="@drawable/icon_circle_gray" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/usercover"
             android:layout_above="@id/userinfo"
+            android:layout_below="@id/usercover"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:textColor="@color/fontcolor_Primary"
-            android:text="用户名字"/>
+            android:text="用户名字"
+            android:textColor="@color/fontcolor_Primary" />
 
 
     </RelativeLayout>

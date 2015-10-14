@@ -13,6 +13,7 @@ import com.loopj.android.http.RequestParams;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.MCStar;
 import com.mckuai.mcstar.bean.MCUser;
+import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.bean.Questin;
 
 import org.json.JSONObject;
@@ -65,10 +66,12 @@ public class NetInterface {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
-                String result = parseResopnse(response,"question");
+                String result = parseResopnse(response,"dataObject");
                 if (null != response){
-                    ArrayList<Questin> questins = MCStar.gson.fromJson(result,new TypeToken<ArrayList<Questin>>(){}.getType());
-                    listener.onSuccess(questins);
+//                    ArrayList<Questin> questins = MCStar.gson.fromJson(result,new TypeToken<ArrayList<Questin>>(){}.getType());
+                    Gson gson = new Gson();
+                    Paper paper = gson.fromJson(result,Paper.class);
+                    listener.onSuccess(paper);
                 }
                 else {
                     listener.onFalse("解析失败!");
@@ -118,7 +121,7 @@ public class NetInterface {
     }
 
     public static interface OnGetQrestionListener{
-        void onSuccess(ArrayList<Questin> questionList);
+        void onSuccess(Paper paper);
         void onFalse(String msg);
     }
 
@@ -151,7 +154,11 @@ public class NetInterface {
     private static String parseResopnse(@NonNull JSONObject result,@NonNull String name){
         try {
             if (result.has("state") && result.getString("state").equals("ok")) {
-                return result.getJSONObject("dataObject").getString(name);
+                if (name.equals("dataObject")){
+                    return result.getString(name);
+                } else {
+                    return result.getJSONObject("dataObject").getString(name);
+                }
             }
         } catch (Exception e){
             e.printStackTrace();

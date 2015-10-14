@@ -102,8 +102,10 @@
     <orderEntry type="library" exported="" name="umeng_social_sdk" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4" level="project" />
+    <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
     <orderEntry type="library" exported="" name="recycler-itemdecoration-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.umeng.message.lib_v2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="open_sdk_r5276" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.8" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="analytics-5.6.1" level="project" />
@@ -111,5 +113,6 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="superrecyclerview-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="android-android-23" level="project" />
   </component>
 </module>
