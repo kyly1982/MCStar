@@ -51,9 +51,9 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
     }
 
-    public void callLogin(){
+    public void callLogin(int requestCode){
         Intent intent = new Intent(this,LoginActivity.class);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, requestCode);
     }
 
     public void showMessage(final int level, String msg) {

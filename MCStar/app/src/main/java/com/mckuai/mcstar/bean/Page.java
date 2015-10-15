@@ -44,6 +44,9 @@ public class Page implements Serializable{
     }
 
     public int getNextPage(){
+        if (0 == page){
+            return  1;
+        }
         int pagecount = (0 == (count % size) ? (count / size):((count / size) + 1));
         if (page < pagecount){
             return page+1;

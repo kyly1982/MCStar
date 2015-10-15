@@ -51,20 +51,22 @@
                     android:layout_height="0dp"
                     android:layout_centerInParent="true" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/papercount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent"
                     android:layout_centerHorizontal="true"
-                    android:text="12"
+                    android:textSize="@dimen/fontsize_stress"
+                    android:text="0"
                     android:textColor="@color/fontcolor_Primary" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/fontcolor_bottomhint"
                     android:text="@string/papercount" />
             </RelativeLayout>
 
@@ -83,20 +85,22 @@
                     android:layout_height="0dp"
                     android:layout_centerInParent="true" />
 
-                <TextView
-                    android:id="@+id/contribution"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contributioncount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent1"
                     android:layout_centerHorizontal="true"
-                    android:text="12"
+                    android:textSize="@dimen/fontsize_stress"
+                    android:text="0"
                     android:textColor="@color/fontcolor_Primary" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent1"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/fontcolor_bottomhint"
                     android:text="@string/questioncount" />
             </RelativeLayout>
 
@@ -115,20 +119,22 @@
                     android:layout_height="0dp"
                     android:layout_centerInParent="true" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/totlescore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent2"
                     android:layout_centerHorizontal="true"
-                    android:text="12"
+                    android:textSize="@dimen/fontsize_stress"
+                    android:text="0"
                     android:textColor="@color/fontcolor_Primary" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent2"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/fontcolor_bottomhint"
                     android:text="@string/scores_totle" />
             </RelativeLayout>
 
@@ -147,52 +153,69 @@
                     android:layout_height="0dp"
                     android:layout_centerInParent="true" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/avgscore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/v_cent3"
                     android:layout_centerHorizontal="true"
-                    android:text="12"
+                    android:textSize="@dimen/fontsize_stress"
+                    android:text="0"
                     android:textColor="@color/fontcolor_Primary" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/v_cent3"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/fontcolor_bottomhint"
                     android:text="@string/scores_avg" />
             </RelativeLayout>
 
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ></RelativeLayout>
-
-        <ImageView
-            android:id="@+id/usercover"
-            android:layout_width="@dimen/usercover_width"
-            android:layout_height="@dimen/usercover_width"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/divi_height"
-            android:scaleType="fitCenter"
-            android:background="@mipmap/image_cover_ring" />
+            android:layout_above="@id/userinfo"
+            >
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usercover"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/divi_height"
-            android:gravity="center"
-            android:text="用户名字"
-            android:textSize="@dimen/fontsize_big"
-            android:textColor="@color/fontcolor_Primary" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:id="@+id/usercover"
+                    android:layout_width="@dimen/usercover_width"
+                    android:layout_height="@dimen/usercover_width"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/divi_height"
+                    android:scaleType="fitCenter"
+                    android:background="@mipmap/image_cover_ring" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/usercover"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/divi_height"
+                    android:gravity="center"
+                    android:text="用户名字"
+                    android:textSize="@dimen/fontsize_big"
+                    android:textColor="@color/fontcolor_Primary" />
+            </RelativeLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+
+
 
 
     </RelativeLayout>

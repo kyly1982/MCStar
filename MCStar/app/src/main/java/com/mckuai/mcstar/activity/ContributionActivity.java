@@ -15,20 +15,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.magiepooh.recycleritemdecoration.ItemDecorations;
-import com.malinskiy.superrecyclerview.OnMoreListener;
-import com.malinskiy.superrecyclerview.SuperRecyclerView;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.ContributionAdapter;
 import com.mckuai.mcstar.bean.Page;
 import com.mckuai.mcstar.bean.Question;
+import com.mckuai.mcstar.utils.NetInterface;
 
 import java.util.ArrayList;
 
-public class ContributionActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, OnMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class ContributionActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener,NetInterface.OnGetContributionListener,UltimateRecyclerView.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener {
 
-    ArrayList<Question> mQuestions;
-    Page mPage;
-    SuperRecyclerView mList;
+    ArrayList<Question> mQuestions = new ArrayList<>(20);
+    Page mPage = new Page();
+    UltimateRecyclerView mList;
     ContributionAdapter mAdapter;
 
     @Override
@@ -52,44 +52,12 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     private void initView() {
         initToolBar();
-        mList = (SuperRecyclerView) findViewById(R.id.questionlist);
+        mList = (UltimateRecyclerView) findViewById(R.id.questionlist);
         mList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
-        mList.setLoadingMore(false);
-//        mList.getRecyclerView().addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        RecyclerView.ItemDecoration decoration = ItemDecorations.vertical(this).first(getResources().getDrawable(R.drawable.divider)).last(getResources().getDrawable(R.drawable.divider)).create();
-//        mList.addItemDecoration(decoration);
-        mList.addItemDecoration(new RecyclerView.ItemDecoration() {
-
-            Drawable mDivider = getResources().getDrawable(R.drawable.divider);
-
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent) {
-//                super.onDraw(c, parent);
-                final int top = parent.getPaddingTop();
-                final int bottom = parent.getHeight() - parent.getPaddingBottom();
-
-                final int childCount = parent.getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    final View child = parent.getChildAt(i);
-                    final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                            .getLayoutParams();
-                    final int left = child.getRight() + params.rightMargin;
-                    final int right = left + mDivider.getIntrinsicHeight();
-                    mDivider.setBounds(left, top, right, bottom);
-                    mDivider.draw(c);
-                }
-            }
-
-
-            @Override
-            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-//                super.getItemOffsets(outRect, itemPosition, parent);
-                    outRect.set(0,0,0,mDivider.getIntrinsicHeight());
-            }
-        });
-        mList.getRecyclerView().setHasFixedSize(true);
-        mList.setupMoreListener(this, 2);
-        mList.setRefreshListener(this);
+        mList.enableLoadmore();
+        mList.enableDefaultSwipeRefresh(true);
+        mList.setOnLoadMoreListener(this);
+        mList.setDefaultOnRefreshListener(this);
     }
 
     @Override
@@ -100,12 +68,9 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     }
 
     private void loadData() {
-        mQuestions = new ArrayList<>(10);
-        for (int i = 0; i < 10; i++) {
-            Question question = new Question(i, "用户" + i, "题目题目题目题目题目题目", "这是正确的,这是错误的,这是错误的", "未知");
-            mQuestions.add(question);
+        if (mApplication.isLogined()) {
+            NetInterface.getContribution(this, mApplication.user.getId(),mPage.getNextPage(), this);
         }
-        showData();
     }
 
     private void showData() {
@@ -136,13 +101,28 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     }
 
     @Override
-    public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
-
+    public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+        if (!mPage.EOF()){
+            loadData();
+        }
     }
 
     @Override
     public void onRefresh() {
-
+        mPage.setPage(0);
+        mQuestions.clear();
+        loadData();
     }
 
+    @Override
+    public void onSuccess(Page page, ArrayList<Question> questions) {
+        this.mPage = page;
+        this.mQuestions.addAll(questions);
+        showData();
+    }
+
+    @Override
+    public void onFalse(String msg) {
+
+    }
 }

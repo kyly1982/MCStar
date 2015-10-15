@@ -173,6 +173,7 @@
                     android:layout_width="@dimen/usercover_diameter_big"
                     android:layout_height="@dimen/usercover_diameter_big"
                     android:layout_centerHorizontal="true"
+                    android:clickable="true"
                     android:background="@mipmap/image_cover_ring_purple"
                     android:layout_above="@id/v_center_4"/>
                 <android.support.v7.widget.AppCompatTextView

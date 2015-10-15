@@ -13,13 +13,14 @@ import android.widget.RelativeLayout;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.BaseActivity;
+import com.mckuai.mcstar.activity.LoginActivity;
 import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.utils.NetInterface;
 
 import java.util.ArrayList;
 
 
-public class ResulltFragment extends BaseFragment implements NetInterface.OnReportListener {
+public class ResulltFragment extends BaseFragment implements NetInterface.OnReportListener,View.OnClickListener {
 
     private View view;
     private AppCompatTextView mRank_pre;
@@ -82,9 +83,11 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     }
 
     private void updateResult(){
-        if (mApplication.isLogined()){
+        if (!isLoading && mApplication.isLogined()){
             MCUser user = mApplication.user;
-            NetInterface.uploadResult(getActivity(),user.getId(),score,rightQuestionId,wrongQuestionId,this);
+            mApplication.user.setAllScore(user.getAllScore()+score);
+            mApplication.user.setAnswerNum(user.getAnswerNum()+1);
+            NetInterface.uploadResult(getActivity(),mApplication.user.getId(),score,rightQuestionId,wrongQuestionId,this);
             isLoading = true;
         }
     }
@@ -102,6 +105,19 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         user_pre = (RelativeLayout) view.findViewById(R.id.user_pre);
         user_next = (RelativeLayout) view.findViewById(R.id.user_next);
         user_mine = (RelativeLayout) view.findViewById(R.id.layout_ranking_mine);
+        mCover.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (!isLoading && mApplication.isLogined()){
+            if (!isLoading) {
+                updateResult();
+            }
+        } else {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivityForResult(intent,1);
+        }
     }
 
     @Override

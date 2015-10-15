@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
-import com.mckuai.mcstar.bean.Page;
-import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.bean.Question;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -29,26 +24,31 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AnswerFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
+public class AnswerFragment extends BaseFragment implements View.OnClickListener {
     private ImageButton mCover;
-    private AppCompatRadioButton mOption_A;
-    private AppCompatRadioButton mOption_B;
-    private AppCompatRadioButton mOption_C;
-    private AppCompatRadioButton mOption_D;
+    private AppCompatCheckedTextView mOption_A;
+    private AppCompatCheckedTextView mOption_B;
+    private AppCompatCheckedTextView mOption_C;
+    private AppCompatCheckedTextView mOption_D;
     private AppCompatTextView mContributioner;
     private AppCompatTextView mScore;
     private AppCompatTextView mScore_question;
     private AppCompatTextView mTime;
+    private AppCompatTextView mQuestionIndex;
     private ImageView mImage;
 
-
+    private boolean isChecked = false;
     private int mIndex = 0;
     private int score = 0;
+    private final int LOCKTIME_RIGHT = 1000;
+    private final int LOCKTIME_WRONG = 2000;
     private ArrayList<Question> mQuestions;
     private ArrayList<Integer> wrongQuestions = new ArrayList<>();
     private ArrayList<Integer> rightQuestions = new ArrayList<>();
 
     private ImageLoader mLoader = ImageLoader.getInstance();
+
+
 
 
     public AnswerFragment() {
@@ -78,40 +78,58 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeMessages(1);
+        handler.removeMessages(2);
+        handler.removeMessages(3);
+    }
+
     private void initView(View view) {
         mCover = (ImageButton) view.findViewById(R.id.usercover);
         mScore = (AppCompatTextView) view.findViewById(R.id.score);
         mScore_question = (AppCompatTextView) view.findViewById(R.id.questionscore);
+        mQuestionIndex = (AppCompatTextView) view.findViewById(R.id.questionIndex);
         mTime = (AppCompatTextView) view.findViewById(R.id.timer);
         mContributioner = (AppCompatTextView) view.findViewById(R.id.contributioner);
-        mOption_A = (AppCompatRadioButton) view.findViewById(R.id.answerA);
-        mOption_B = (AppCompatRadioButton) view.findViewById(R.id.answerB);
-        mOption_C = (AppCompatRadioButton) view.findViewById(R.id.answerC);
-        mOption_D = (AppCompatRadioButton) view.findViewById(R.id.answerD);
+        mOption_A = (AppCompatCheckedTextView) view.findViewById(R.id.answerA);
+        mOption_B = (AppCompatCheckedTextView) view.findViewById(R.id.answerB);
+        mOption_C = (AppCompatCheckedTextView) view.findViewById(R.id.answerC);
+        mOption_D = (AppCompatCheckedTextView) view.findViewById(R.id.answerD);
         mImage = (ImageView) view.findViewById(R.id.answer_questionimage);
-        ((RadioGroup) view.findViewById(R.id.rg)).setOnCheckedChangeListener(this);
         mScore.setText("0");
+
+        mOption_A.setOnClickListener(this);
+        mOption_B.setOnClickListener(this);
+        mOption_C.setOnClickListener(this);
+        mOption_D.setOnClickListener(this);
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.answerA:
-                processResult(mOption_A);
-                break;
-            case R.id.answerB:
-                processResult(mOption_B);
-                break;
-            case R.id.answerC:
-                processResult(mOption_C);
-                break;
-            case R.id.answerD:
-                processResult(mOption_D);
-                break;
+    public void onClick(View v) {
+        if (!isChecked){
+            switch (v.getId()){
+                case R.id.answerA:
+                    processResult(mOption_A);
+                    break;
+                case R.id.answerB:
+                    processResult(mOption_B);
+                    break;
+                case R.id.answerC:
+                    processResult(mOption_C);
+                    break;
+                case R.id.answerD:
+                    processResult(mOption_D);
+                    break;
+            }
+            isChecked = true;
         }
     }
 
+
     private void showQuestion() {
+        isChecked = false;
         Question question = mQuestions.get(mIndex);
         ArrayList<String> answer = question.getOptionsEx();
         mOption_A.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
@@ -138,17 +156,18 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
                 mOption_D.setVisibility(View.GONE);
                 break;
         }
+        mQuestionIndex.setText((mIndex+1)+".");
         mScore_question.setText(getString(R.string.addscore,question.getScore()));
         mContributioner.setText(getString(R.string.contributor,question.getAuthorName()));
         if (null != question.getIcon() && 10 < question.getIcon().length()){
             mLoader.displayImage(question.getIcon(),mImage);
             mImage.setVisibility(View.VISIBLE);
         } else {
-            mImage.setVisibility(View.GONE);
+            //mImage.setVisibility(View.GONE);
         }
     }
 
-    private void processResult(AppCompatRadioButton answer) {
+    private void processResult(AppCompatCheckedTextView answer) {
         Question question = mQuestions.get(mIndex);
         String rightAnswer = question.getRightAnswer();
         answer.setChecked(false);
@@ -157,7 +176,7 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
             rightQuestions.add(question.getId());
             score += question.getScore();
             mScore.setText(score + "");
-            checkExaminationFinished(true);
+            handler.sendEmptyMessageDelayed(3,LOCKTIME_RIGHT);
         } else {
             //答错
             wrongQuestions.add(question.getId());
@@ -172,7 +191,7 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
             } else if (mOption_D.getText().equals(rightAnswer)){
                 mOption_D.setBackgroundColor(getResources().getColor(R.color.green));
             }
-            handler.sendEmptyMessageDelayed(2,2000);
+            handler.sendEmptyMessageDelayed(2,LOCKTIME_WRONG);
         }
     }
 
@@ -211,6 +230,9 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
                     handler.removeMessages(2);
                     checkExaminationFinished(false);
                     break;
+                case 3:
+                    handler.removeMessages(3);
+                    checkExaminationFinished(true);
             }
         }
     };

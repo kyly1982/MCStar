@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_add"
         android:orderInCategory="1"
-        android:title="添加"
-        android:icon="@android:drawable/ic_menu_add"
+        android:title="出题"
+        android:icon="@drawable/ic_menu_add"
         app:showAsAction="ifRoom"
         />
 </menu>

@@ -7,25 +7,26 @@
     <View
         android:id="@+id/v_center"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="2dp"
         android:layout_centerInParent="true"
         />
 
     <TextView
         android:layout_width="@dimen/ranklable_width"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/v_center"
-        android:layout_alignParentTop="true"
         android:gravity="center"
         android:textColor="@color/fontcolor_Primary"
+        android:textSize="@dimen/fontsize_smal"
         android:text="@string/NO."/>
     <TextView
         android:id="@+id/ranking_number"
         android:layout_width="@dimen/ranklable_width"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/v_center"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
+        android:textColor="@color/fontcolor_Primary"
+        android:textSize="@dimen/fontsize_big"
         android:text="14"/>
 
     <ImageView
@@ -47,6 +48,7 @@
         android:layout_centerVertical="true"
         android:singleLine="true"
         android:textColor="@color/fontcolor_Primary"
+        android:textSize="@dimen/fontsize_big"
         android:text="用户名"/>
 
     <TextView
@@ -56,6 +58,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/divi_height"
+        android:textSize="@dimen/fontsize_big"
         android:textColor="@color/fontcolor_Primary"
         android:text="@string/scores"/>
 

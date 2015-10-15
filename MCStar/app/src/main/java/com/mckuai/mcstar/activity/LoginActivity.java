@@ -249,12 +249,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onSuccess(MCUser user) {
         MCStar.user = user;
+        this.user = user;
         handleResult();
     }
 
     @Override
     public void onFalse(String msg) {
         setResult(null != user ? RESULT_OK : RESULT_CANCELED);
+        Log.e("登录到服务器时失败!",msg);
     }
 }
 

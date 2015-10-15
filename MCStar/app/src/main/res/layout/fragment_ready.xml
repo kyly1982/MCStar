@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_centerInParent="true"
     tools:context="com.mckuai.mcstar.fragment.ReadyFragment">
 
@@ -47,15 +48,16 @@
 
          </RelativeLayout>
 
-        <com.malinskiy.superrecyclerview.SuperRecyclerView
+        <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
             android:id="@+id/userlist"
             android:layout_width="match_parent"
             android:layout_height="@dimen/userlist_height"
             android:paddingBottom="@dimen/divi_height"
             android:layout_below="@id/paper_examinees"
-            android:background="@color/background_lightpale">
+            android:background="@color/background_lightpale"
+            app:recyclerviewEmptyView="@layout/view_empty">
 
-        </com.malinskiy.superrecyclerview.SuperRecyclerView>
+        </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
 
 
         <RelativeLayout

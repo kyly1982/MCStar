@@ -14,6 +14,9 @@ import com.mckuai.mcstar.utils.NetInterface;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener,NetInterface.OnGetQrestionListener {
     private boolean isLoading = false;
+    private static final int REQUEST_USERCENTER = 1;
+    private static final int REQUEST_CONTRIBUTION=2;
+    private static final int REQUEST_RANKING = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +52,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
         Intent intent;
         switch (item.getItemId()){
             case R.id.action_contribution:
-                intent = new Intent(this,ContributionActivity.class);
-                startActivity(intent);
+                if (!mApplication.isLogined()){
+                    callLogin(REQUEST_CONTRIBUTION);
+                } else {
+                    intent = new Intent(this, ContributionActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.action_ranking:
-                intent = new Intent(this,RankingActivity.class);
-                startActivity(intent);
+                if (!mApplication.isLogined()){
+                    callLogin(REQUEST_RANKING);
+                } else {
+                    intent = new Intent(this, RankingActivity.class);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;
@@ -72,10 +83,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 break;
             default:
                 if (!mApplication.isLogined()){
-                   callLogin();
+                   callLogin(REQUEST_USERCENTER);
                 } else {
                     Intent intent = new Intent(this,UserCenterActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
                 }
                 break;
         }
@@ -84,6 +95,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     private void loadData(){
         NetInterface.getQuestions(this,this);
         isLoading = true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+            Intent intent ;
+            switch (requestCode){
+                case REQUEST_CONTRIBUTION:
+                    intent = new Intent(this,ContributionActivity.class);
+                    startActivity(intent);
+                    break;
+                case REQUEST_RANKING:
+                    intent = new Intent(this,RankingActivity.class);
+                    startActivity(intent);
+                    break;
+                case REQUEST_USERCENTER:
+                    intent = new Intent(this,UserCenterActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
     }
 
     @Override

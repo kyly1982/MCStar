@@ -3,6 +3,7 @@ package com.mckuai.mcstar.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.style.QuoteSpan;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,6 +12,7 @@ import com.loopj.android.http.RequestParams;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.MCStar;
 import com.mckuai.mcstar.bean.MCUser;
+import com.mckuai.mcstar.bean.Page;
 import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.bean.Question;
 import com.tencent.connect.UserInfo;
@@ -37,12 +39,12 @@ public class NetInterface {
         MCStar.client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.e("NE", "" + response.toString());
+//                Log.e("NE", "" + response.toString());
                 PretreatmentResult result = pretreatmentResponse(context, response);
                 if (result.isSuccess) {
                     Gson gson = new Gson();
                     MCUser userinfo = gson.fromJson(result.msg, MCUser.class);
-                    if (null != userinfo && userinfo.getId() == user.getId()) {
+                    if (null != userinfo && userinfo.getUserName().equals(user.getUserName())) {
                         listener.onSuccess(userinfo);
                     } else {
                         listener.onFalse(context.getString(R.string.error_parsefalse));
@@ -126,18 +128,68 @@ public class NetInterface {
         });
     }
 
-    public static void uploadQuestion(@NonNull Context context, int userId, @NonNull Question questin, @NonNull OnUploadQuestionListener listener) {
+    public static void uploadQuestion(@NonNull final Context context, int userId, @NonNull Question questin, @NonNull final OnUploadQuestionListener listener) {
 
-        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_loginserver);
+        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_upload);
+        RequestParams params = new RequestParams();
+        params.put("userId",userId);
+        MCStar.client.post(context,url,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+               PretreatmentResult result = pretreatmentResponse(context,response);
+                if (result.isSuccess){
+                    listener.onSuccess();
+                } else {
+                    listener.onFalse(result.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+            }
+        });
 
     }
 
-    public static void getUserInfo(@NonNull final Context context, int userId, @NonNull final OnGetUserInfoListener listener) {
+    public static void getUserInfo(@NonNull final Context context, final int userId, @NonNull final OnGetUserInfoListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_getuserInfo);
-        MCStar.client.get(context, url, new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        params.put("userId",userId);
+        MCStar.client.get(context, url, params,new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
+                PretreatmentResult result = pretreatmentResponse(context,response);
+                if (result.isSuccess){
+                    Gson gson = new Gson();
+                    MCUser user = gson.fromJson(result.msg,MCUser.class);
+                    if (null != user && user.getId() == userId){
+                        listener.onSuccess(user);
+                    } else {
+                        listener.onFalse(context.getString(R.string.error_parsefalse));
+                    }
+                } else {
+                    listener.onFalse(result.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                super.onFailure(statusCode, headers, throwable, errorResponse);
+                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+            }
+        });
+
+    }
+
+    public static void getContribution(@NonNull final Context context, int userId,int page, @NonNull final OnGetContributionListener listener) {
+        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_contribution);
+        RequestParams params = new RequestParams();
+        params.put("userId",userId);
+        params.put("page",page);
+        MCStar.client.get(context,url,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context,response);
                 if (result.isSuccess){
 
@@ -148,21 +200,34 @@ public class NetInterface {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                super.onFailure(statusCode, headers, throwable, errorResponse);
-                listener.onFalse(context.getString(R.string.error_requestfalse,throwable.getLocalizedMessage()));
+                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
 
     }
 
-    public static void getContribution(@NonNull Context context, int page, @NonNull OnGetContributionListener listener) {
-        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_loginserver);
+    public static void getRankingList(@NonNull final Context context,int userId, int page, @NonNull final OnGetRankingListener listener) {
+        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_rankinglist);
+        RequestParams params = new RequestParams();
+        params.put("userId",userId);
+        params.put("page",page);
+        MCStar.client.get(context,url,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                PretreatmentResult result = pretreatmentResponse(context,response);
+                if (result.isSuccess){
+                    Gson gson = new Gson();
 
-    }
+                } else {
+                    listener.onFalse(result.msg);
+                }
+            }
 
-    public static void getRankingList(@NonNull Context context, int page, @NonNull OnGetRankingListener listener) {
-        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_loginserver);
-
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+            }
+        });
     }
 
     public static interface OnLoginServerListener {
@@ -182,26 +247,26 @@ public class NetInterface {
     }
 
     public static interface OnGetUserInfoListener {
-        void onSuccess(UserInfo userInfo);
+        void onSuccess(MCUser userInfo);
         void onFalse(String msg);
     }
 
     public static interface OnGetContributionListener {
-        void onSuccess();
+        void onSuccess(Page page,ArrayList<Question> questions);
 
-        void onFalse();
+        void onFalse(String msg);
     }
 
     public static interface OnUploadQuestionListener {
         void onSuccess();
 
-        void onFalse();
+        void onFalse(String msg);
     }
 
     public static interface OnGetRankingListener {
-        void onSuccess();
+        void onSuccess(Page page,ArrayList<MCUser> rankingList);
 
-        void onFalse();
+        void onFalse(String msg);
     }
 
     static class PretreatmentResult {

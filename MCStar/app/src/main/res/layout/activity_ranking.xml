@@ -27,25 +27,26 @@
             <View
                 android:id="@+id/v_center"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="2dp"
                 android:layout_centerInParent="true"
                 />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="@dimen/ranklable_width"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_above="@id/v_center"
-                android:layout_alignParentTop="true"
                 android:gravity="center"
                 android:textColor="@color/fontcolor_Primary"
+                android:textSize="@dimen/fontsize_smal"
                 android:text="@string/NO."/>
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/myranking"
                 android:layout_width="@dimen/ranklable_width"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/v_center"
-                android:layout_alignParentBottom="true"
+                android:textColor="@color/fontcolor_Primary"
                 android:gravity="center"
+                android:textSize="@dimen/fontsize_big"
                 android:text="14"/>
 
             <ImageView
@@ -59,17 +60,18 @@
                 android:scaleType="fitCenter"
                 android:background="@drawable/icon_circle_blue"/>
 
-            <TextView
-                android:id="@+id/name"
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/myname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/mycover"
                 android:layout_centerVertical="true"
                 android:singleLine="true"
                 android:textColor="@color/fontcolor_Primary"
+                android:textSize="@dimen/fontsize_big"
                 android:text="用户名"/>
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/myscore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,18 +79,20 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/divi_height"
                 android:textColor="@color/fontcolor_Primary"
+                android:textSize="@dimen/fontsize_big"
                 android:text="@string/scores"/>
 
         </RelativeLayout>
 
-        <com.malinskiy.superrecyclerview.SuperRecyclerView
-            android:id="@+id/questionlist"
+        <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
+            android:id="@+id/rankinglist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/myinfo"
             android:paddingLeft="@dimen/divi_height"
             android:paddingRight="@dimen/divi_height"
-            app:layout_empty="@layout/view_empty"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+            app:recyclerviewEmptyView="@layout/view_empty">
+            </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -11,12 +11,14 @@
         android:id="@+id/toolbar_layout"
         layout="@layout/toolbar" />
 
-    <com.malinskiy.superrecyclerview.SuperRecyclerView
+    <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
         android:id="@+id/questionlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_empty="@layout/view_empty"></com.malinskiy.superrecyclerview.SuperRecyclerView>
+        app:recyclerviewEmptyView="@layout/view_empty">
+
+    </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
 
 
 </android.support.design.widget.CoordinatorLayout>

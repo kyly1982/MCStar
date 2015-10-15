@@ -48,7 +48,7 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
             switch (question.getStatus()){
                 case "pass":
                     //审核通过
-                    drawable = mContext.getResources().getDrawable(android.support.design.R.drawable.abc_ic_menu_copy_mtrl_am_alpha);
+                    drawable = mContext.getResources().getDrawable(R.mipmap.ic_audit_passed);
                     drawable.setBounds(0,0,drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     holder.userCount.setCompoundDrawables(drawable, null, null, null);
                     holder.userCount.setText(mContext.getString(R.string.answer_count, question.getAllCount()));
@@ -61,7 +61,7 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
                 case "nopass":
                     //审核未通过
                     holder.ratio.setText("");
-                    drawable =  mContext.getResources().getDrawable(android.support.design.R.drawable.abc_ic_menu_paste_mtrl_am_alpha);
+                    drawable =  mContext.getResources().getDrawable(R.mipmap.ic_audit_faile);
                     holder.userCount.setText(mContext.getResources().getString(R.string.status_audit_false));
                     drawable.setBounds(0,0,drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     holder.userCount.setCompoundDrawables(drawable, null, null, null);
@@ -69,7 +69,7 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
                 default:
                     //审核中
                     holder.ratio.setText("");
-                    drawable =  mContext.getResources().getDrawable(android.support.design.R.drawable.abc_ic_menu_share_mtrl_alpha);
+                    drawable =  mContext.getResources().getDrawable(R.mipmap.ic_auditing);
                     holder.userCount.setText(mContext.getString(R.string.status_auditing));
                     drawable.setBounds(0,0,drawable.getMinimumWidth(), drawable.getMinimumHeight());
                     holder.userCount.setCompoundDrawables(drawable, null, null, null);

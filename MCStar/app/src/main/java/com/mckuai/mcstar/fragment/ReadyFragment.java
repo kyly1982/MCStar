@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.malinskiy.superrecyclerview.SuperRecyclerView;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.adapter.UserListAdapter;
@@ -21,12 +21,14 @@ import java.util.ArrayList;
 
 public class ReadyFragment extends BaseFragment {
     private TextView mTimeCount;
-    private SuperRecyclerView mList;
+    private UltimateRecyclerView mList;
     private RelativeLayout mHint;
     private UserListAdapter mAdapter;
     private ArrayList<MCUser> mUsers;
-    private int time = 10;
+    private int time = 4;
     private View view;
+
+    private CountDownTimer timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,16 +57,16 @@ public class ReadyFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        timer.cancel();
     }
 
 
     private void initView() {
         mTimeCount = (TextView) view.findViewById(R.id.time);
-        mList = (SuperRecyclerView) view.findViewById(R.id.userlist);
+        mList = (UltimateRecyclerView) view.findViewById(R.id.userlist);
         mHint = (RelativeLayout) view.findViewById(R.id.layout_hint);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         mList.setLayoutManager(manager);
-        mList.setLoadingMore(false);
     }
 
     private void showData() {
@@ -79,7 +81,7 @@ public class ReadyFragment extends BaseFragment {
             mList.setVisibility(View.GONE);
         }
         mTimeCount.setText(getActivity().getString(R.string.time_countdown, time));
-        final CountDownTimer timer = new CountDownTimer(10 * 1000,1000) {
+        timer = new CountDownTimer(time * 1000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 time--;

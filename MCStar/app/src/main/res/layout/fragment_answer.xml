@@ -9,103 +9,117 @@
         layout="@layout/toolbar_answer"></include>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/questionIndex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_layout"
-        android:layout_marginLeft="@dimen/divi_height"
-        android:layout_marginTop="@dimen/divi_height"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="1."/>
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/questionContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/questionIndex"
-        android:layout_toRightOf="@id/questionIndex"
-        android:layout_marginRight="@dimen/divi_height"
-        android:layout_marginBottom="@dimen/divi_height2"
-        android:maxLines="3"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
-
-    <ImageView
-        android:id="@+id/answer_questionimage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/image_height"
-        android:layout_below="@id/questionContent"
-        android:layout_marginLeft="@dimen/divi_height"
-        android:layout_marginRight="@dimen/divi_height"
-        android:layout_marginTop="@dimen/divi_height2"
-        android:layout_marginBottom="@dimen/divi_height2"
-        android:background="@color/background_image"
-        android:src="@mipmap/image_questionimage"
-        android:scaleType="center"/>
-
-    <RadioGroup
-        android:id="@+id/rg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/answer_questionimage"
-        android:layout_margin="@dimen/divi_height"
-        android:orientation="vertical">
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/answerA"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"
-            android:button="@null"
-            android:maxLines="2"
-            android:background="@drawable/option_selector"
-            android:text="A. option A"
-            />
-
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/answerB"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"
-            android:layout_marginTop="@dimen/divi_height"
-            android:layout_marginBottom="@dimen/divi_height"
-            android:button="@null"
-            android:maxLines="2"
-            android:background="@drawable/option_selector"
-            android:text="B. option B"
-            />
-
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/answerC"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"
-            android:button="@null"
-            android:maxLines="2"
-            android:background="@drawable/option_selector"
-            android:text="C. option C"
-            />
-
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/answerD"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"
-            android:layout_marginTop="@dimen/divi_height"
-            android:layout_marginBottom="@dimen/divi_height"
-            android:button="@null"
-            android:maxLines="2"
-            android:background="@drawable/option_selector"
-            android:text="D. option D"
-            />
-
-
-    </RadioGroup>
-
-    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/contributioner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:textColor="@color/fontcolor_bottomhint"
         android:text="@string/contributor"
-        />
+        android:textColor="@color/fontcolor_bottomhint" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/contributioner"
+        android:layout_below="@id/toolbar_layout"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/divi_height">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/questionIndex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="1."
+                    android:textColor="@color/fontcolor_Primary" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/questionContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/questionIndex"
+                    android:layout_marginBottom="@dimen/divi_height"
+                    android:layout_toRightOf="@id/questionIndex"
+                    android:maxLines="3"
+                    android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"
+                    android:textColor="@color/fontcolor_Primary"
+                    android:textSize="@dimen/fontsize_big" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/answer_questionimage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_height"
+                android:background="@color/background_image"
+                android:scaleType="center"
+                android:src="@mipmap/image_questionimage" />
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/answerA"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_height"
+                android:layout_marginBottom="@dimen/divi_height"
+                android:layout_marginTop="@dimen/divi_height"
+                android:background="@drawable/option_selector"
+                android:checked="false"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/divi_height"
+                android:paddingRight="@dimen/divi_height"
+                android:text="A. option A" />
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/answerB"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_height"
+                android:background="@drawable/option_selector"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/divi_height"
+                android:paddingRight="@dimen/divi_height"
+                android:text="B. option B" />
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/answerC"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_height"
+                android:layout_marginBottom="@dimen/divi_height"
+                android:layout_marginTop="@dimen/divi_height"
+                android:background="@drawable/option_selector"
+                android:button="@null"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/divi_height"
+                android:paddingRight="@dimen/divi_height"
+                android:text="C. option C" />
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/answerD"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_height"
+                android:background="@drawable/option_selector"
+                android:button="@null"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/divi_height"
+                android:paddingRight="@dimen/divi_height"
+                android:text="D. option D" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
