@@ -10,6 +10,7 @@ import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * 习题信息
@@ -90,8 +91,8 @@ public class Question implements Serializable {
                 break;
         }
        ArrayList<String> options = new ArrayList<>(temp.size());
-        for (int i = 0;i < temp.size();i++){
-            int index = (int)(Math.random() * temp.size());
+        for (int size = temp.size();size > 0;size--){
+            int index = (int)(Math.random() * size);
             options.add(temp.get(index));
             temp.remove(index);
         }

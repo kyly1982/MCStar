@@ -4,48 +4,56 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary">
     <ImageButton
-        android:id="@+id/userCover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:src="@drawable/icon_circle_gray"/>
-    <TextView
-        android:id="@+id/scorecount"
+        android:id="@+id/usercover"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:scaleType="center"
+        android:src="@mipmap/ic_menu_cover"
+        android:background="@color/color_transparent"
+        />
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/userCover"
+        android:layout_toRightOf="@id/usercover"
         android:layout_margin="5dp"
         android:textSize="@dimen/fontsize_title"
         android:textColor="@color/fontcolor_Primary"
         android:text="58"/>
 
-    <TextView
-        android:id="@+id/score"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/questionscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/scorecount"
+        android:padding="1dp"
+        android:layout_toRightOf="@id/score"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/fontsize_smal"
+        android:textSize="@dimen/fontsize_normal"
         android:textColor="@color/fontcolor_Primary"
+        android:background="@color/white_overlay"
         android:text="+10"/>
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/timer"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="9.99"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
+        android:singleLine="true"
+        android:maxLength="5"
+        android:textSize="@dimen/fontsize_title"
+        android:text="99.99"
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/time"
+        android:layout_toLeftOf="@id/timer"
+        android:layout_centerVertical="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/icon_circle_gray"/>
+        android:src="@mipmap/ic_menu_hourglass"/>
 
 
 

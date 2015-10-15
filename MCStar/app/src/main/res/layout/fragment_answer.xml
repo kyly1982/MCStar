@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar_question"></include>
+        layout="@layout/toolbar_answer"></include>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/questionIndex"
@@ -30,7 +30,7 @@
         android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"/>
 
     <ImageView
-        android:id="@+id/questionImage"
+        android:id="@+id/answer_questionimage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"
         android:layout_below="@id/questionContent"
@@ -39,13 +39,14 @@
         android:layout_marginTop="@dimen/divi_height2"
         android:layout_marginBottom="@dimen/divi_height2"
         android:background="@color/background_image"
-        android:scaleType="fitCenter"/>
+        android:src="@mipmap/image_questionimage"
+        android:scaleType="center"/>
 
     <RadioGroup
         android:id="@+id/rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/questionImage"
+        android:layout_below="@id/answer_questionimage"
         android:layout_margin="@dimen/divi_height"
         android:orientation="vertical">
         <android.support.v7.widget.AppCompatRadioButton
@@ -103,7 +104,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:textColor="@color/fontcolor_bottomhint"
-        android:text="贡献者：XXX"
+        android:text="@string/contributor"
         />
 
 

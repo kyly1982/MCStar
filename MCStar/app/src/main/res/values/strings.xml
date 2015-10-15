@@ -6,7 +6,14 @@
     <string name="scores_unit">分</string>
     <string name="NO.">NO.</string>
     <string name="flaunt">炫耀一下</string>
+    <!--tag-->
     <string name="tag_name">NAME</string>
+    <string name="tag_paper">PAPER</string>
+    <string name="tag_users">USERS</string>
+    <string name="tag_questions">QUESTIONS</string>
+    <string name="tag_score">SCORE</string>
+    <string name="tag_rightquestion">RIGHTQUESTIONSID</string>
+    <string name="tag_wrongquestion">WRONGRUESTIONSID</string>
     <!--其它-->
     <string name="correct">对</string>
     <string name="wrong">错</string>
@@ -40,6 +47,14 @@
     <string name="interface_contribution">interface.do?act=uploadList</string>
     <!--排行榜，参数userId=2&page=1-->
     <string name="interface_rankinglist">interface.do?act=rankList</string>
+
+    <string name="error_pretreatmentres_ponsefalse">预解析失败，原因:%1$s</string>
+    <string name="error_pretreatmentres_nullerror">返回数据为空或长度不足！</string>
+    <string name="error_pretreatmentres_format">预解析失败，原因未知！</string>
+    <string name="error_serverfalse_unknow">服务器返回失败，原因未知！</string>
+    <string name="error_serverfalse">服务器返回失败，原因:%1$s</string>
+    <string name="error_parsefalse">解析返回数据时失败，请重试！</string>
+    <string name="error_requestfalse">请求失败，原因：%1$s</string>
 
     <!-- 菜单-->
     <string name="contribution">贡献</string>
@@ -77,13 +92,15 @@
     <string name="paper_more">更多宝藏准备中…</string>
     <string name="time_countdown">%1$ds</string>
 
-    <!--题-->
+    <!--答题-->
+    <string name="addscore">+%1$d</string>
     <string name="contributor">贡献者：%1$s</string>
 
     <!--成绩-->
     <string name="transcend">超越TA</string>
     <string name="KO">KO 了</string>
     <string name="regetpaper">再挖一下</string>
+    <string name="uploadresult">上传</string>
 
     <!--出题-->
     <string name="selecttype">选择类型</string>

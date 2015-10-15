@@ -23,12 +23,12 @@ public class BaseFragment extends Fragment {
         if (null == pageName) {
             pageName = getArguments().getString("NAME");
         }
-//        MobclickAgent.onPageStart(pageName == null ?getClass().getName():pageName);
+        MobclickAgent.onPageStart(pageName == null ?getClass().getName():pageName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        MobclickAgent.onPageEnd(pageName == null ?getClass().getName():pageName);
+        MobclickAgent.onPageEnd(pageName == null ?getClass().getName():pageName);
     }
 }

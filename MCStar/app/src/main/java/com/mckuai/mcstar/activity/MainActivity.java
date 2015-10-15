@@ -3,14 +3,17 @@ package com.mckuai.mcstar.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.mckuai.mcstar.R;
-import com.umeng.analytics.MobclickAgent;
+import com.mckuai.mcstar.bean.Paper;
+import com.mckuai.mcstar.utils.NetInterface;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener,NetInterface.OnGetQrestionListener {
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +64,41 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
     @Override
     public void onClick(View v) {
-        Intent intent;
         switch (v.getId()){
             case R.id.btn_getpaper:
-                intent = new Intent(this,ExaminationActivity.class);
+                if (!isLoading) {
+                    loadData();
+                }
                 break;
             default:
-                if (mApplication.isLogined()){
-                    intent = new Intent(this,UserCenterActivity.class);
+                if (!mApplication.isLogined()){
+                   callLogin();
                 } else {
-                    intent = new Intent(this,LoginActivity.class);
+                    Intent intent = new Intent(this,UserCenterActivity.class);
+                    startActivity(intent);
                 }
                 break;
         }
+    }
+
+    private void loadData(){
+        NetInterface.getQuestions(this,this);
+        isLoading = true;
+    }
+
+    @Override
+    public void onSuccess(Paper paper) {
+        isLoading = false;
+        Intent  intent = new Intent(this,ExaminationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(getString(R.string.tag_paper),paper);
+        intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFalse(String msg) {
+        isLoading = false;
+        Log.e("LD",""+msg);
     }
 }

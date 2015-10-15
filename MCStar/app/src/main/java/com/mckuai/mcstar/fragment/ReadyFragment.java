@@ -1,11 +1,10 @@
 package com.mckuai.mcstar.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Message;
-import android.support.annotation.Nullable;
+import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,102 +15,84 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.adapter.UserListAdapter;
-import com.mckuai.mcstar.bean.Paper;
-import com.mckuai.mcstar.utils.NetInterface;
+import com.mckuai.mcstar.bean.MCUser;
 
-public class ReadyFragment extends BaseFragment  implements NetInterface.OnGetQrestionListener{
+import java.util.ArrayList;
+
+public class ReadyFragment extends BaseFragment {
     private TextView mTimeCount;
     private SuperRecyclerView mList;
     private RelativeLayout mHint;
     private UserListAdapter mAdapter;
-    private Paper mPaper;
-    private int index = 0;
+    private ArrayList<MCUser> mUsers;
     private int time = 10;
+    private View view;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ready, container, false);
-        initView(view);
+        view = inflater.inflate(R.layout.fragment_ready, container, false);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("RF","onResume");
-        if (null == mPaper){
-            loadData();
-        } else {
+        mUsers = (ArrayList<MCUser>) getArguments().getSerializable(getString(R.string.tag_users));
+        if (null != view) {
+            if (null == mList) {
+                initView();
+            }
             showData();
         }
     }
 
-    private void initView(View view) {
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
+    private void initView() {
         mTimeCount = (TextView) view.findViewById(R.id.time);
         mList = (SuperRecyclerView) view.findViewById(R.id.userlist);
-        mHint= (RelativeLayout) view.findViewById(R.id.layout_hint);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true);
+        mHint = (RelativeLayout) view.findViewById(R.id.layout_hint);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         mList.setLayoutManager(manager);
         mList.setLoadingMore(false);
     }
 
-    private void loadData() {
-        NetInterface.getQuestions(getActivity(),this);
-    }
-
     private void showData() {
-        if (null != mPaper.getUser() && !mPaper.getUser().isEmpty()){
-            if (null == mAdapter){
+        if (null != mUsers && !mUsers.isEmpty()) {
+            if (null == mAdapter) {
                 mAdapter = new UserListAdapter(getActivity());
-                mList.setAdapter(mAdapter);
+                //mList.setAdapter(mAdapter);
             }
-            mAdapter.setData(mPaper.getUser());
+            mAdapter.setData(mUsers);
         } else {
-//            mHint.setVisibility(View.GONE);
-//            mList.setVisibility(View.GONE);
+            mHint.setVisibility(View.GONE);
+            mList.setVisibility(View.GONE);
         }
-
-        handler.sendMessage(handler.obtainMessage(1));
-    }
-
-
-    android.os.Handler handler = new android.os.Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    mTimeCount.setText(getActivity().getString(R.string.time_countdown,time));
-                    time--;
-                    if (1 == time){
-                        handler.sendMessageDelayed(handler.obtainMessage(2), 1000);
-                    }
-                    else {
-                        handler.sendMessageDelayed(handler.obtainMessage(1),1000);
-                    }
-                    break;
-                case 2:
-                    ((ExaminationActivity)getActivity()).showNextFragment();
-                    break;
+        mTimeCount.setText(getActivity().getString(R.string.time_countdown, time));
+        final CountDownTimer timer = new CountDownTimer(10 * 1000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                time--;
+                mTimeCount.setText(getActivity().getString(R.string.time_countdown, time));
             }
-        }
-    };
 
-    @Override
-    public void onDestroy() {
-        handler.removeMessages(1);
-        handler.removeMessages(2);
-        super.onDestroy();
+            @Override
+            public void onFinish() {
+                ((ExaminationActivity) getActivity()).showNextFragment();
+            }
+        };
+        timer.start();
     }
 
-    @Override
-    public void onSuccess(Paper paper) {
-        this.mPaper = paper;
-        showData();
-    }
 
-    @Override
-    public void onFalse(String msg) {
-
-    }
 }
