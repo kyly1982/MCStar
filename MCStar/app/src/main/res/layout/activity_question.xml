@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true">
+
 
     <include
         android:id="@+id/toolbar_layout"
@@ -13,160 +14,187 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@mipmap/image_other">
+        android:background="@mipmap/image_other"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/questionsubmit_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="@string/submitquestion"
-        />
-    
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/selecttype"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/questiontype_height"
-        android:layout_margin="@dimen/divi_height"
-        android:paddingLeft="@dimen/divi_height"
-        android:paddingRight="@dimen/divi_height"
-        android:gravity="center_vertical"
-        android:drawableRight="@mipmap/ic_arrow_right"
-        android:background="@color/background_item"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="@string/selecttype"/>
-
-    <RadioGroup
-        android:id="@+id/rg_questiontype"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/questiontype_height"
-        android:orientation="horizontal"
-        android:layout_below="@id/selecttype"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@drawable/background_stork"
-        >
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/type_choice"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_weight="1"
-            android:checked="true"
-            android:background="@drawable/background_questiontype"
-            android:textColor="@drawable/textcolor_questiontype"
-            android:text="@string/type_choice"/>
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/type_judgment"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_weight="1"
-            android:background="@drawable/background_questiontype"
-            android:textColor="@drawable/textcolor_questiontype"
-            android:text="@string/type_judgment"/>
-    </RadioGroup>
-    
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/questiontopic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rg_questiontype"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true"
-        app:errorEnabled="true"
-        >
-
-        <android.support.v7.widget.AppCompatEditText
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/submit"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/questiontopic_height"/>
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="@dimen/questionsubmit_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/green"
+            android:text="@string/submitquestion"
+            android:textColor="@color/fontcolor_Primary" />
 
-    <ImageView
-        android:id="@+id/questionimage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/questionimage_height"
-        android:layout_below="@id/questiontopic"
-        android:layout_margin="@dimen/divi_height"
-        android:scaleType="center"
-        android:src="@mipmap/image_questionimage"
-        android:background="@drawable/background_newquestion_image"/>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/option_a"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/questionimage"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
-        <android.support.v7.widget.AppCompatEditText
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/submit">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/option_b"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/option_a"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"/>
-    </android.support.design.widget.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/option_c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/option_b"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"/>
-    </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/option_d"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/option_c"
-        android:layout_margin="@dimen/divi_height"
-        android:background="@color/white"
-        android:hint="@string/question_titlehint"
-        android:textColorHint="@color/fontcolor_mauvepale"
-        app:hintAnimationEnabled="true">
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"/>
-    </android.support.design.widget.TextInputLayout>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/selecttype"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/questiontype_height"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/background_item"
+                    android:drawableRight="@mipmap/ic_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/divi_height"
+                    android:paddingRight="@dimen/divi_height"
+                    android:text="@string/selecttype"
+                    android:textColor="@color/fontcolor_Primary" />
+
+                <RadioGroup
+                    android:id="@+id/rg_questiontype"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/questiontype_height"
+                    android:layout_below="@id/selecttype"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@drawable/background_stork"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/type_choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_questiontype"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/type_choice"
+                        android:textColor="@drawable/textcolor_questiontype" />
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/type_judgment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_questiontype"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/type_judgment"
+                        android:textColor="@drawable/textcolor_questiontype" />
+                </RadioGroup>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/questiontopic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rg_questiontype"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/white"
+                    android:hint="@string/question_titlehint"
+                    android:textColorHint="@color/fontcolor_mauvepale"
+                    app:errorEnabled="true"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/questiontopic_height"
+                        android:textColor="@color/fontcolor_bottomhint"
+                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:hint="题目"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/questionimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/questionimage_height"
+                    android:layout_below="@id/questiontopic"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@drawable/background_newquestion_image"
+                    android:scaleType="center"
+                    android:src="@mipmap/image_questionimage" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/option_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/questionimage"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/white"
+                    android:hint="@string/question_titlehint"
+                    android:textColorHint="@color/fontcolor_mauvepale"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/option_height"
+                        android:textColor="@color/fontcolor_bottomhint"
+                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:hint="正确答案"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/option_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/option_a"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/white"
+                    android:hint="@string/question_titlehint"
+                    android:textColorHint="@color/fontcolor_mauvepale"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/option_height"
+                        android:textColor="@color/fontcolor_bottomhint"
+                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:hint="错误答案"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/option_c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/option_b"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/white"
+                    android:hint="@string/question_titlehint"
+                    android:textColorHint="@color/fontcolor_mauvepale"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/option_height"
+                        android:textColor="@color/fontcolor_bottomhint"
+                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:hint="错误答案" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/option_d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/option_c"
+                    android:layout_margin="@dimen/divi_height"
+                    android:background="@color/white"
+                    android:hint="@string/question_titlehint"
+                    android:textColorHint="@color/fontcolor_mauvepale"
+                    app:hintAnimationEnabled="true">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/option_height"
+                        android:textColor="@color/fontcolor_bottomhint"
+                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:hint="错误答案"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
 
     </RelativeLayout>
-
-
-
-
-
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

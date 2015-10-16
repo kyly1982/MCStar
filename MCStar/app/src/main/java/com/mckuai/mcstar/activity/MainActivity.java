@@ -1,5 +1,6 @@
 package com.mckuai.mcstar.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,10 +13,10 @@ import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.utils.NetInterface;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener,Toolbar.OnMenuItemClickListener,NetInterface.OnGetQrestionListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener {
     private boolean isLoading = false;
     private static final int REQUEST_USERCENTER = 1;
-    private static final int REQUEST_CONTRIBUTION=2;
+    private static final int REQUEST_CONTRIBUTION = 2;
     private static final int REQUEST_RANKING = 3;
 
     @Override
@@ -29,6 +30,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
         super.onResume();
         initToolBar();
         findViewById(R.id.btn_getpaper).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mApplication.saveProfile();
+        super.onDestroy();
     }
 
     @Override
@@ -50,9 +57,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_contribution:
-                if (!mApplication.isLogined()){
+                if (!mApplication.isLogined()) {
                     callLogin(REQUEST_CONTRIBUTION);
                 } else {
                     intent = new Intent(this, ContributionActivity.class);
@@ -60,12 +67,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 }
                 break;
             case R.id.action_ranking:
-                if (!mApplication.isLogined()){
-                    callLogin(REQUEST_RANKING);
-                } else {
-                    intent = new Intent(this, RankingActivity.class);
-                    startActivity(intent);
-                }
+                intent = new Intent(this, RankingActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -75,43 +78,43 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_getpaper:
                 if (!isLoading) {
                     loadData();
                 }
                 break;
             default:
-                if (!mApplication.isLogined()){
-                   callLogin(REQUEST_USERCENTER);
+                if (!mApplication.isLogined()) {
+                    callLogin(REQUEST_USERCENTER);
                 } else {
-                    Intent intent = new Intent(this,UserCenterActivity.class);
-                    startActivityForResult(intent,1);
+                    Intent intent = new Intent(this, UserCenterActivity.class);
+                    startActivityForResult(intent, 1);
                 }
                 break;
         }
     }
 
-    private void loadData(){
-        NetInterface.getQuestions(this,this);
+    private void loadData() {
+        NetInterface.getQuestions(this, this);
         isLoading = true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK){
-            Intent intent ;
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            Intent intent;
+            switch (requestCode) {
                 case REQUEST_CONTRIBUTION:
-                    intent = new Intent(this,ContributionActivity.class);
+                    intent = new Intent(this, ContributionActivity.class);
                     startActivity(intent);
                     break;
                 case REQUEST_RANKING:
-                    intent = new Intent(this,RankingActivity.class);
+                    intent = new Intent(this, RankingActivity.class);
                     startActivity(intent);
                     break;
                 case REQUEST_USERCENTER:
-                    intent = new Intent(this,UserCenterActivity.class);
+                    intent = new Intent(this, UserCenterActivity.class);
                     startActivity(intent);
                     break;
             }
@@ -121,9 +124,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     @Override
     public void onSuccess(Paper paper) {
         isLoading = false;
-        Intent  intent = new Intent(this,ExaminationActivity.class);
+        Intent intent = new Intent(this, ExaminationActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(getString(R.string.tag_paper),paper);
+        bundle.putSerializable(getString(R.string.tag_paper), paper);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -131,6 +134,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     @Override
     public void onFalse(String msg) {
         isLoading = false;
-        Log.e("LD",""+msg);
+        Log.e("LD", "" + msg);
     }
 }

@@ -19,6 +19,7 @@
     <string name="wrong">错</string>
     <string name="imagecache_dir">image</string>
     <!--配置-->
+    <string name="preferences_isFirstBoot">FIRSTBOOT</string>
     <string name="preferences_filename">config</string>
     <string name="preferences_tokentime">CERTIFIEDTIME</string>
     <string name="preferences_tokenexpires">INVALIDTIME</string>
@@ -43,6 +44,8 @@
     <string name="interface_getuserInfo">interface.do?act=userInfo</string>
     <!--上传问题-->
     <string name="interface_upload">interface.do?act=uploadQuestion</string>
+    <!--上传图片-->
+    <string name="interface_upload_pic">interface.do?act=uploadQuestion</string>
     <!--贡献列表，参数 userId=2&page=1-->
     <string name="interface_contribution">interface.do?act=uploadList</string>
     <!--排行榜，参数userId=2&page=1-->
@@ -55,6 +58,7 @@
     <string name="error_serverfalse">服务器返回失败，原因:%1$s</string>
     <string name="error_parsefalse">解析返回数据时失败，请重试！</string>
     <string name="error_requestfalse">请求失败，原因：%1$s</string>
+    <string name="error_userformat_noself">返回的用户信息不正确！</string>
 
     <!-- 菜单-->
     <string name="contribution">贡献</string>
@@ -63,6 +67,7 @@
     <string name="add">添加</string>
     <string name="music_enable">开启音乐</string>
     <string name="music_disable">关闭音乐</string>
+
     
     <!--标题-->
     <string name="title_main">MC Wa</string>
@@ -76,11 +81,11 @@
     <string name="title_usercenter">用户中心</string>
 
     <!--引导页-->
+    <string name="skip">跳过 %1$dS</string>
     <string name="show_np">下一页</string>
-    <string name="show_ma">开始</string>
+    <string name="enter">进入</string>
 
     <!--主页-->
-    <string name="main_title"></string>
     <string name="getpaper">挖一下</string>
 
     <!-- 准备 -->

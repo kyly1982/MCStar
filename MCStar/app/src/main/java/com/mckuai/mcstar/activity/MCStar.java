@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.tencent.tauth.Tencent;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -64,8 +65,8 @@ public class MCStar extends Application {
         gson = new Gson();
         initImageLoader();
         readPreference();
-//        MobclickAgent.openActivityDurationTrack(false);
-//        MobclickAgent.updateOnlineConfig(this);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.updateOnlineConfig(this);
     }
 
     public void setUser(MCUser user) {
@@ -88,39 +89,44 @@ public class MCStar extends Application {
 
     public MCUser readPreference() {
         SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
-        mQQToken_Birthday = preferences.getLong(getString(R.string.preferences_tokentime), 0);
-        mQQToken_Expires = preferences.getLong(getString(R.string.preferences_tokenexpires), 0);
-        // 检查qq的token是否有效如果在有效期内则获取qqtoken
-        if (verificationTokenLife(mQQToken_Birthday, mQQToken_Expires)) {
-            user = new MCUser();
-            user.setUserName(preferences.getString(getString(R.string.preferences_username), null)); //姓名,实为qqtoken
-            user.setNickName(preferences.getString(getString(R.string.preferences_nickname), null));// 显示名
-            user.setHeadImg(preferences.getString(getString(R.string.preferences_cover), null));// 用户头像
-            user.setSex(preferences.getString(getString(R.string.preferences_six), null));// 性别
-            user.setId(preferences.getInt(getString(R.string.preferences_id), 0));                    //id
-            user.setLevel(preferences.getInt(getString(R.string.preferences_level), 0));           //level
-            user.setAllScore(preferences.getLong(getString(R.string.preferences_score), 0));     //分数
-            user.setAnswerNum(preferences.getInt(getString(R.string.preferences_answercount), 0));  //ac
-            user.setUploadNum(preferences.getInt(getString(R.string.preferences_uploadcount), 0));
+        isFirstBoot = preferences.getBoolean(getString(R.string.preferences_isFirstBoot), false);
+        if (!isFirstBoot) {
+            mQQToken_Birthday = preferences.getLong(getString(R.string.preferences_tokentime), 0);
+            mQQToken_Expires = preferences.getLong(getString(R.string.preferences_tokenexpires), 0);
+            // 检查qq的token是否有效如果在有效期内则获取qqtoken
+            if (verificationTokenLife(mQQToken_Birthday, mQQToken_Expires)) {
+                user = new MCUser();
+                user.setUserName(preferences.getString(getString(R.string.preferences_username), null)); //姓名,实为qqtoken
+                user.setNickName(preferences.getString(getString(R.string.preferences_nickname), null));// 显示名
+                user.setHeadImg(preferences.getString(getString(R.string.preferences_cover), null));// 用户头像
+                user.setSex(preferences.getString(getString(R.string.preferences_six), null));// 性别
+                user.setId(preferences.getInt(getString(R.string.preferences_id), 0));                    //id
+                user.setLevel(preferences.getInt(getString(R.string.preferences_level), 0));           //level
+                user.setAllScore(preferences.getLong(getString(R.string.preferences_score), 0));     //分数
+                user.setAnswerNum(preferences.getInt(getString(R.string.preferences_answercount), 0));  //ac
+                user.setUploadNum(preferences.getInt(getString(R.string.preferences_uploadcount), 0));
+            }
         }
         return user;
     }
 
     public void saveProfile() {
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong(getString(R.string.preferences_tokentime), mQQToken_Birthday);
-        editor.putLong(getString(R.string.preferences_tokenexpires), mQQToken_Expires);
-        editor.putInt(getString(R.string.preferences_id), user.getId());         //id
-        editor.putInt(getString(R.string.preferences_level), user.getLevel());       //level
-        editor.putLong(getString(R.string.preferences_score), user.getAllScore()); //分数
-        editor.putInt(getString(R.string.preferences_answercount), user.getAnswerNum());//ac
-        editor.putInt(getString(R.string.preferences_uploadcount), user.getUploadNum());        //uc
-        editor.putString(getString(R.string.preferences_username), user.getUserName() + "");
-        editor.putString(getString(R.string.preferences_cover), user.getHeadImg() + "");
-        editor.putString(getString(R.string.preferences_nickname), user.getNickName() + "");
-        editor.putString(getString(R.string.preferences_six), user.getSex() + "");
-        editor.commit();
+        if (null != user) {
+            SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putLong(getString(R.string.preferences_tokentime), mQQToken_Birthday);
+            editor.putLong(getString(R.string.preferences_tokenexpires), mQQToken_Expires);
+            editor.putInt(getString(R.string.preferences_id), user.getId());         //id
+            editor.putInt(getString(R.string.preferences_level), user.getLevel());       //level
+            editor.putLong(getString(R.string.preferences_score), user.getAllScore()); //分数
+            editor.putInt(getString(R.string.preferences_answercount), user.getAnswerNum());//ac
+            editor.putInt(getString(R.string.preferences_uploadcount), user.getUploadNum());        //uc
+            editor.putString(getString(R.string.preferences_username), user.getUserName() + "");
+            editor.putString(getString(R.string.preferences_cover), user.getHeadImg() + "");
+            editor.putString(getString(R.string.preferences_nickname), user.getNickName() + "");
+            editor.putString(getString(R.string.preferences_six), user.getSex() + "");
+            editor.commit();
+        }
     }
 
     public void playMusic() {

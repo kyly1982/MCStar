@@ -63,7 +63,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_LOGIN){
-            mTencent.handleLoginData(data,loginListener);
+            mTencent.handleLoginData(data, loginListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -93,7 +93,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void loginQQ(){
-//        initTencent();
         Log.e("loginQQ","start");
         if (!mTencent.isSessionValid()) {
             loginListener = new BaseUiListener() {
@@ -114,13 +113,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void handleResult(){
-        if (null != user && 0 < user.getId() && !user.getUserName().isEmpty()){
+        if (isLogin && null != user && 0 < user.getId() && !user.getUserName().isEmpty()){
             setResult(RESULT_OK);
             mApplication.saveProfile();
         } else {
             setResult(RESULT_CANCELED);
         }
-        setResult(null != user ? RESULT_OK : RESULT_CANCELED);
         this.finish();
     }
 
@@ -248,6 +246,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onSuccess(MCUser user) {
+        isLogin = true;
         MCStar.user = user;
         this.user = user;
         handleResult();

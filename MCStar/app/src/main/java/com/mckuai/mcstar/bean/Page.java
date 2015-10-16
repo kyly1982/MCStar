@@ -1,14 +1,17 @@
 package com.mckuai.mcstar.bean;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.io.Serializable;
 
 /**
  * Created by kyly on 2015/10/12.
  */
-public class Page implements Serializable{
+public class Page implements Serializable {
     int page = 0;
-    int count = 0;
-    int size =20;
+    int allCount = 0;
+    int pageSize = 20;
 
     public int getPage() {
         return page;
@@ -18,39 +21,45 @@ public class Page implements Serializable{
         this.page = page;
     }
 
-    public int getCount() {
-        return count;
+    public int getAllCount() {
+        return allCount;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setAllCount(int count) {
+        this.allCount = count;
     }
 
-    public int getSize() {
-        return size;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public boolean EOF(){
-        if (0 == count){
+    public boolean EOF() {
+        if (0 == allCount) {
             return true;
         }
 
-        int pagecount = (0 == (count % size) ? (count / size):((count / size) + 1));
+        int pagecount = (0 == (allCount % pageSize) ? (allCount / pageSize) : ((allCount / pageSize) + 1));
         return page == pagecount;
     }
 
-    public int getNextPage(){
-        if (0 == page){
-            return  1;
+    public int getNextPage() {
+        if (0 == page ||0 == allCount || allCount < pageSize) {
+            return 1;
         }
-        int pagecount = (0 == (count % size) ? (count / size):((count / size) + 1));
-        if (page < pagecount){
-            return page+1;
-        }
-        else return page;
+        int pagecount = (0 == (allCount % pageSize) ? (allCount / pageSize) : ((allCount / pageSize) + 1));
+        if (page < pagecount) {
+            return page + 1;
+        } else return page;
+    }
+
+    public Page clone(@NonNull Page page) {
+        this.page = page.getPage();
+        this.pageSize = page.getPageSize();
+        this.allCount = page.getAllCount();
+        return this;
     }
 }

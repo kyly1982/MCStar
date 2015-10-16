@@ -90,6 +90,7 @@ public class ReadyFragment extends BaseFragment {
 
             @Override
             public void onFinish() {
+                mTimeCount.setText("0");
                 ((ExaminationActivity) getActivity()).showNextFragment();
             }
         };

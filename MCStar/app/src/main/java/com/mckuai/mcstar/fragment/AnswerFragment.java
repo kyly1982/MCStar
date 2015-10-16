@@ -3,6 +3,7 @@ package com.mckuai.mcstar.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.AppCompatCheckedTextView;
@@ -47,6 +48,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ArrayList<Integer> rightQuestions = new ArrayList<>();
 
     private ImageLoader mLoader = ImageLoader.getInstance();
+    private CountDownTimer mTimer;
 
 
 
@@ -109,6 +111,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (!isChecked){
+            mTimer.cancel();
             switch (v.getId()){
                 case R.id.answerA:
                     processResult(mOption_A);
@@ -163,36 +166,46 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mLoader.displayImage(question.getIcon(),mImage);
             mImage.setVisibility(View.VISIBLE);
         } else {
-            //mImage.setVisibility(View.GONE);
+            mImage.setVisibility(View.GONE);
         }
+        mTime.setText("10");
+        countTime(10);
     }
 
     private void processResult(AppCompatCheckedTextView answer) {
         Question question = mQuestions.get(mIndex);
         String rightAnswer = question.getRightAnswer();
-        answer.setChecked(false);
         if (answer.getText().equals(rightAnswer)) {
             //答对
             rightQuestions.add(question.getId());
             score += question.getScore();
             mScore.setText(score + "");
-            handler.sendEmptyMessageDelayed(3,LOCKTIME_RIGHT);
+            handler.sendEmptyMessageDelayed(3, LOCKTIME_RIGHT);
         } else {
             //答错
             wrongQuestions.add(question.getId());
             answer.setBackgroundColor(getResources().getColor(R.color.red));
-
-            if (mOption_A.getText().equals(rightAnswer)){
-                mOption_A.setBackgroundColor(getResources().getColor(R.color.green));
-            } else if (mOption_B.getText().equals(rightAnswer)){
-                mOption_B.setBackgroundColor(getResources().getColor(R.color.green));
-            } else if (mOption_C.getText().equals(rightAnswer)){
-                mOption_C.setBackgroundColor(getResources().getColor(R.color.green));
-            } else if (mOption_D.getText().equals(rightAnswer)){
-                mOption_D.setBackgroundColor(getResources().getColor(R.color.green));
-            }
+            processWrong(question, answer);
             handler.sendEmptyMessageDelayed(2,LOCKTIME_WRONG);
         }
+    }
+
+    private void processWrong(Question question,AppCompatCheckedTextView answer){
+        wrongQuestions.add(question.getId());
+        String rightAnswer = question.getRightAnswer();
+        if (null != answer) {
+            answer.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        if (mOption_A.getText().equals(rightAnswer)){
+            mOption_A.setBackgroundColor(getResources().getColor(R.color.green));
+        } else if (mOption_B.getText().equals(rightAnswer)){
+            mOption_B.setBackgroundColor(getResources().getColor(R.color.green));
+        } else if (mOption_C.getText().equals(rightAnswer)){
+            mOption_C.setBackgroundColor(getResources().getColor(R.color.green));
+        } else if (mOption_D.getText().equals(rightAnswer)){
+            mOption_D.setBackgroundColor(getResources().getColor(R.color.green));
+        }
+        handler.sendEmptyMessageDelayed(2,LOCKTIME_WRONG);
     }
 
     private void checkExaminationFinished(boolean isUserAction){
@@ -216,6 +229,25 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             //显示时间到的信息
         }
         ((ExaminationActivity) getActivity()).showNextFragment();
+    }
+
+    private void countTime(int time){
+        if (null == mTimer){
+            mTimer = new CountDownTimer(time * 1000,1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    mTime.setText(millisUntilFinished/ 1000 +"" );
+                }
+
+                @Override
+                public void onFinish() {
+                    mTime.setText("0");
+                    isChecked = true;
+                    processWrong(mQuestions.get(mIndex),null);
+                }
+            };
+        }
+        mTimer.start();
     }
 
     Handler handler = new Handler() {

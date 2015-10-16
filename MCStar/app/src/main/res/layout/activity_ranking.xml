@@ -11,16 +11,18 @@
         android:id="@+id/toolbar_layout"
         layout="@layout/toolbar" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@mipmap/image_other"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:id="@+id/myinfo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:background="@color/background_image"
+            android:visibility="gone"
             android:paddingLeft="@dimen/divi_height"
             android:paddingRight="@dimen/divi_height">
 
@@ -31,29 +33,48 @@
                 android:layout_centerInParent="true"
                 />
 
-            <android.support.v7.widget.AppCompatTextView
+            <RelativeLayout
+                android:id="@+id/layout_myranking"
                 android:layout_width="@dimen/ranklable_width"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/v_center"
-                android:gravity="center"
-                android:textColor="@color/fontcolor_Primary"
-                android:textSize="@dimen/fontsize_smal"
-                android:text="@string/NO."/>
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/myranking"
-                android:layout_width="@dimen/ranklable_width"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/v_center"
-                android:textColor="@color/fontcolor_Primary"
-                android:gravity="center"
-                android:textSize="@dimen/fontsize_big"
-                android:text="14"/>
+                android:layout_height="@dimen/option_height"
+                android:paddingLeft="@dimen/divi_height"
+                >
+
+                <View
+                    android:id="@+id/v_cent9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/myrank_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/v_cent9"
+                    android:textColor="@color/fontcolor_Primary"
+                    android:textSize="@dimen/fontsize_smal"
+                    android:text="@string/NO."/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/myranking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/myrank_layout"
+                    android:layout_alignRight="@id/myrank_layout"
+                    android:gravity="center"
+                    android:layout_below="@id/v_cent9"
+                    android:textColor="@color/fontcolor_Primary"
+                    android:textSize="@dimen/fontsize_big"
+                    android:text="14"/>
+
+            </RelativeLayout>
+
+
 
             <ImageView
                 android:id="@+id/mycover"
                 android:layout_width="@dimen/usercover_diameter_small"
                 android:layout_height="@dimen/usercover_diameter_small"
-                android:layout_toRightOf="@id/myranking"
+                android:layout_toRightOf="@id/layout_myranking"
                 android:layout_marginLeft="@dimen/divi_height"
                 android:layout_marginRight="@dimen/divi_height"
                 android:layout_centerVertical="true"
@@ -69,7 +90,7 @@
                 android:singleLine="true"
                 android:textColor="@color/fontcolor_Primary"
                 android:textSize="@dimen/fontsize_big"
-                android:text="用户名"/>
+                android:text="@string/myself"/>
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/myscore"
@@ -87,12 +108,12 @@
         <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
             android:id="@+id/rankinglist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/myinfo"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:paddingLeft="@dimen/divi_height"
             android:paddingRight="@dimen/divi_height"
             app:recyclerviewEmptyView="@layout/view_empty">
             </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

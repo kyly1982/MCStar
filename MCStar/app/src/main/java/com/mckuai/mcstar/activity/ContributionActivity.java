@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.github.magiepooh.recycleritemdecoration.ItemDecorations;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.marshalchen.ultimaterecyclerview.ui.DividerItemDecoration;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.ContributionAdapter;
 import com.mckuai.mcstar.bean.Page;
@@ -40,12 +41,9 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     @Override
     protected void onResume() {
-        Log.e("LT", "onResume");
         super.onResume();
         if (null == mList) {
             initView();
-        }
-        if (null == mQuestions) {
             loadData();
         }
     }
@@ -53,7 +51,11 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     private void initView() {
         initToolBar();
         mList = (UltimateRecyclerView) findViewById(R.id.questionlist);
-        mList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mList.setLayoutManager(manager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+        mList.addItemDecoration(dividerItemDecoration);
         mList.enableLoadmore();
         mList.enableDefaultSwipeRefresh(true);
         mList.setOnLoadMoreListener(this);

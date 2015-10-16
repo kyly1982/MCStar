@@ -1,5 +1,7 @@
 package com.mckuai.mcstar.bean;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,20 @@ public class MCUser implements Serializable {
 
     public MCUser(){
 
+    }
+
+    public MCUser clone(@NonNull MCUser user){
+        this.id = user.getId();
+        this.uploadNum = user.getUploadNum();
+        this.answerNum = user.getAnswerNum();
+        this.level = user.getLevel();
+        this.allScore = user.getAllScore();
+        this.ranking = user.getRanking();
+        this.userName = user.getUserName();
+        this.nickName = user.getNickName();
+        this.headImg = user.getHeadImg();
+        this.sex = user.getSex();
+        return this;
     }
 
     public int getId() {
@@ -101,4 +117,6 @@ public class MCUser implements Serializable {
     public void setRanking(long ranking) {
         this.ranking = ranking;
     }
+
+
 }

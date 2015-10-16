@@ -36,15 +36,15 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/timer"
-        android:layout_width="72dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
+        android:paddingRight="10dp"
         android:singleLine="true"
-        android:maxLength="5"
+        android:maxLength="3"
         android:textSize="@dimen/fontsize_title"
-        android:text="99.99"
+        android:text="10"
         />
 
     <ImageView

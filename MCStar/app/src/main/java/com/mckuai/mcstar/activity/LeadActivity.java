@@ -2,6 +2,7 @@ package com.mckuai.mcstar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
@@ -14,12 +15,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 
 public class LeadActivity extends BaseActivity implements View.OnClickListener{
-    ImageView mImageView;
-    AppCompatButton mBtn_Next;
-    ArrayList<ImageView> mIndications;
-    ArrayList<String> urls;
+    private ImageView mImageView;
+    private AppCompatButton mBtn_Next;
+    private ArrayList<ImageView> mIndications;
+    private ArrayList<String> urls;
     int mLastPosition = 0;
     static final String TAG = "LA";
+    private CountDownTimer timer;
+    private ImageLoader mLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +36,40 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         super.onResume();
         mApplication.init();
         init();
+        if (!mApplication.isFirstBoot) {
+            countTime();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    private void countTime(){
+        timer = new CountDownTimer(2500,500) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mBtn_Next.setText(getString(R.string.skip,millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                showMainActivity();
+            }
+        };
+        timer.start();
+    }
+
+    private void showMainActivity(){
+        timer.cancel();
+        mLoader.cancelDisplayTask(mImageView);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        this.finish();
+
     }
 
     private void init(){
@@ -79,20 +111,17 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
             mLastPosition++;
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
         }
-        ImageLoader loader = ImageLoader.getInstance();
-        loader.displayImage(urls.get(mLastPosition),mImageView);
+        mLoader = ImageLoader.getInstance();
+        mLoader.displayImage(urls.get(mLastPosition),mImageView);
         if (mLastPosition == urls.size() -1){
-            mBtn_Next.setText(R.string.show_ma);
+            mBtn_Next.setText(R.string.enter);
         }
     }
 
     @Override
     public void onClick(View v) {
         if (mLastPosition == urls.size() - 1) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            this.finish();
+            showMainActivity();
         }else {
             showImage();
         }
