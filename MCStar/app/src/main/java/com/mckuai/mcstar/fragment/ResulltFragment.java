@@ -19,7 +19,10 @@ import com.mckuai.mcstar.activity.BaseActivity;
 import com.mckuai.mcstar.activity.LoginActivity;
 import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.utils.NetInterface;
+import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.socialize.controller.UMServiceFactory;
 
 import java.util.ArrayList;
 
@@ -36,6 +39,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     private ImageView mCover_pre;
     private ImageView mCover_next;
     private ImageView mCover;
+    private ImageView mReExam;
+    private ImageView mShare;
 
     private RelativeLayout user_pre;
     private RelativeLayout user_next;
@@ -44,11 +49,14 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private int score;
     private boolean isLoading = false;
+    private boolean isUploaded = false;
     private ArrayList<Integer> rightQuestionId;
     private ArrayList<Integer> wrongQuestionId;
 
-    private MCUser user_p,user_n;
+    private MCUser user_p, user_n;
     private ImageLoader mLoader;
+    private com.umeng.socialize.controller.UMSocialService mShareService;
+    private DisplayImageOptions options;
 
 
     public ResulltFragment() {
@@ -58,7 +66,10 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_resullt, container, false);
+        view = inflater.inflate(R.layout.fragment_resullt, container, false);;
+        mShareService = UMServiceFactory.getUMSocialService("com.umeng.share");
+        options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
+        mLoader = ImageLoader.getInstance();
         return view;
     }
 
@@ -74,6 +85,9 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
                 initView();
             }
             showData(false);
+            if (mApplication.isLogined()){
+                updateResult();
+            }
         }
     }
 
@@ -84,16 +98,31 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         }
     }
 
+    private void shareScore(){
+        if (isUploaded){
+            mShareService.setShareContent(getString(R.string.share_title_scorewithrank));
+            mShareService.setShareContent(getString(R.string.share_content_scorewithrank, mApplication.user.getRanking()));
+        } else {
+            mShareService.setShareContent(getString(R.string.share_title_score));
+            mShareService.setShareContent(getString(R.string.share_content_score, mApplication.user.getRanking()));
+        }
+//        mShareService.setShareImage();
+        mShareService.openShare(getActivity(),false);
+    }
+
     private void showData(boolean isUploading) {
         if (!isUploading) {
             mScore.setText("" + score);
+            if (mApplication.isLogined() && null != mApplication.user.getHeadImg()){
+                mLoader.displayImage(mApplication.user.getHeadImg(),mCover,options);
+            }
         } else {
-            if (null != user_p){
-                showUserInfo(user_p,mRank_pre,mScore_pre,mCover_pre);
+            if (null != user_p) {
+                showUserInfo(user_p, mRank_pre, mScore_pre, mCover_pre);
                 user_pre.setVisibility(View.VISIBLE);
             }
-            if (null != user_n){
-                showUserInfo(user_n,mRank_next,mScore_next,mCover_next);
+            if (null != user_n) {
+                showUserInfo(user_n, mRank_next, mScore_next, mCover_next);
                 user_next.setVisibility(View.VISIBLE);
             }
             showUserInfo(mApplication.user, mRank, mScore, mCover);
@@ -101,11 +130,11 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         }
     }
 
-    private void showUserInfo(MCUser user,AppCompatTextView rank,AppCompatTextView score,ImageView cover){
-        rank.setText(user.getRanking()+"");
-        score.setText(user.getAllScore()+"");
+    private void showUserInfo(MCUser user, AppCompatTextView rank, AppCompatTextView score, ImageView cover) {
+        rank.setText((user.getRanking() + 1) +"");
+        score.setText(user.getAllScore() + "");
         if (null != user.getHeadImg() && 10 < user.getHeadImg().length()) {
-            mLoader.displayImage(user.getHeadImg(), cover);
+            mLoader.displayImage(user.getHeadImg(), cover,options);
         }
     }
 
@@ -129,22 +158,38 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         mCover_pre = (ImageView) view.findViewById(R.id.cover_pre);
         mCover_next = (ImageView) view.findViewById(R.id.cover_next);
         mCover = (ImageView) view.findViewById(R.id.cover_mine);
+        mReExam = (ImageView) view.findViewById(R.id.reexam);
+        mShare = (ImageView) view.findViewById(R.id.sharescore);
         user_pre = (RelativeLayout) view.findViewById(R.id.user_pre);
         user_next = (RelativeLayout) view.findViewById(R.id.user_next);
         user_mine = (RelativeLayout) view.findViewById(R.id.layout_ranking_mine);
         mCover.setOnClickListener(this);
+        mReExam.setOnClickListener(this);
+        mShare.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (!isLoading && mApplication.isLogined()) {
-            if (!isLoading) {
-                updateResult();
-            }
-        } else {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivityForResult(intent, 1);
+        switch (v.getId()) {
+            case R.id.cover_mine:
+                if (!isLoading && mApplication.isLogined()) {
+                    if (!isLoading && !isUploaded) {
+                        updateResult();
+                    }
+                } else {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+                break;
+            case R.id.reexam:
+                getActivity().setResult(Activity.RESULT_OK);
+                getActivity().finish();
+                break;
+            case R.id.sharescore:
+                shareScore();
+                break;
         }
+
     }
 
     @Override

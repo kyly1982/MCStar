@@ -1,23 +1,33 @@
 package com.mckuai.mcstar.activity;
 
-import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
+import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.utils.NetInterface;
+import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener {
     private boolean isLoading = false;
     private static final int REQUEST_USERCENTER = 1;
     private static final int REQUEST_CONTRIBUTION = 2;
     private static final int REQUEST_RANKING = 3;
+    private static final int REQUEST_ANSWER = 4;
+    private Bitmap mUserCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onResume();
         initToolBar();
         findViewById(R.id.btn_getpaper).setOnClickListener(this);
+        showUserInfo();
     }
 
     @Override
@@ -100,6 +111,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         isLoading = true;
     }
 
+    private void showUserInfo(){
+        if (mApplication.isLogined()){
+            String url = (String) mToolBar.getTag();
+            String cover = mApplication.user.getHeadImg();
+            if (null == cover || (null != url && url.equals(cover))){
+                return;
+            }
+            ImageView imageView = new ImageView(this);
+
+            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
+            ImageLoader loader = ImageLoader.getInstance();
+            loader.loadImage(cover, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    if (null != loadedImage){
+                        BitmapDrawable drawable = (BitmapDrawable) mToolBar.getNavigationIcon();
+                        mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmap(loadedImage)));
+                    }
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+
+                }
+            });
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -117,6 +166,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     intent = new Intent(this, UserCenterActivity.class);
                     startActivity(intent);
                     break;
+                case REQUEST_ANSWER:
+                    loadData();
             }
         }
     }
@@ -128,7 +179,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Bundle bundle = new Bundle();
         bundle.putSerializable(getString(R.string.tag_paper), paper);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent,REQUEST_ANSWER);
     }
 
     @Override

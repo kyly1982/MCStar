@@ -21,6 +21,7 @@ public class ExaminationActivity extends BaseActivity {
     public static int score = 0;
     public static ArrayList<Integer> rightQuestions;
     public static ArrayList<Integer> wrongQuestions;
+    public static boolean examinationAGain = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class ExaminationActivity extends BaseActivity {
             this.finish();
         }
     }
+
 
     @Override
     public void initToolBar() {

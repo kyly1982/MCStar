@@ -107,6 +107,7 @@
                     android:id="@+id/questionimage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questionimage_height"
+                    android:clickable="true"
                     android:layout_below="@id/questiontopic"
                     android:layout_margin="@dimen/divi_height"
                     android:background="@drawable/background_newquestion_image"

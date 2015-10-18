@@ -14,6 +14,7 @@
     <string name="tag_score">SCORE</string>
     <string name="tag_rightquestion">RIGHTQUESTIONSID</string>
     <string name="tag_wrongquestion">WRONGRUESTIONSID</string>
+    <string name="tag_usercover">USER_COVER</string>
     <!--其它-->
     <string name="correct">对</string>
     <string name="wrong">错</string>
@@ -140,5 +141,13 @@
 
     <!--空数据-->
     <string name="data_empty">暂时还没有内容，向下动拉刷新！</string>
+
+    <!--分享-->
+    <string name="share_title_score">只有分数的分享</string>
+    <string name="share_title_scorewithrank">有分数和排行数据的分享</string>
+    <string name="share_title_usercenter">用户中心分享</string>
+    <string name="share_content_score">我获得了%1$d分，来PK一下吧！</string>
+    <string name="share_content_scorewithrank">我已经是第%1$d名了，你敢来PK一下吗！</string>
+    <string name="share_content_usercenter">我获得了%1$d分，来PK一下吧！</string>
 
 </resources>

@@ -18,24 +18,47 @@
             android:layout_centerInParent="true" />
 
         <ImageView
-            android:id="@+id/getpaper"
+            android:id="@+id/reexam"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@id/v_center_3"
             android:background="@color/background_item"
+            android:clickable="true"
             android:scaleType="center"
             android:src="@mipmap/btn_wa_green" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/reexam"
+            android:layout_alignRight="@id/reexam"
+            android:layout_alignBottom="@id/reexam"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/fontcolor_Primary"
+            android:text="@string/regetpaper"/>
 
         <ImageView
-            android:id="@+id/share"
+            android:id="@+id/sharescore"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@id/v_center_3"
+            android:clickable="true"
             android:background="@color/green"
             android:scaleType="center"
             android:src="@mipmap/btn_share" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/sharescore"
+            android:layout_alignRight="@id/sharescore"
+            android:layout_alignBottom="@id/sharescore"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/fontcolor_Primary"
+            android:text="@string/flaunt"/>
     </RelativeLayout>
 
     <RelativeLayout
