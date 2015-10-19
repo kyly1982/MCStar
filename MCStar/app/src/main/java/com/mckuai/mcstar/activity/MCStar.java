@@ -3,6 +3,7 @@ package com.mckuai.mcstar.activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Log;
@@ -33,20 +34,21 @@ public class MCStar extends Application {
     public static MCUser user;
     public static AsyncHttpClient client;
     public static Gson gson;
-
     public long mQQToken_Birthday;
     public long mQQToken_Expires;
     public boolean isFirstBoot = false;
-    public Tencent mTencent;
+    public static Bitmap cover;
 
 
     private final int IMAGE_POOL_SIZE = 3;// 线程池数量
     private final int CONNECT_TIME = 15 * 1000;// 连接时间
     private final int TIME_OUT = 30 * 1000;// 超时时间
+
     private String mCacheDir;
     private MediaPlayer mPlayer;
     private DisplayImageOptions mCircleOption;
     private DisplayImageOptions mNormalOption;
+    private int iconHeigth;
 
 
     public static MCStar getInstance() {
@@ -233,5 +235,13 @@ public class MCStar extends Application {
 
     private boolean verificationTokenLife(Long birthday, long expires) {
         return (System.currentTimeMillis() - birthday) < expires * 1000;
+    }
+
+    public int getIconHeigth() {
+        return iconHeigth;
+    }
+
+    public void setIconHeigth(int iconHeigth) {
+        this.iconHeigth = iconHeigth;
     }
 }

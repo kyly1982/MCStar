@@ -1,7 +1,9 @@
 package com.mckuai.mcstar.utils;
 
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.hardware.usb.UsbRequest;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.apache.http.Header;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -193,42 +198,42 @@ public class NetInterface {
                 if (result.isSuccess) {
                     listener.onSuccess();
                 } else {
-                    listener.onFalse(result.msg);
+                    listener.onFalse(4,result.msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+                listener.onFalse(4,context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
 
     }
 
-    public static void uploadPic(@NonNull final Context context, @NonNull MCUser user, @NonNull String filepath, @NonNull final OnUploadPicsListener listener) {
+    public static void uploadPic(@NonNull final Context context, @NonNull MCUser user, @NonNull Bitmap bitmap, @NonNull final OnUploadPicsListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_upload_pic);
-        File file = new File(filepath);
-        if (null != file && file.exists() && file.isFile()) {
+//        String url = "http://192.168.10.106/" + context.getString(R.string.interface_upload_pic);
+        if (null != bitmap) {
             RequestParams params = new RequestParams();
-            params.put("", "");
+            params.put("upload", Bitmap2IS(bitmap),"01.jpg","image/jpeg");
             MCStar.client.post(context, url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     PretreatmentResult result = pretreatmentResponse(context, response);
                     if (result.isSuccess) {
-                        listener.onSuccess("");
+                        listener.onSuccess(result.msg);
                     } else {
-                        listener.onFalse(result.msg);
+                        listener.onFalse(3,result.msg);
                     }
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+                    listener.onFalse(3,context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
                 }
             });
         } else {
-            listener.onFalse("图片不存在！");
+            listener.onFalse(3,"图片不存在！");
         }
 
 
@@ -359,7 +364,7 @@ public class NetInterface {
     public static interface OnUploadQuestionListener {
         void onSuccess();
 
-        void onFalse(String msg);
+        void onFalse(int requestCode,String msg);
     }
 
     public static interface OnGetRankingListener {
@@ -371,7 +376,7 @@ public class NetInterface {
     public static interface OnUploadPicsListener {
         void onSuccess(String url);
 
-        void onFalse(String msg);
+        void onFalse(int requestCode,String msg);
     }
 
     static class PretreatmentResult {
@@ -406,6 +411,14 @@ public class NetInterface {
         }
 
         return result;
+    }
+
+    private static InputStream Bitmap2IS(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        InputStream sbs = new ByteArrayInputStream(baos.toByteArray());
+        return sbs;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.mckuai.mcstar.fragment;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -18,7 +20,12 @@ import android.widget.ImageView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.bean.Question;
+import com.mckuai.mcstar.utils.CircleBitmap;
+import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 
@@ -48,6 +55,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ArrayList<Integer> rightQuestions = new ArrayList<>();
 
     private ImageLoader mLoader = ImageLoader.getInstance();
+    private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
     private CountDownTimer mTimer;
 
 
@@ -76,13 +84,13 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mIndex = 0;
             showQuestion();
         }
-        //mQuestions = ((ExaminationActivity) getActivity()).paper.getQuestion();
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mTimer.cancel();
         handler.removeMessages(1);
         handler.removeMessages(2);
         handler.removeMessages(3);
@@ -101,6 +109,34 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mOption_D = (AppCompatCheckedTextView) view.findViewById(R.id.answerD);
         mImage = (ImageView) view.findViewById(R.id.answer_questionimage);
         mScore.setText("0");
+        if (null != mApplication.cover){
+            mCover.setImageBitmap(mApplication.cover);
+        /*if (mApplication.isLogined() && null != mApplication.user.getHeadImg()) {
+            mLoader.loadImage(mApplication.user.getHeadImg(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    Log.e("toolbar","width="+mCover.getDrawable().getMinimumHeight());
+                    if (null != loadedImage) {
+                        mCover.setImageBitmap(CircleBitmap.getCircleBitmap(loadedImage,mApplication.getIconHeigth()));
+                    }
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+
+                }
+            });*/
+        }
 
         mOption_A.setOnClickListener(this);
         mOption_B.setOnClickListener(this);
@@ -164,6 +200,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mContributioner.setText(getString(R.string.contributor,question.getAuthorName()));
         if (null != question.getIcon() && 10 < question.getIcon().length()){
             mLoader.displayImage(question.getIcon(),mImage);
+            mImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             mImage.setVisibility(View.VISIBLE);
         } else {
             mImage.setVisibility(View.GONE);
@@ -247,6 +284,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 }
             };
         }
+        mTime.setText(time+"");
         mTimer.start();
     }
 

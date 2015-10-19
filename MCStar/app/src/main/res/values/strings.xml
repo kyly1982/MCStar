@@ -46,7 +46,7 @@
     <!--上传问题-->
     <string name="interface_upload">interface.do?act=uploadQuestion</string>
     <!--上传图片-->
-    <string name="interface_upload_pic">interface.do?act=uploadQuestion</string>
+    <string name="interface_upload_pic">interface.do?act=uploadImg</string>
     <!--贡献列表，参数 userId=2&page=1-->
     <string name="interface_contribution">interface.do?act=uploadList</string>
     <!--排行榜，参数userId=2&page=1-->

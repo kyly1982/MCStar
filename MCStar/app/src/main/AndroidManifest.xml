@@ -70,7 +70,8 @@
         <activity
             android:name=".activity.QuestionActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.ContributionActivity" >
+            android:parentActivityName=".activity.ContributionActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mckuai.mcstar.activity.ContributionActivity" />

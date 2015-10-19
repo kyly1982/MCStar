@@ -81,7 +81,6 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
             mList.setAdapter(mAdapter);
         }
         mAdapter.setData(mQuestions);
-        Log.e("SD", "显示");
     }
 
     @Override

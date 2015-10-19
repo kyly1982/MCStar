@@ -29,7 +29,8 @@
     <dimen name="userlist_height">43dp</dimen>
     <dimen name="readarea_height">160dp</dimen>
     <!--answer-->
-    <dimen name="image_height">135dp</dimen>
+    <dimen name="image_height">130dp</dimen>
+    <dimen name="image_width">336dp</dimen>
     <dimen name="option_height">49dp</dimen>
     <!--result-->
     <dimen name="otheruser_height">65dp</dimen>

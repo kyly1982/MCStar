@@ -96,23 +96,36 @@
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_topic"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/questiontopic_height"
                         android:textColor="@color/fontcolor_bottomhint"
                         android:textColorHint="@color/fontcolor_bottomhint"
-                        android:hint="题目"/>
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:maxLength="50"
+                        android:background="@color/white"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/questionimage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questionimage_height"
-                    android:clickable="true"
                     android:layout_below="@id/questiontopic"
                     android:layout_margin="@dimen/divi_height"
                     android:background="@drawable/background_newquestion_image"
                     android:scaleType="center"
+
                     android:src="@mipmap/image_questionimage" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/questionimage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/question_imagehint"
+                    android:textColor="@color/fontcolor_bottomhint"
+                    />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_a"
@@ -126,11 +139,14 @@
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_option_a"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
                         android:textColor="@color/fontcolor_bottomhint"
                         android:textColorHint="@color/fontcolor_bottomhint"
-                        android:hint="正确答案"/>
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -145,11 +161,14 @@
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_option_b"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
                         android:textColor="@color/fontcolor_bottomhint"
                         android:textColorHint="@color/fontcolor_bottomhint"
-                        android:hint="错误答案"/>
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -164,11 +183,14 @@
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_option_c"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
                         android:textColor="@color/fontcolor_bottomhint"
                         android:textColorHint="@color/fontcolor_bottomhint"
-                        android:hint="错误答案" />
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:maxLength="10" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -183,11 +205,14 @@
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_option_d"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
                         android:textColor="@color/fontcolor_bottomhint"
                         android:textColorHint="@color/fontcolor_bottomhint"
-                        android:hint="错误答案"/>
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
             </RelativeLayout>

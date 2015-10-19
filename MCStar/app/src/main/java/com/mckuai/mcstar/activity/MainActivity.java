@@ -9,14 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.utils.NetInterface;
-import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -27,7 +24,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int REQUEST_CONTRIBUTION = 2;
     private static final int REQUEST_RANKING = 3;
     private static final int REQUEST_ANSWER = 4;
-    private Bitmap mUserCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +34,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-        initToolBar();
-        findViewById(R.id.btn_getpaper).setOnClickListener(this);
-        showUserInfo();
+        if (null == mToolBar) {
+            initToolBar();
+            findViewById(R.id.btn_getpaper).setOnClickListener(this);
+        }
+        if (mApplication.isLogined()) {
+            showUserInfo();
+        }
     }
 
     @Override
@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mToolBar.setOnMenuItemClickListener(this);
         mToolBar.setNavigationOnClickListener(this);
         mTitle.setText(R.string.title_main);
+        mApplication.setIconHeigth(mToolBar.getNavigationIcon().getMinimumHeight());
     }
 
     @Override
@@ -111,42 +112,43 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         isLoading = true;
     }
 
-    private void showUserInfo(){
-        if (mApplication.isLogined()){
-            String url = (String) mToolBar.getTag();
-            String cover = mApplication.user.getHeadImg();
-            if (null == cover || (null != url && url.equals(cover))){
-                return;
-            }
-            ImageView imageView = new ImageView(this);
-
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
-            ImageLoader loader = ImageLoader.getInstance();
-            loader.loadImage(cover, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    if (null != loadedImage){
-                        BitmapDrawable drawable = (BitmapDrawable) mToolBar.getNavigationIcon();
-                        mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmap(loadedImage)));
-                    }
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-
-                }
-            });
+    private void showUserInfo() {
+        String url = (String) mToolBar.getTag();
+        final String cover = mApplication.user.getHeadImg();
+        if (null == cover || (null != url && url.equals(cover))) {
+            return;
         }
+        ImageLoader loader = ImageLoader.getInstance();
+        loader.loadImage(cover, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (null != loadedImage) {
+                    //int width = mToolBar.getNavigationIcon().getMinimumHeight();
+                    //Log.e("NavigationIcon", "width=" + width);
+//                        mUserCover = CircleBitmap.getCircleBitmap(loadedImage,mToolBar.getNavigationIcon().getMinimumWidth());
+                    mApplication.cover = CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth()).copy(loadedImage.getConfig(), true);
+//                    showUserInfo();
+                    mToolBar.setNavigationIcon(new BitmapDrawable(CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
+                    mToolBar.setTag(cover);
+//                        mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mApplication.getIconHeigth())));
+                }
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+            }
+        });
     }
 
     @Override
@@ -179,7 +181,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Bundle bundle = new Bundle();
         bundle.putSerializable(getString(R.string.tag_paper), paper);
         intent.putExtras(bundle);
-        startActivityForResult(intent,REQUEST_ANSWER);
+        startActivityForResult(intent, REQUEST_ANSWER);
     }
 
     @Override
