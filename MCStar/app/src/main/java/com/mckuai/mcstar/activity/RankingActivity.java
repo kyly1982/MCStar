@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class RankingActivity extends BaseActivity implements UltimateRecyclerView.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,NetInterface.OnGetRankingListener {
 
     private AppCompatTextView mRank;
-//    private AppCompatTextView mName;
+    private AppCompatTextView mNo;
     private AppCompatTextView mScore;
     private ImageView mCover;
     private UltimateRecyclerView mList;
@@ -69,6 +69,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
 
     private void initView() {
         mRank = (AppCompatTextView) findViewById(R.id.myranking);
+        mNo = (AppCompatTextView) findViewById(R.id.myrank_layout);
 //        mName = (AppCompatTextView) findViewById(R.id.myname);
         mScore = (AppCompatTextView) findViewById(R.id.myscore);
         mCover = (ImageView) findViewById(R.id.mycover);
@@ -101,6 +102,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
                 mRank.setText((user.getRanking() +1) + "");
                 //mName.setText(user.getNickName() + "");
                 mScore.setText(getString(R.string.scores,user.getAllScore()));
+                mNo.setVisibility(View.VISIBLE);
             }
             if (null != user.getHeadImg() && 10 < user.getHeadImg().length()) {
                 mLoader.displayImage(user.getHeadImg(),mCover,options);
