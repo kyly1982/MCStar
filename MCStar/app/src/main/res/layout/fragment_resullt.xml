@@ -4,291 +4,262 @@
     android:layout_height="match_parent"
     tools:context="com.mckuai.mcstar.fragment.ResulltFragment">
 
-    <RelativeLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
+    <View
+        android:id="@+id/v_cent4"
+        android:layout_width="1px"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/reexam"
+        android:layout_width="0dp"
         android:layout_height="@dimen/bottom_height"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:layout_toLeftOf="@id/v_cent4"
+        android:drawableLeft="@mipmap/btn_wa_green"
+        android:paddingLeft="@dimen/bottom_btn_padding"
+        android:paddingRight="@dimen/bottom_btn_padding"
+        android:background="@color/green"
+        android:text="@string/regetpaper"
+        android:textColor="@color/primary_text" />
 
-        <View
-            android:id="@+id/v_center_3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true" />
+    <TextView
+        android:id="@+id/sharescore"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_toRightOf="@id/v_cent4"
+        android:drawableLeft="@mipmap/btn_share"
+        android:paddingLeft="@dimen/bottom_btn_padding"
+        android:paddingRight="@dimen/bottom_btn_padding"
+        android:background="@color/green"
+        android:text="@string/flaunt"
+        android:textColor="@color/primary_text" />
 
-        <ImageView
-            android:id="@+id/reexam"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/v_center_3"
-            android:background="@color/background_item"
-            android:clickable="true"
-            android:scaleType="center"
-            android:src="@mipmap/btn_wa_green" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/reexam"
-            android:layout_alignRight="@id/reexam"
-            android:layout_alignBottom="@id/reexam"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/fontcolor_Primary"
-            android:text="@string/regetpaper"/>
 
-        <ImageView
-            android:id="@+id/sharescore"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/v_center_3"
-            android:clickable="true"
-            android:background="@color/green"
-            android:scaleType="center"
-            android:src="@mipmap/btn_share" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/sharescore"
-            android:layout_alignRight="@id/sharescore"
-            android:layout_alignBottom="@id/sharescore"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/fontcolor_Primary"
-            android:text="@string/flaunt"/>
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@id/bottom"
-        android:layout_alignParentTop="true">
+        android:paddingLeft="@dimen/padding_horizontal"
+        android:paddingRight="@dimen/padding_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/reexam"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/user_mine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/my_height"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/padding_vertical"
+            android:layout_marginBottom="@dimen/padding_vertical"
+            android:background="@color/item">
 
             <RelativeLayout
-                android:id="@+id/user_pre"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/otheruser_height"
-                android:layout_marginLeft="@dimen/divi_height"
-                android:layout_marginRight="@dimen/divi_height"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:background="@color/background_item"
-                android:visibility="gone">
+                android:id="@+id/layout_ranking_mine"
+                android:layout_width="@dimen/ranking_width"
+                android:layout_height="@dimen/ranking_height"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/img_ranking"
+                android:visibility="visible">
 
-                <View
-                    android:id="@+id/v_cent6"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_centerInParent="true" />
-
-                <ImageView
-                    android:id="@+id/cover_pre"
-                    android:layout_width="@dimen/usercover_diameter_small"
-                    android:layout_height="@dimen/usercover_diameter_small"
-                    android:layout_centerInParent="true"
-                    android:scaleType="fitXY"/>
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/no_frontuser"
+                    android:id="@+id/rankno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@id/v_cent6"
-                    android:singleLine="true"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_smal"
-                    android:text="NO." />
+                    android:layout_marginTop="@dimen/padding_vertical"
+                    android:paddingBottom="@dimen/divi_height"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/NO."
+                    android:textColor="@color/fifth_text"
+                    android:textSize="@dimen/fontsize_smal" />
+
+
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/ranking_pre"
+                    android:id="@+id/ranking_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/v_cent6"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_big"
-                    android:text="127" />
+                    android:layout_below="@id/rankno"
+                    android:layout_centerHorizontal="true"
+                    android:text="128"
+                    android:textColor="@color/fifth_text"
+                    android:textSize="@dimen/fontsize_big" />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/cover_pre"
-                    android:layout_toRightOf="@id/ranking_pre"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="@string/transcend" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/score_pre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="166分" />
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/user_mine"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/my_height"
-                android:background="@color/colorPrimary"
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/score_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="64dp"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_stress" />
+
+
+            <ImageView
+                android:id="@+id/cover_mine"
+                android:layout_width="@dimen/usercover_diameter_big"
+                android:layout_height="@dimen/usercover_diameter_big"
+                android:layout_above="@id/score_mine"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/img_cover_ring_purple"
+                android:clickable="true" />
+
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/score_mine"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/score_mine"
+                android:gravity="bottom"
+                android:paddingBottom="8dp"
+                android:text="分"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/user_pre"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_user_height"
+            android:layout_above="@id/user_mine"
+            android:background="@color/item_light"
+            android:paddingLeft="@dimen/padding_horizontal"
+            android:paddingRight="@dimen/padding_horizontal"
+            android:visibility="visible">
+
+            <View
+                android:id="@+id/v_cent6"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/cover_pre"
+                android:layout_width="@dimen/usercover_diameter_small"
+                android:layout_height="@dimen/usercover_diameter_small"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/no_frontuser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/v_cent6"
+                android:singleLine="true"
+                android:text="NO."
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_smal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ranking_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v_cent6"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_big" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/divi_height">
+                android:layout_toLeftOf="@id/cover_pre"
+                android:layout_toRightOf="@id/no_frontuser"
+                android:gravity="center"
+                android:textColor="@color/third_text"
+                android:text="@string/transcend" />
 
-                <View
-                    android:id="@+id/v_center_4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/divi_height"
-                    android:layout_marginBottom="@dimen/divi_height"
-                    android:layout_centerInParent="true"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/score_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textColor="@color/primary_text" />
 
-                <RelativeLayout
-                    android:id="@+id/layout_ranking_mine"
-                    android:layout_width="@dimen/ranking_width"
-                    android:layout_height="@dimen/ranking_height"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="@color/green"
-                    android:visibility="visible"
-                    >
+        </RelativeLayout>
 
-                    <View
-                        android:id="@+id/v_cent8"
-                        android:layout_width="0dp"
-                        android:layout_height="2dp"
-                        android:layout_centerInParent="true"
-                        />
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/ranking_mine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/v_cent8"
-                        android:textColor="@color/fontcolor_Primary"
-                        android:textSize="@dimen/fontsize_big"
-                        android:text="128"/>
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/ranking_mine"
-                        android:text="@string/NO."
-                        android:textSize="@dimen/fontsize_smal"
-                        android:textColor="@color/fontcolor_Primary"
-                        android:layout_above="@id/v_cent8"/>
+        <RelativeLayout
+            android:id="@+id/user_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_user_height"
+            android:layout_below="@id/user_mine"
+            android:background="@color/item_dark"
+            android:paddingLeft="@dimen/padding_horizontal"
+            android:paddingRight="@dimen/padding_horizontal"
+            android:visibility="visible">
 
-                </RelativeLayout>
+            <View
+                android:id="@+id/v_cent7"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true" />
 
+            <ImageView
+                android:id="@+id/cover_next"
+                android:layout_width="@dimen/usercover_diameter_small"
+                android:layout_height="@dimen/usercover_diameter_small"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY" />
 
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/no_backuser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/v_cent7"
+                android:singleLine="true"
+                android:text="NO."
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_smal" />
 
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ranking_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v_cent7"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_big" />
 
-                <ImageView
-                    android:id="@+id/cover_mine"
-                    android:layout_width="@dimen/usercover_diameter_big"
-                    android:layout_height="@dimen/usercover_diameter_big"
-                    android:layout_centerHorizontal="true"
-                    android:clickable="true"
-                    android:background="@mipmap/image_cover_ring_purple"
-                    android:layout_above="@id/v_center_4"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/score_mine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/v_center_4"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="@dimen/fontsize_stress"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="152"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/v_center_4"
-                    android:layout_toRightOf="@id/score_mine"
-                    android:gravity="bottom"
-                    android:layout_alignBottom="@id/score_mine"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="@dimen/fontsize_normal"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:paddingBottom="8dp"
-                    android:text="分"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/cover_next"
+                android:layout_toRightOf="@id/no_backuser"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textColor="@color/third_text"
+                android:text="@string/KO" />
 
-            </RelativeLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/score_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textColor="@color/primary_text" />
 
-            <RelativeLayout
-                android:id="@+id/user_next"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/otheruser_height"
-                android:background="@color/background_item"
-                android:layout_marginLeft="@dimen/divi_height"
-                android:layout_marginRight="@dimen/divi_height"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:visibility="gone"
-                >
+        </RelativeLayout>
 
-                <View
-                    android:id="@+id/v_cent7"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_centerInParent="true"/>
-
-                <ImageView
-                    android:id="@+id/cover_next"
-                    android:layout_width="@dimen/usercover_diameter_small"
-                    android:layout_height="@dimen/usercover_diameter_small"
-                    android:layout_centerInParent="true"
-                    android:scaleType="fitXY"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/no_backuser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:layout_above="@id/v_cent7"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_smal"
-                    android:text="NO." />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/ranking_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/v_cent7"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_big"
-                    android:text="127" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/cover_next"
-                    android:layout_toRightOf="@id/ranking_next"
-                    android:gravity="center"
-                    android:text="@string/KO" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/score_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:text="166分" />
-
-            </RelativeLayout>
-
-
-
-        </LinearLayout>
 
     </RelativeLayout>
 

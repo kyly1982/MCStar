@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@mipmap/image_main"
+        android:background="@mipmap/img_main"
         android:focusable="false">
 
         <ImageButton
@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btn_getpaper"
-            android:layout_margin="@dimen/divi_height"
-            android:textColor="@color/fontcolor_bottomhint"
+            android:layout_margin="@dimen/margin_vertical"
+            android:textColor="@color/secondary_text"
             android:textSize="@dimen/fontsize_smal"
             android:text="@string/getpaper"/>
 

@@ -3,6 +3,7 @@ package com.mckuai.mcstar.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.bean.Question;
+import com.mckuai.mcstar.utils.CircleBitMap2;
 import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -84,7 +86,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mIndex = 0;
             showQuestion();
         }
-
+        showUserInfo();
     }
 
     @Override
@@ -109,40 +111,13 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mOption_D = (AppCompatCheckedTextView) view.findViewById(R.id.answerD);
         mImage = (ImageView) view.findViewById(R.id.answer_questionimage);
         mScore.setText("0");
-        if (null != mApplication.cover){
-            mCover.setImageBitmap(mApplication.cover);
-        /*if (mApplication.isLogined() && null != mApplication.user.getHeadImg()) {
-            mLoader.loadImage(mApplication.user.getHeadImg(), new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    Log.e("toolbar","width="+mCover.getDrawable().getMinimumHeight());
-                    if (null != loadedImage) {
-                        mCover.setImageBitmap(CircleBitmap.getCircleBitmap(loadedImage,mApplication.getIconHeigth()));
-                    }
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-
-                }
-            });*/
-        }
-
         mOption_A.setOnClickListener(this);
         mOption_B.setOnClickListener(this);
         mOption_C.setOnClickListener(this);
         mOption_D.setOnClickListener(this);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -306,4 +281,42 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             }
         }
     };
+
+    private void showUserInfo() {
+        final String url = (String) mCover.getTag();
+        final String cover = mApplication.user.getHeadImg();
+       /* if (null == cover || (null != url && url.equals(cover))) {
+            Log.e("SUI","已经有了头像，不再加载");
+            return;
+        }*/
+        ImageLoader loader = ImageLoader.getInstance();
+        loader.loadImage(cover, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (null != loadedImage) {
+                    mCover.setImageDrawable(new BitmapDrawable(getResources(),CircleBitMap2.getCircleBitmap(loadedImage)));
+                    mCover.setTag(url);
+                   /* mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
+                    mToolBar.setTag(cover);*/
+                }
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+            }
+        });
+    }
+
+
 }

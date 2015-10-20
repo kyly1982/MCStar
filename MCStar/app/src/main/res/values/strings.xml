@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MC Wa</string>
+    <!--渠道-->
+    <string name="channel">渠道</string>
 
     <!--通用-->
      <string name="scores">%1$d分</string>
@@ -51,6 +53,7 @@
     <string name="interface_contribution">interface.do?act=uploadList</string>
     <!--排行榜，参数userId=2&page=1-->
     <string name="interface_rankinglist">interface.do?act=rankList</string>
+    <string name="interface_checkupgread">升级</string>
 
     <string name="error_pretreatmentres_ponsefalse">预解析失败，原因:%1$s</string>
     <string name="error_pretreatmentres_nullerror">返回数据为空或长度不足！</string>
@@ -149,5 +152,15 @@
     <string name="share_content_score">我获得了%1$d分，来PK一下吧！</string>
     <string name="share_content_scorewithrank">我已经是第%1$d名了，你敢来PK一下吗！</string>
     <string name="share_content_usercenter">我获得了%1$d分，来PK一下吧！</string>
+
+    <!-- 更新-->
+    <string name="download_failure">下载新版本失败 !</string>
+    <string name="is_latest_version_label">你已经是最新版本了！</string>
+    <string name="latest_version_title">发现新版本</string>
+    <string name="update_latest_version_title">发现新版本(%1$s), 升级中&#8230;</string>
+    <string name="later_on_wifi">在wifi网络下自动升级！</string>
+    <string name="later_update_tip">Updating&#8230; (Submited when you\'r NOT on Wifi)</string>
+    <string name="update">更新</string>
+    <string name="ignore">忽略</string>
 
 </resources>

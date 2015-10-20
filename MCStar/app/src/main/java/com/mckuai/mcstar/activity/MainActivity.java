@@ -36,9 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onResume() {
         super.onResume();
         initToolBar();
-        if (null == mToolBar) {
-            findViewById(R.id.btn_getpaper).setOnClickListener(this);
-        }
+        findViewById(R.id.btn_getpaper).setOnClickListener(this);
         if (mApplication.isLogined()) {
             showUserInfo();
         }
@@ -117,6 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         String url = (String) mToolBar.getTag();
         final String cover = mApplication.user.getHeadImg();
         if (null == cover || (null != url && url.equals(cover))) {
+            Log.e("SUI","已经有了头像，不再加载");
             return;
         }
         ImageLoader loader = ImageLoader.getInstance();
@@ -134,15 +133,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (null != loadedImage) {
-                    //int width = mToolBar.getNavigationIcon().getMinimumHeight();
-                    //Log.e("NavigationIcon", "width=" + width);
-//                        mUserCover = CircleBitmap.getCircleBitmap(loadedImage,mToolBar.getNavigationIcon().getMinimumWidth());
-//                    mApplication.cover = CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth()).copy(loadedImage.getConfig(), true);
-//                    showUserInfo();
-                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
-//                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitMap2.getCircleBitmap(loadedImage)));
+
+                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
                     mToolBar.setTag(cover);
-//                        mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mApplication.getIconHeigth())));
                 }
             }
 

@@ -1,20 +1,25 @@
 <resources>
 
-    <color name="black_overlay">#30000000</color>
-    <color name="white_overlay">#40FFFFFF</color>
-    <color name="colorPrimary">#362359</color>
-    <color name="fontcolor_mauvepale">#634B8F</color>
-    <color name="fontcolor_bottomhint">#928AC6</color>
-    <color name="fontcolor_Secondary">#B7B7CD</color>
-    <color name="fontcolor_Yellow">#FEEE2E</color>
-    <color name="fontcolor_Primary">#FFFFFF</color>
-    <color name="background_item">#676598</color>
-    <color name="background_lightpale">#7F7EA9</color>
-    <color name="background_auditing">#52517A</color>
-    <color name="background_image">#2A1E49</color>
+    <color name="primary">#391A56</color>
+    <color name="primary_dark">#381B55</color>
+    <color name="primary_light">#D1C4E9</color>
+    <color name="accent">#E040FB</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#948FC7</color>
+    <color name="third_text">#A2A0AD</color>
+    <color name="forth_text">#FBF348</color>
+    <color name="fifth_text">#71600F</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#00000000</color>
+    <color name="error">#ED3F3C</color>
+    <color name="item">#696296</color>
+    <color name="item_light">#817BA7</color>
+    <color name="item_dark">#302553</color>
+    <color name="attribute">#544E78</color>
+    <color name="image">#2C1A48</color>
     <color name="white">#FFFFFF</color>
-    <color name="green">#5BB524</color>
-    <color name="red">#EE3D3D</color>
-    <color name="color_transparent">#00000000</color>
+    <color name="green">#56B837</color>
+    <color name="red">#ED3F3C</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

@@ -1,15 +1,22 @@
 package com.mckuai.mcstar.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.Vibrator;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AnimationSet;
+import android.view.animation.Interpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
@@ -22,37 +29,38 @@ import com.umeng.message.local.UmengNotificationBuilder;
  * Created by kyly on 2015/9/29.
  */
 public class BaseActivity extends AppCompatActivity {
-    static MCStar mApplication = MCStar.getInstance();
-    static Toolbar mToolBar;
-    static TextView mTitle;
+    protected static MCStar mApplication = MCStar.getInstance();
+    protected static Toolbar mToolBar;
+    protected static TextView mTitle;
+    protected Vibrator vibrator;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-//        PushAgent.getInstance(this).onAppStart();
+        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        MobclickAgent.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        MobclickAgent.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
-    public void initToolBar(){
+    public void initToolBar() {
         mTitle = (TextView) findViewById(R.id.title);
         mToolBar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
     }
 
-    public void callLogin(int requestCode){
-        Intent intent = new Intent(this,LoginActivity.class);
+    public void callLogin(int requestCode) {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, requestCode);
     }
 
@@ -64,26 +72,13 @@ public class BaseActivity extends AppCompatActivity {
         Snackbar.make(null, msg, Snackbar.LENGTH_LONG).setAction(actionName, listener).show();
     }
 
-    public void AddNotification(){
+    public void AddNotification() {
         UmengNotificationBuilder builder = new UmengNotificationBuilder();
     }
 
-    public void deleteNotification(){
+    public void deleteNotification() {
 
     }
-
-
-  /*  public static void setTitles(final String title, final String toolbarTitle, final String toolbarSubTitle) {
-        if (null != title) {
-            mTitle.setText(title);
-        }
-        if (null != toolbarTitle) {
-            mToolBar.setTitle(toolbarTitle);
-        }
-        if (null != toolbarSubTitle) {
-            mToolBar.setSubtitle(toolbarSubTitle);
-        }
-    }*/
 
 
     public static void setTitles(@StringRes final int titleId, @StringRes final int toolbarTitleId, @StringRes final int toolbarSubTitleId) {
@@ -106,6 +101,50 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void feedback_No() {
+        if (null == vibrator) {
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (vibrator.hasVibrator()) {
+        }
+    }
+
+    protected void feedback_affirm(final int type, @Nullable View view) {
+        if (null == vibrator) {
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (vibrator.hasVibrator()) {
+            switch (type) {
+                case 0:
+                    long[] pattern = {100, 500};
+                    vibrator.vibrate(pattern, -1);
+                    break;
+                case 1:
+                    long[] pattern1 = {100, 300, 100, 300};
+                    vibrator.vibrate(pattern1, -1);
+                    if (null != view){
+                        shake(view);
+                    }
+                    break;
+            }
+        }
+
+    }
+
+    protected void shake(@NonNull View view) {
+        view.setAnimation(makeShakeAnimation());
+    }
+
+    private AnimationSet makeShakeAnimation(){
+
+        AnimationSet shake = new AnimationSet(true);
+        for (int i = 0;i < 16;i++){
+            TranslateAnimation translateAnimation = new TranslateAnimation(0,-15,0,0);
+        }
+
+        return  shake;
+    }
+/*
     public static void setToolBarClickListener(Toolbar.OnMenuItemClickListener itemClickListener, View.OnClickListener navigationClickListener) {
         if (null != itemClickListener) {
             mToolBar.setOnMenuItemClickListener(itemClickListener);
@@ -114,7 +153,7 @@ public class BaseActivity extends AppCompatActivity {
         if (null != navigationClickListener) {
             mToolBar.setNavigationOnClickListener(navigationClickListener);
         }
-    }
+    }*/
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {

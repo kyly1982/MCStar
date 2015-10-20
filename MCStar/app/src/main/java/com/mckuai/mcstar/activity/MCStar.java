@@ -32,12 +32,12 @@ public class MCStar extends Application {
     static final String TAG = "application";
     static MCStar instance;
     public static MCUser user;
-    public static AsyncHttpClient client;
+//    public static AsyncHttpClient client;
     public static Gson gson;
     public long mQQToken_Birthday;
     public long mQQToken_Expires;
     public boolean isFirstBoot = false;
-    public static Bitmap cover;
+//    public static Bitmap cover;
 
 
     private final int IMAGE_POOL_SIZE = 3;// 线程池数量
@@ -63,7 +63,7 @@ public class MCStar extends Application {
     }
 
     public void init() {
-        client = new AsyncHttpClient();
+//        client = new AsyncHttpClient();
         gson = new Gson();
         initImageLoader();
         readPreference();

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/contribution_height">
+    android:layout_height="@dimen/item_contribution_height">
     <TextView
         android:id="@+id/topic"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/contributiontitle_height"
+        android:layout_height="@dimen/item_contributiontitle_height"
         android:padding="@dimen/divi_height"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:gravity="center_vertical"
         android:maxLines="2"
-        android:background="@color/background_item"
-        android:textColor="@color/fontcolor_Primary"/>
+        android:background="@color/item"
+        android:textColor="@color/primary_text"/>
 
     <TextView
         android:id="@+id/ratio"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/contributionattri_height"
-        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/item_contributionattri_height"
         android:layout_below="@id/topic"
         android:gravity="center"
-        android:background="@color/background_auditing"
-        android:textColor="@color/fontcolor_Secondary"/>
+        android:background="@color/attribute"
+        android:textColor="@color/secondary_text"/>
 
     <TextView
         android:id="@+id/status"
@@ -33,7 +32,7 @@
         android:paddingLeft="@dimen/divi_height"
         android:gravity="center"
         android:drawablePadding="@dimen/divi_height2"
-        android:textColor="@color/fontcolor_Primary"/>
+        android:textColor="@color/primary_text"/>
 
 
 
@@ -46,7 +45,7 @@
         android:paddingRight="@dimen/divi_height"
         android:layout_below="@id/topic"
         android:gravity="center"
-        android:textColor="@color/fontcolor_Secondary"/>
+        android:textColor="@color/secondary_text"/>
 
 
 </RelativeLayout>

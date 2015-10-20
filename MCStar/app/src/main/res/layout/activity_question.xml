@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/image_other"
+        android:background="@mipmap/img_other"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.AppCompatButton
@@ -42,13 +42,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questiontype_height"
                     android:layout_margin="@dimen/divi_height"
-                    android:background="@color/background_item"
+                    android:background="@color/item"
                     android:drawableRight="@mipmap/ic_arrow_right"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/divi_height"
                     android:paddingRight="@dimen/divi_height"
                     android:text="@string/selecttype"
-                    android:textColor="@color/fontcolor_Primary" />
+                    android:textColor="@color/primary_text" />
 
                 <RadioGroup
                     android:id="@+id/rg_questiontype"
@@ -99,8 +99,8 @@
                         android:id="@+id/edt_topic"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/questiontopic_height"
-                        android:textColor="@color/fontcolor_bottomhint"
-                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:textColor="@color/secondary_text"
+                        android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="50"
@@ -115,16 +115,16 @@
                     android:layout_margin="@dimen/divi_height"
                     android:background="@drawable/background_newquestion_image"
                     android:scaleType="center"
-
-                    android:src="@mipmap/image_questionimage" />
+                    android:src="@mipmap/img_questionimage" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/questionimage"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
+                    android:textSize="@dimen/fontsize_smal"
+                    android:textColor="@color/secondary_text"
                     android:text="@string/question_imagehint"
-                    android:textColor="@color/fontcolor_bottomhint"
                     />
 
                 <android.support.design.widget.TextInputLayout
@@ -142,8 +142,8 @@
                         android:id="@+id/edt_option_a"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
-                        android:textColor="@color/fontcolor_bottomhint"
-                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:textColor="@color/secondary_text"
+                        android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="10"/>
@@ -164,8 +164,8 @@
                         android:id="@+id/edt_option_b"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
-                        android:textColor="@color/fontcolor_bottomhint"
-                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:textColor="@color/secondary_text"
+                        android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="10"/>
@@ -186,8 +186,8 @@
                         android:id="@+id/edt_option_c"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
-                        android:textColor="@color/fontcolor_bottomhint"
-                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:textColor="@color/secondary_text"
+                        android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="10" />
@@ -208,8 +208,8 @@
                         android:id="@+id/edt_option_d"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/option_height"
-                        android:textColor="@color/fontcolor_bottomhint"
-                        android:textColorHint="@color/fontcolor_bottomhint"
+                        android:textColor="@color/secondary_text"
+                        android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="10"/>

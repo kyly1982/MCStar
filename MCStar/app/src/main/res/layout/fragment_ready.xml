@@ -9,8 +9,10 @@
 
     <LinearLayout
         android:id="@+id/paper_head_layout"
-        android:layout_width="@dimen/paper_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_horizontal"
+        android:paddingRight="@dimen/padding_horizontal"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
@@ -19,31 +21,35 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/paper_cover_height"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/image_paper_header" />
+            android:scaleType="fitXY"
+            android:background="@mipmap/img_paper_header" />
 
          <RelativeLayout
              android:id="@+id/layout_hint"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+             android:layout_height="@dimen/userlist_title_height"
              android:orientation="horizontal"
-             android:paddingTop="@dimen/divi_height"
-             android:paddingBottom="@dimen/divi_height"
-             android:background="@color/background_lightpale">
+             android:background="@color/item_light">
              <android.support.v7.widget.AppCompatTextView
                  android:id="@+id/paper_examinees"
                  android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_height="@dimen/userlist_title_height"
                  android:layout_alignParentLeft="true"
+                 android:paddingLeft="@dimen/margin_horizontal"
+                 android:gravity="bottom"
+                 android:textColor="@color/primary_text"
                  android:text="@string/paper_examinees" />
 
              <android.support.v7.widget.AppCompatTextView
                  android:id="@+id/paper_seckill"
                  android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_height="@dimen/userlist_title_height"
                  android:layout_alignParentRight="true"
                  android:layout_toRightOf="@id/paper_examinees"
-                 android:gravity="right"
+                 android:paddingRight="@dimen/margin_horizontal"
+                 android:gravity="right|bottom"
                  android:layout_centerHorizontal="true"
+                 android:textColor="@color/forth_text"
                  android:text="@string/paper_seckill" />
 
          </RelativeLayout>
@@ -52,9 +58,11 @@
             android:id="@+id/userlist"
             android:layout_width="match_parent"
             android:layout_height="@dimen/userlist_height"
-            android:paddingBottom="@dimen/divi_height"
             android:layout_below="@id/paper_examinees"
-            android:background="@color/background_lightpale"
+            android:paddingLeft="@dimen/margin_horizontal"
+            android:paddingRight="@dimen/margin_horizontal"
+            android:layout_gravity="center_vertical"
+            android:background="@color/item_light"
             app:recyclerviewEmptyView="@layout/view_empty">
 
         </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
@@ -63,7 +71,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/readarea_height"
-            android:background="@color/background_item">
+            android:background="@color/item">
 
 
 
@@ -72,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textColor="@color/fontcolor_Primary"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/fontsize_stress"
                 />
 
@@ -84,7 +92,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/divi_height"
                 android:textSize="@dimen/fontsize_big"
-                android:textColor="@color/fontcolor_Primary"
+                android:textColor="@color/primary_text"
                 android:text="@string/paper_ready" />
 
         </RelativeLayout>
@@ -96,9 +104,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/margin_vertical"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/fontcolor_bottomhint"
+        android:textColor="@color/secondary_text"
         android:textSize="@dimen/fontsize_smal"
         android:text="@string/paper_more" />
 

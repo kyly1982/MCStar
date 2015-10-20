@@ -323,7 +323,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                     uploadQuestion();
                 } else {
                     Log.e("UQ", "参数不正确");
-                    shake();
+                    feedback_No();
                 }
                 break;
             case R.id.questionimage:
@@ -428,13 +428,5 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
         {
             return upperBound;
         }
-    }
-
-    private void shake(){
-        if (null == vibrator){
-            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        }
-        long [] pattern = {100,400,100,400};
-        vibrator.vibrate(pattern,-1);
     }
 }

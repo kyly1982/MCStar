@@ -13,6 +13,7 @@ import android.util.Log;
 import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mckuai.mcstar.R;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
  * Created by kyly on 2015/10/13.
  */
 public class NetInterface {
+    private static AsyncHttpClient mClient = new AsyncHttpClient();
 
     public static void loginServer(@NonNull final Context context, @NonNull final MCUser user, @NonNull String token, @NonNull final OnLoginServerListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_loginserver);
@@ -48,7 +50,7 @@ public class NetInterface {
         params.put("nickName", user.getNickName());
         params.put("gender", user.getSex());
         params.put("headImg", user.getHeadImg());
-        MCStar.client.get(url, params, new JsonHttpResponseHandler() {
+        mClient.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 //                Log.e("NE", "" + response.toString());
@@ -76,7 +78,7 @@ public class NetInterface {
 
     public static void getQuestions(@NonNull final Context context, @NonNull final OnGetQrestionListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_getquestionlist);
-        MCStar.client.get(context, url, new JsonHttpResponseHandler() {
+        mClient.get(context, url, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
@@ -122,7 +124,7 @@ public class NetInterface {
             p = p.substring(1);
             params.put("error", p);
         }
-        MCStar.client.post(context, url, params, new JsonHttpResponseHandler() {
+        mClient.post(context, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);
@@ -191,7 +193,7 @@ public class NetInterface {
             params.put("answerFour", questin.getAnswerOne());
         }
 
-        MCStar.client.post(context, url, params, new JsonHttpResponseHandler() {
+        mClient.post(context, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);
@@ -216,7 +218,7 @@ public class NetInterface {
         if (null != bitmap) {
             RequestParams params = new RequestParams();
             params.put("upload", Bitmap2IS(bitmap),"01.jpg","image/jpeg");
-            MCStar.client.post(context, url, params, new JsonHttpResponseHandler() {
+            mClient.post(context, url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     PretreatmentResult result = pretreatmentResponse(context, response);
@@ -243,7 +245,7 @@ public class NetInterface {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_getuserInfo);
         RequestParams params = new RequestParams();
         params.put("userId", userId);
-        MCStar.client.get(context, url, params, new JsonHttpResponseHandler() {
+        mClient.get(context, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);
@@ -274,7 +276,7 @@ public class NetInterface {
         RequestParams params = new RequestParams();
         params.put("userId", userId);
         params.put("page", page);
-        MCStar.client.get(context, url, params, new JsonHttpResponseHandler() {
+        mClient.get(context, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);
@@ -306,7 +308,7 @@ public class NetInterface {
             params.put("userId", userId);
         }
         params.put("page", page);
-        MCStar.client.get(context, url, params, new JsonHttpResponseHandler() {
+        mClient.get(context, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);

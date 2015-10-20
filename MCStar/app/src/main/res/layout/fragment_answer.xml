@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mckuai.mcstar.fragment.AnswerFragment">
+    tools:context="com.mckuai.mcstar.fragment.AnswerFragment"
+    android:background="@color/primary">
 
     <include
         android:id="@+id/toolbar_layout"
@@ -14,13 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/margin_horizontal"
         android:text="@string/contributor"
-        android:textColor="@color/fontcolor_bottomhint" />
+        android:textColor="@color/secondary_text" />
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/content_item_width"
         android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
         android:layout_above="@id/contributioner"
         android:layout_below="@id/toolbar_layout"
         android:scrollbars="none">
@@ -28,8 +30,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/divi_height">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -41,8 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="1."
-                    android:textColor="@color/fontcolor_Primary" />
+                    android:textColor="@color/primary_text" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/questionContent"
@@ -52,8 +52,7 @@
                     android:layout_marginBottom="@dimen/divi_height"
                     android:layout_toRightOf="@id/questionIndex"
                     android:maxLines="3"
-                    android:text="内容提要内容提要内容提要内容提要内容提要内容提要内容提要"
-                    android:textColor="@color/fontcolor_Primary"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/fontsize_big" />
 
             </RelativeLayout>
@@ -62,60 +61,63 @@
                 android:id="@+id/answer_questionimage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/image_height"
-                android:background="@color/background_image"
+                android:layout_marginTop="@dimen/padding_vertical"
+                android:layout_marginBottom="@dimen/padding_vertical"
+                android:background="@color/image"
                 android:scaleType="center"
-                android:src="@mipmap/image_questionimage" />
+                android:src="@mipmap/img_questionimage"
+                android:visibility="visible"/>
 
             <android.support.v7.widget.AppCompatCheckedTextView
                 android:id="@+id/answerA"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/option_height"
-                android:layout_marginBottom="@dimen/divi_height"
-                android:layout_marginTop="@dimen/divi_height"
                 android:background="@drawable/option_selector"
                 android:checked="false"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:text="A. option A" />
+                android:paddingLeft="@dimen/padding_horizontal"
+                android:paddingRight="@dimen/padding_horizontal"
+                android:textColor="@color/primary_text" />
 
             <android.support.v7.widget.AppCompatCheckedTextView
                 android:id="@+id/answerB"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/option_height"
                 android:background="@drawable/option_selector"
+                android:layout_marginTop="@dimen/padding_vertical"
+                android:layout_marginBottom="@dimen/padding_vertical"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:text="B. option B" />
+                android:paddingLeft="@dimen/padding_horizontal"
+                android:paddingRight="@dimen/padding_horizontal"
+                android:textColor="@color/primary_text" />
 
             <android.support.v7.widget.AppCompatCheckedTextView
                 android:id="@+id/answerC"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/option_height"
-                android:layout_marginBottom="@dimen/divi_height"
-                android:layout_marginTop="@dimen/divi_height"
                 android:background="@drawable/option_selector"
                 android:button="@null"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:text="C. option C" />
+                android:paddingLeft="@dimen/padding_horizontal"
+                android:paddingRight="@dimen/padding_horizontal"
+                android:textColor="@color/primary_text"/>
 
             <android.support.v7.widget.AppCompatCheckedTextView
                 android:id="@+id/answerD"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/option_height"
+                android:layout_marginTop="@dimen/padding_vertical"
+                android:layout_marginBottom="@dimen/padding_vertical"
                 android:background="@drawable/option_selector"
                 android:button="@null"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:paddingLeft="@dimen/divi_height"
-                android:paddingRight="@dimen/divi_height"
-                android:text="D. option D" />
+                android:paddingLeft="@dimen/padding_horizontal"
+                android:paddingRight="@dimen/padding_horizontal"
+                android:textColor="@color/primary_text"/>
 
         </LinearLayout>
 
