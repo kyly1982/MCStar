@@ -29,7 +29,7 @@ public class CircleBitMap2 {
         canvas.drawCircle(radius, radius, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        bitmap.recycle();
+//        bitmap.recycle();
         return  output;
     }
 

@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
+import com.mckuai.mcstar.utils.CircleBitMap2;
 import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -34,8 +35,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
+        initToolBar();
         if (null == mToolBar) {
-            initToolBar();
             findViewById(R.id.btn_getpaper).setOnClickListener(this);
         }
         if (mApplication.isLogined()) {
@@ -136,9 +137,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     //int width = mToolBar.getNavigationIcon().getMinimumHeight();
                     //Log.e("NavigationIcon", "width=" + width);
 //                        mUserCover = CircleBitmap.getCircleBitmap(loadedImage,mToolBar.getNavigationIcon().getMinimumWidth());
-                    mApplication.cover = CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth()).copy(loadedImage.getConfig(), true);
+//                    mApplication.cover = CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth()).copy(loadedImage.getConfig(), true);
 //                    showUserInfo();
-                    mToolBar.setNavigationIcon(new BitmapDrawable(CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
+                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
+//                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitMap2.getCircleBitmap(loadedImage)));
                     mToolBar.setTag(cover);
 //                        mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mApplication.getIconHeigth())));
                 }
