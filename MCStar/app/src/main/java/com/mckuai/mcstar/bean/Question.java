@@ -9,8 +9,10 @@ import com.mckuai.mcstar.activity.MCStar;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.SimpleFormatter;
 
 /**
  * 习题信息
@@ -38,42 +40,12 @@ public class Question implements Serializable {
 
     }
 
-    public Question(int id, String userName, String topic, String options, String image) {
-        this.id = id;
-        this.title = topic;
-        String[] option = options.split(",");
-        for (int i = 0; i < option.length; i++) {
-            if (0 == i) {
-                answerOne = option[i];
-            } else if (1 == i) {
-                answerTwo = option[i];
-            } else if (2 == i) {
-                answerThree = option[i];
-            } else if (3 == i) {
-                answerFour = option[i];
-            }
+    public String getInsertTimeEx(){
+        if (null != insertTime && insertTime.length() > 10){
+            return insertTime.substring(insertTime.indexOf("-")+1,insertTime.indexOf(" "));
         }
-        this.rightAnswer = option[0];
-        this.icon = image;
-         this.authorName = "用户名";
-        this.authorId = 1;
-        this.insertTime = "9-30";
-        this.allCount = 22;
-        this.rightCount = 15;
-        int stat = (int)(Math.random() * 3) % 3;
-        switch (stat){
-            case 0:
-                this.status = "passing";
-                break;
-            case 1:
-                this.status = "pass";
-                break;
-            default:
-                this.status = "nopass";
-                break;
-        }
+        return "未知";
     }
-
 
     //获取已经打乱顺序了的选项
     public ArrayList<String> getOptionsEx() {

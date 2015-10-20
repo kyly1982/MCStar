@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary">
+    android:background="@color/primary">
     <ImageButton
         android:id="@+id/usercover"
         android:layout_width="?attr/actionBarSize"
@@ -10,29 +10,29 @@
 
         android:scaleType="center"
         android:src="@mipmap/ic_menu_cover"
-        android:background="@color/color_transparent"
+        android:background="@color/transparent"
         />
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/score"
-        android:layout_width="wrap_content"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/usercover"
+        android:layout_centerVertical="true"
+        android:gravity="center"
         android:layout_margin="5dp"
         android:textSize="@dimen/fontsize_title"
-        android:textColor="@color/fontcolor_Primary"
-        android:text="58"/>
+        android:textColor="@color/primary_text"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/questionscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="1dp"
+        android:padding="4dp"
         android:layout_toRightOf="@id/score"
         android:layout_centerVertical="true"
         android:textSize="@dimen/fontsize_normal"
-        android:textColor="@color/fontcolor_Primary"
-        android:background="@color/white_overlay"
+        android:textColor="@color/primary_text"
+        android:background="@color/item"
         android:text="+10"/>
 
     <android.support.v7.widget.AppCompatTextView
@@ -45,6 +45,7 @@
         android:singleLine="true"
         android:maxLength="3"
         android:textSize="@dimen/fontsize_title"
+        android:textColor="@color/primary_text"
         android:text="10"
         />
 

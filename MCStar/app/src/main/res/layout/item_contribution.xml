@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_contribution_height">
+    android:layout_height="@dimen/item_contribution_height"
+    android:paddingBottom="@dimen/item_contribution_paddingbottom">
     <TextView
         android:id="@+id/topic"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/contributionattri_height"
+        android:layout_height="@dimen/item_contributionattri_height"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/topic"
         android:paddingLeft="@dimen/divi_height"
@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/contributionattri_height"
+        android:layout_height="@dimen/item_contributionattri_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:paddingRight="@dimen/divi_height"

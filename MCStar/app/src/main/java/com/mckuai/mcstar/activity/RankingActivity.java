@@ -77,8 +77,8 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mList.setLayoutManager(manager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        mList.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+//        mList.addItemDecoration(dividerItemDecoration);
         mList.setHasFixedSize(true);
         mList.enableLoadmore();
         mList.enableDefaultSwipeRefresh(true);

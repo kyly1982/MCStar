@@ -54,8 +54,8 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mList.setLayoutManager(manager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        mList.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+//        mList.addItemDecoration(dividerItemDecoration);
         mList.enableLoadmore();
         mList.enableDefaultSwipeRefresh(true);
         mList.setOnLoadMoreListener(this);

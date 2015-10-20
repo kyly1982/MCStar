@@ -14,7 +14,7 @@
         android:layout_below="@id/empty"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/divi_height"
-        android:textColor="@color/fontcolor_Secondary"
+        android:textColor="@color/secondary_text"
         android:text="@string/data_empty"/>
 
 </RelativeLayout>

@@ -22,7 +22,8 @@
             android:id="@+id/myinfo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/option_height"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:background="@color/image"
             android:paddingLeft="@dimen/divi_height"
             android:paddingRight="@dimen/divi_height">
 
@@ -33,48 +34,33 @@
                 android:layout_centerInParent="true"
                 />
 
-            <RelativeLayout
-                android:id="@+id/layout_myranking"
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/myrank_layout"
                 android:layout_width="@dimen/ranklable_width"
-                android:layout_height="@dimen/option_height"
-                android:paddingLeft="@dimen/divi_height"
-                >
-
-                <View
-                    android:id="@+id/v_cent9"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_centerInParent="true"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/myrank_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/v_cent9"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_smal"
-                    android:text="@string/NO."/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/myranking"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/myrank_layout"
-                    android:layout_alignRight="@id/myrank_layout"
-                    android:gravity="center"
-                    android:layout_below="@id/v_cent9"
-                    android:textColor="@color/fontcolor_Primary"
-                    android:textSize="@dimen/fontsize_big"
-                    android:text="14"/>
-
-            </RelativeLayout>
-
+                android:layout_height="wrap_content"
+                android:layout_above="@id/v_center"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_smal"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:text="@string/NO."/>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/myranking"
+                android:layout_width="@dimen/ranklable_width"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/myrank_layout"
+                android:layout_alignRight="@id/myrank_layout"
+                android:gravity="center"
+                android:layout_below="@id/v_center"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/fontsize_big"/>
 
 
             <ImageView
                 android:id="@+id/mycover"
                 android:layout_width="@dimen/usercover_diameter_small"
                 android:layout_height="@dimen/usercover_diameter_small"
-                android:layout_toRightOf="@id/layout_myranking"
+                android:layout_toRightOf="@id/myrank_layout"
                 android:layout_marginLeft="@dimen/divi_height"
                 android:layout_marginRight="@dimen/divi_height"
                 android:layout_centerVertical="true"
@@ -88,7 +74,7 @@
                 android:layout_toRightOf="@id/mycover"
                 android:layout_centerVertical="true"
                 android:singleLine="true"
-                android:textColor="@color/fontcolor_Primary"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/fontsize_big"
                 android:text="@string/myself"/>
 
@@ -98,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/divi_height"
-                android:textColor="@color/fontcolor_Primary"
+                android:layout_marginRight="@dimen/padding_horizontal"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/fontsize_big"
                 android:text="@string/scores"/>
 
@@ -110,8 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/divi_height"
-            android:paddingRight="@dimen/divi_height"
+            android:layout_margin="@dimen/padding_horizontal"
             app:recyclerviewEmptyView="@layout/view_empty">
             </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
     </LinearLayout>

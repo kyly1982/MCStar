@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/option_height"
-    android:background="@color/background_item">
+    android:layout_height="@dimen/item_ranking_height"
+    android:paddingBottom="@dimen/item_ranking_paddingbottom">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_ranking_content_height"
+        android:background="@color/item">
 
     <View
         android:id="@+id/v_center"
@@ -11,41 +16,31 @@
         android:layout_centerInParent="true"
         />
 
-    <RelativeLayout
+    <View
         android:id="@+id/item_ranklab"
         android:layout_width="@dimen/ranklable_width"
-        android:layout_height="@dimen/option_height"
-        android:background="@color/white_overlay"
-        >
+        android:layout_height="match_parent"
+        android:background="@color/green"/>
 
-        <View
-            android:id="@+id/v_center8"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/ranklab"
+        android:layout_width="@dimen/ranklable_width"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/v_center"
+        android:gravity="center"
+        android:textSize="@dimen/fontsize_smal"
+        android:textColor="@color/primary_text"
+        android:text="@string/NO."/>
+    <TextView
+        android:id="@+id/item_userranking"
+        android:layout_width="@dimen/ranklable_width"
+        android:layout_height="match_parent"
+        android:layout_below="@id/v_center"
+        android:gravity="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/fontsize_big"
+        android:text="14"/>
 
-        <TextView
-            android:id="@+id/ranklab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/v_center8"
-            android:layout_marginLeft="@dimen/divi_height"
-            android:textSize="@dimen/fontsize_smal"
-            android:textColor="@color/fontcolor_Primary"
-            android:text="@string/NO."/>
-        <TextView
-            android:id="@+id/item_userranking"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/v_center8"
-            android:layout_alignLeft="@id/ranklab"
-            android:layout_alignRight="@id/ranklab"
-            android:gravity="center"
-            android:textColor="@color/fontcolor_Primary"
-            android:textSize="@dimen/fontsize_big"
-            android:text="14"/>
-
-    </RelativeLayout>
 
 
 
@@ -67,7 +62,7 @@
         android:layout_toRightOf="@id/item_usercover"
         android:layout_centerVertical="true"
         android:singleLine="true"
-        android:textColor="@color/fontcolor_Primary"
+        android:textColor="@color/primary_text"
         android:textSize="@dimen/fontsize_big"
         android:text="用户名"/>
 
@@ -80,7 +75,8 @@
         android:layout_marginRight="@dimen/divi_height"
         android:paddingRight="@dimen/divi_height"
         android:textSize="@dimen/fontsize_big"
-        android:textColor="@color/fontcolor_Primary"
+        android:textColor="@color/primary_text"
         android:text="@string/scores"/>
+    </RelativeLayout>
 
 </RelativeLayout>

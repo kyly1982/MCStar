@@ -24,7 +24,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/green"
             android:text="@string/submitquestion"
-            android:textColor="@color/fontcolor_Primary" />
+            android:textColor="@color/primary_text" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -34,14 +34,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/padding_vertical"
+                android:paddingRight="@dimen/padding_vertical">
 
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/selecttype"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questiontype_height"
-                    android:layout_margin="@dimen/divi_height"
                     android:background="@color/item"
                     android:drawableRight="@mipmap/ic_arrow_right"
                     android:gravity="center_vertical"
@@ -55,7 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questiontype_height"
                     android:layout_below="@id/selecttype"
-                    android:layout_margin="@dimen/divi_height"
+                    android:layout_marginTop="@dimen/divi_height"
+                    android:layout_marginBottom="@dimen/divi_height"
                     android:background="@drawable/background_stork"
                     android:orientation="horizontal">
 
@@ -86,19 +88,18 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/questiontopic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/questiontopic_height"
                     android:layout_below="@id/rg_questiontype"
-                    android:layout_margin="@dimen/divi_height"
                     android:background="@color/white"
                     android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/fontcolor_mauvepale"
+                    android:textColorHint="@color/item"
                     app:errorEnabled="true"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_topic"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/questiontopic_height"
+                        android:layout_height="match_parent"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
@@ -112,7 +113,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questionimage_height"
                     android:layout_below="@id/questiontopic"
-                    android:layout_margin="@dimen/divi_height"
+                    android:layout_marginTop="@dimen/padding_vertical"
+                    android:layout_marginBottom="@dimen/padding_vertical"
                     android:background="@drawable/background_newquestion_image"
                     android:scaleType="center"
                     android:src="@mipmap/img_questionimage" />
@@ -130,18 +132,17 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_a"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/question_options_height"
                     android:layout_below="@id/questionimage"
-                    android:layout_margin="@dimen/divi_height"
                     android:background="@color/white"
                     android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/fontcolor_mauvepale"
+                    android:textColorHint="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_a"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/option_height"
+                        android:layout_height="match_parent"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
@@ -152,18 +153,18 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_b"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/question_options_height"
+                    android:layout_marginTop="@dimen/padding_vertical"
+                    android:layout_marginBottom="@dimen/padding_vertical"
                     android:layout_below="@id/option_a"
-                    android:layout_margin="@dimen/divi_height"
                     android:background="@color/white"
-                    android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/fontcolor_mauvepale"
+                    android:textColorHint="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_b"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/option_height"
+                        android:layout_height="match_parent"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
@@ -174,18 +175,16 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_c"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/question_options_height"
                     android:layout_below="@id/option_b"
-                    android:layout_margin="@dimen/divi_height"
                     android:background="@color/white"
-                    android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/fontcolor_mauvepale"
+                    android:textColorHint="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_c"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/option_height"
+                        android:layout_height="match_parent"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
@@ -196,18 +195,18 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_d"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/question_options_height"
                     android:layout_below="@id/option_c"
-                    android:layout_margin="@dimen/divi_height"
+                    android:layout_marginTop="@dimen/padding_vertical"
+                    android:layout_marginBottom="@dimen/padding_vertical"
                     android:background="@color/white"
-                    android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/fontcolor_mauvepale"
+                    android:textColorHint="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_d"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/option_height"
+                        android:layout_height="match_parent"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"

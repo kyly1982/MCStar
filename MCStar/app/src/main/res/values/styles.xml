@@ -8,18 +8,18 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:toolbarStyle">@style/ActionBar_style</item>
-        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimary">@color/primary</item>
         <!-- Customize your theme here. -->
     </style>
 
 
 
     <style name="ActionBar_style" parent="Theme.AppCompat.Light">
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
@@ -33,7 +33,7 @@
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
 

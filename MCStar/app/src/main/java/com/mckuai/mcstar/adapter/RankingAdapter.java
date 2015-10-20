@@ -71,7 +71,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         TextView name;
         TextView score;
         ImageView cover;
-        RelativeLayout lab;
+        View lab;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -79,7 +79,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             name = (TextView) itemView.findViewById(R.id.item_username);
             score = (TextView) itemView.findViewById(R.id.item_userscore);
             cover = (ImageView) itemView.findViewById(R.id.item_usercover);
-            lab = (RelativeLayout) itemView.findViewById(R.id.item_ranklab);
+            lab = (View) itemView.findViewById(R.id.item_ranklab);
         }
     }
 }
