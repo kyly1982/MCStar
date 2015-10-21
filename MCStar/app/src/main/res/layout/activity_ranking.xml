@@ -15,22 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@mipmap/img_other"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:id="@+id/myinfo"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/option_height"
-            android:visibility="visible"
+            android:layout_height="@dimen/item_ranking_content_height"
+            android:visibility="gone"
             android:background="@color/image"
-            android:paddingLeft="@dimen/divi_height"
-            android:paddingRight="@dimen/divi_height">
+            android:paddingLeft="@dimen/padding_horizontal"
+            android:paddingRight="@dimen/padding_horizontal">
 
             <View
                 android:id="@+id/v_center"
                 android:layout_width="0dp"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/item_padding_vertical"
                 android:layout_centerInParent="true"
                 />
 
@@ -84,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/padding_horizontal"
                 android:textColor="@color/primary_text"
+                android:paddingRight="@dimen/padding_horizontal"
                 android:textSize="@dimen/fontsize_big"
                 android:text="@string/scores"/>
 

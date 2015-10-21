@@ -12,6 +12,7 @@ public class MCUser implements Serializable {
     private int uploadNum;// 贡献题目数
     private int answerNum;//答题次数
     private int level;// 当前等级
+    private int scoreRank;
     private long allScore;// 当前积分
     private long ranking;//排名
     private String userName;//用户名，实为openId
@@ -118,5 +119,11 @@ public class MCUser implements Serializable {
         this.ranking = ranking;
     }
 
+    public int getScoreRank() {
+        return scoreRank;
+    }
 
+    public void setScoreRank(int scoreRank) {
+        this.scoreRank = scoreRank;
+    }
 }

@@ -1,36 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ads"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/img_other"/>
+        android:layout_height="match_parent"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_vertical"
+            android:textColor="@color/secondary_text"
+            android:text="@string/show_np"/>
 
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/ll_indication"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="20dp"
         android:minWidth="20dp"
         android:minHeight="10dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btn_next"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"/>
 
-    </android.support.v7.widget.LinearLayoutCompat>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/margin_vertical"
-        android:textColor="@color/secondary_text"
-        android:text="@string/show_np"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

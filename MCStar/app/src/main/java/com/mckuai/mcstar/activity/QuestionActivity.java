@@ -6,11 +6,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatRadioButton;
+import android.text.AndroidCharacter;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +28,7 @@ import com.mckuai.mcstar.bean.Question;
 import com.mckuai.mcstar.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, NetInterface.OnUploadQuestionListener,NetInterface.OnUploadPicsListener,View.OnLongClickListener,View.OnFocusChangeListener {
+public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, NetInterface.OnUploadQuestionListener, NetInterface.OnUploadPicsListener, View.OnLongClickListener, View.OnFocusChangeListener {
 
     private RadioGroup type;
     private TextInputLayout topic;
@@ -35,10 +38,11 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private TextInputLayout option_d;
     private ImageButton image;
     private AppCompatButton submit;
-
+    private AppCompatRadioButton choice;
+    private AppCompatRadioButton judge;
     private Question mQuestion = new Question();
 
-    private static final  int REQUEST_LOGIN = 1;
+    private static final int REQUEST_LOGIN = 1;
     private static final int REQUEST_GETPIC = 2;
     private static final int REQUEST_UPLOADPIC = 3;
     private static final int REQUEST_UPLOADQUESTION = 4;
@@ -65,7 +69,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     protected void onStop() {
-        if (null != vibrator){
+        if (null != vibrator) {
             vibrator.cancel();
             vibrator = null;
         }
@@ -74,11 +78,11 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (1 == requestCode){
+        if (1 == requestCode) {
 
         }
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case REQUEST_GETPIC:
                     getPic(data);
                     break;
@@ -89,11 +93,11 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
         }
     }
 
-    private void getPic(Intent data){
-        if (null != data){
+    private void getPic(Intent data) {
+        if (null != data) {
             // 取出所选图片的路径
             Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
             Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
@@ -106,17 +110,14 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             // 将图片贴到控件上
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(picuri,options);
+            BitmapFactory.decodeFile(picuri, options);
             int width = options.outWidth;
             int height = options.outHeight;
-            if (100 > width || 40 > height){
+            if (100 > width || 40 > height) {
                 //图片分辨率太低
-                Toast.makeText(this,"图片太小了,请重新选择一张",Toast.LENGTH_SHORT).show();
-                 return;
+                Toast.makeText(this, "图片太小了,请重新选择一张", Toast.LENGTH_SHORT).show();
+                return;
             }
-
-
-
 
 
             BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -124,11 +125,9 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             BitmapFactory.decodeFile(picuri, opts);
             opts.inSampleSize = computeSampleSize(opts, -1, 700 * 272);
             opts.inJustDecodeBounds = false;
-            try
-            {
+            try {
                 bitmap = BitmapFactory.decodeFile(picuri, opts);
-            } catch (OutOfMemoryError err)
-            {
+            } catch (OutOfMemoryError err) {
                 // showNotification("图片过大!");
                 Toast.makeText(this, "图片过大!", Toast.LENGTH_SHORT).show();
                 return;
@@ -146,6 +145,9 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
         option_c = (TextInputLayout) findViewById(R.id.option_c);
         option_d = (TextInputLayout) findViewById(R.id.option_d);
         submit = (AppCompatButton) findViewById(R.id.submit);
+        choice = (AppCompatRadioButton) findViewById(R.id.type_choice);
+        judge = (AppCompatRadioButton) findViewById(R.id.type_judgment);
+
         image = (ImageButton) findViewById(R.id.questionimage);
         type.setOnCheckedChangeListener(this);
         image.setOnClickListener(this);
@@ -168,36 +170,39 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.type_choice:
+                option_b.setVisibility(View.VISIBLE);
                 option_c.setVisibility(View.VISIBLE);
                 option_d.setVisibility(View.VISIBLE);
                 mQuestion.setQuestionType("choice");
                 break;
             case R.id.type_judgment:
+                option_b.setVisibility(View.GONE);
                 option_c.setVisibility(View.GONE);
                 option_d.setVisibility(View.GONE);
+                option_b.getEditText().setText("");
                 option_c.getEditText().setText("");
-                ;
                 option_d.getEditText().setText("");
                 mQuestion.setQuestionType("judge");
                 break;
         }
+        topic.getEditText().requestFocus();
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.edt_topic:
-                if (hasFocus){
+                if (hasFocus) {
                     topic.setErrorEnabled(true);
                     topic.setError(getString(R.string.worldscount, 50));
-                }  else {
+                } else {
                     topic.setErrorEnabled(false);
                 }
                 break;
             case R.id.edt_option_a:
-                if (hasFocus){
+                if (hasFocus) {
                     option_a.setErrorEnabled(true);
-                    if (mQuestion.getQuestionType().equals("judge")){
+                    if (mQuestion.getQuestionType().equals("judge")) {
                         option_a.setError("'对'或'错'");
                     } else {
                         option_a.setError(getString(R.string.worldscount, 10));
@@ -207,9 +212,9 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 }
                 break;
             case R.id.edt_option_b:
-                if (hasFocus){
+                if (hasFocus) {
                     option_b.setErrorEnabled(true);
-                    if (mQuestion.getQuestionType().equals("judge")){
+                    if (mQuestion.getQuestionType().equals("judge")) {
                         option_b.setError("'对'或'错'");
                     } else {
                         option_b.setError(getString(R.string.worldscount, 10));
@@ -219,7 +224,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 }
                 break;
             case R.id.edt_option_c:
-                if (hasFocus){
+                if (hasFocus) {
                     option_c.setErrorEnabled(true);
                     option_c.setError(getString(R.string.worldscount, 10));
                 } else {
@@ -227,7 +232,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 }
                 break;
             case R.id.edt_option_d:
-                if (hasFocus){
+                if (hasFocus) {
                     option_d.setErrorEnabled(true);
                     option_d.setError(getString(R.string.worldscount, 10));
                 } else {
@@ -247,8 +252,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     private void uploadQuestion() {
         if (mApplication.isLogined()) {
-            if (null != bitmap && null == pic){
-                NetInterface.uploadPic(this,mApplication.user,bitmap,this);
+            if (null != bitmap && null == pic) {
+                NetInterface.uploadPic(this, mApplication.user, bitmap, this);
                 return;
                 //有图片但未上传图片
             }
@@ -261,33 +266,32 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private void getQuestion() {
         mQuestion.setTitle(topic.getEditText().getText().toString());
         mQuestion.setAnswerOne(option_a.getEditText().getText().toString());
-        mQuestion.setAnswerTwo(option_b.getEditText().getText().toString());
         if (mQuestion.getQuestionType().equals("choice")) {
+            mQuestion.setAnswerTwo(option_b.getEditText().getText().toString());
             mQuestion.setAnswerThree(option_c.getEditText().getText().toString());
             mQuestion.setAnswerFour(option_d.getEditText().getText().toString());
+        } else if (mQuestion.getAnswerOne().equals("对")){
+            mQuestion.setAnswerTwo("错");
+        } else if (mQuestion.getAnswerOne().equals("错")){
+            mQuestion.setAnswerTwo("对");
         }
     }
 
     private boolean checkParams() {
         boolean result = false;
-        String temp = mQuestion.getTitle();
-        if (null != temp && 5 < temp.length() && 51 > temp.length()) {
-            temp = mQuestion.getAnswerOne();
-            if (null != temp && 0 < temp.length() && 11 > temp.length()) {
-                temp = mQuestion.getAnswerTwo();
-                if (null != temp && 0 < temp.length() && 11 > temp.length()) {
-                    if (mQuestion.getQuestionType().equals("judge")) {
-                        if ((option_a.getEditText().getText().equals("对") && option_b.getEditText().getText().equals("错")) || option_a.getEditText().getText().equals("错") && option_a.getEditText().getText().equals("对")) {
-                            return true;
-                        } else {
-                            option_a.getEditText().requestFocus();
-                            return false;
-                        }
+        if (null != mQuestion.getTitle() && 5 < mQuestion.getTitle().length() && 51 > mQuestion.getTitle().length()) {
+            if (null != mQuestion.getAnswerOne() && 0 < mQuestion.getAnswerOne().length() && 11 > mQuestion.getAnswerOne().length()) {
+                if (mQuestion.getQuestionType().equals("judge")) {
+                    if (mQuestion.getAnswerOne().equals("对") || mQuestion.getAnswerOne().equals("错")) {
+                        return true;
                     } else {
-                        temp = mQuestion.getAnswerThree();
-                        if (null != temp && 0 < temp.length() && 11 > temp.length()) {
-                            temp = mQuestion.getAnswerFour();
-                            if (null != temp && 0 < temp.length() && 11 > temp.length()) {
+                        option_a.getEditText().requestFocus();
+                        return false;
+                    }
+                } else {
+                    if (null != mQuestion.getAnswerTwo() && 0 < mQuestion.getAnswerTwo().length() && 11 > mQuestion.getAnswerTwo().length()) {
+                        if (null != mQuestion.getAnswerThree() && 0 < mQuestion.getAnswerThree().length() && 11 > mQuestion.getAnswerThree().length()) {
+                            if (null != mQuestion.getAnswerFour() && 0 < mQuestion.getAnswerFour().length() && 11 > mQuestion.getAnswerFour().length()) {
                                 result = true;
                             } else {
                                 //D
@@ -297,10 +301,10 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                             //C
                             option_c.getEditText().requestFocus();
                         }
+                    } else {
+                        //B
+                        option_b.getEditText().requestFocus();
                     }
-                } else {
-                    //B
-                    option_b.getEditText().requestFocus();
                 }
             } else {
                 //答案A长度不正确
@@ -323,7 +327,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                     uploadQuestion();
                 } else {
                     Log.e("UQ", "参数不正确");
-                    feedback_No();
+                    feedback_false();
                 }
                 break;
             case R.id.questionimage:
@@ -336,15 +340,15 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()){
-            case  R.id.questionimage:
-                if (null != bitmap){
-                    PopupMenu popupMenu = new PopupMenu(this,image);
-                    popupMenu.getMenuInflater().inflate(R.menu.popupmenu_deleteimage,popupMenu.getMenu());
+        switch (v.getId()) {
+            case R.id.questionimage:
+                if (null != bitmap) {
+                    PopupMenu popupMenu = new PopupMenu(this, image);
+                    popupMenu.getMenuInflater().inflate(R.menu.popupmenu_deleteimage, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()){
+                            switch (item.getItemId()) {
                                 case R.id.deleteimage:
                                     bitmap.recycle();
                                     bitmap = null;
@@ -361,7 +365,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public void onSuccess() {
-        mApplication.user.setUploadNum(mApplication.user.getUploadNum()+1);
+        mApplication.user.setUploadNum(mApplication.user.getUploadNum() + 1);
         this.finish();
     }
 
@@ -372,8 +376,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     }
 
     @Override
-    public void onFalse(int requestCode,String msg) {
-        switch (requestCode){
+    public void onFalse(int requestCode, String msg) {
+        switch (requestCode) {
             case REQUEST_UPLOADPIC:
                 break;
             case REQUEST_UPLOADQUESTION:
@@ -383,28 +387,23 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     }
 
     // 加载大图时,计算缩放比例,以免出现OOM
-    public static int computeSampleSize(BitmapFactory.Options options, int width, int height)
-    {
+    public static int computeSampleSize(BitmapFactory.Options options, int width, int height) {
         int initialSize = computeInitialSampleSize(options, width, height);
 
         int roundedSize;
-        if (initialSize <= 8)
-        {
+        if (initialSize <= 8) {
             roundedSize = 1;
-            while (roundedSize < initialSize)
-            {
+            while (roundedSize < initialSize) {
                 roundedSize <<= 1;
             }
-        } else
-        {
+        } else {
             roundedSize = (initialSize + 7) / 8 * 8;
         }
 
         return roundedSize;
     }
 
-    private static int computeInitialSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels)
-    {
+    private static int computeInitialSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
         int w = options.outWidth;
         int h = options.outHeight;
 
@@ -412,20 +411,16 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
         int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(Math.floor(w / minSideLength),
                 Math.floor(h / minSideLength));
 
-        if (upperBound < lowerBound)
-        {
+        if (upperBound < lowerBound) {
             // return the larger one when there is no overlapping zone.
             return lowerBound;
         }
 
-        if ((maxNumOfPixels == -1) && (minSideLength == -1))
-        {
+        if ((maxNumOfPixels == -1) && (minSideLength == -1)) {
             return 1;
-        } else if (minSideLength == -1)
-        {
+        } else if (minSideLength == -1) {
             return lowerBound;
-        } else
-        {
+        } else {
             return upperBound;
         }
     }

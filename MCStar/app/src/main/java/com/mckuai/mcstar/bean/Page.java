@@ -1,7 +1,6 @@
 package com.mckuai.mcstar.bean;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.io.Serializable;
 

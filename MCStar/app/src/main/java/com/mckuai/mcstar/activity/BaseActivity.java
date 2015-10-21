@@ -101,15 +101,17 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void feedback_No() {
-        if (null == vibrator) {
-            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        }
-        if (vibrator.hasVibrator()) {
-        }
+
+
+    protected void feedback_false(){
+        feedback_affirm(1,null);
     }
 
-    protected void feedback_affirm(final int type, @Nullable View view) {
+    protected void feedback_success(){
+        feedback_affirm(0,null);
+    }
+
+    protected void feedback_affirm(final int type,  View view) {
         if (null == vibrator) {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         }
@@ -131,7 +133,7 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected void shake(@NonNull View view) {
+    private void shake(@NonNull View view) {
         view.setAnimation(makeShakeAnimation());
     }
 

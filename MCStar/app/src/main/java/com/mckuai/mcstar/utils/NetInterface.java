@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.MCStar;
 import com.mckuai.mcstar.bean.ContributionBean;
@@ -26,6 +27,7 @@ import com.mckuai.mcstar.bean.Question;
 import com.mckuai.mcstar.bean.RankingListBean;
 import com.tencent.connect.UserInfo;
 
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.apache.http.Header;
@@ -176,7 +178,7 @@ public class NetInterface {
     }
 
     public static void uploadQuestion(@NonNull final Context context, MCUser user, @NonNull Question questin, @Nullable String picUrl, @NonNull final OnUploadQuestionListener listener) {
-
+//        String url = "http://192.168.10.106/" + context.getString(R.string.interface_upload);
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_upload);
         RequestParams params = new RequestParams();
         params.put("authorId", user.getId());
@@ -187,10 +189,10 @@ public class NetInterface {
             params.put("icon", picUrl);
         }
         params.put("answerOne", questin.getAnswerOne());
-        params.put("answerTwo", questin.getAnswerOne());
+        params.put("answerTwo", questin.getAnswerTwo());
         if (questin.getQuestionType().equals("choice")) {
-            params.put("answerThree", questin.getAnswerOne());
-            params.put("answerFour", questin.getAnswerOne());
+            params.put("answerThree", questin.getAnswerThree());
+            params.put("answerFour", questin.getAnswerFour());
         }
 
         mClient.post(context, url, params, new JsonHttpResponseHandler() {
@@ -227,6 +229,11 @@ public class NetInterface {
                     } else {
                         listener.onFalse(3,result.msg);
                     }
+                }
+
+                @Override
+                public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                    super.onPostProcessResponse(instance, response);
                 }
 
                 @Override
@@ -392,24 +399,26 @@ public class NetInterface {
             result.msg = context.getString(R.string.error_pretreatmentres_nullerror);
             return result;
         }
-        if (response.has("state") && response.has("dataObject")) {
+        if (response.has("state")) {
             try {
-                result.msg = response.getString("dataObject");
-                result.isSuccess = true;
+                if (response.getString("state").equals("ok")){
+                    result.isSuccess = true;
+                    if (response.has("dataObject")){
+                        result.msg = response.getString("dataObject");
+                    }
+                } else {
+                    if (response.has("msg")){
+                        result.msg = response.getString("msg");
+                    } else {
+                        result.msg = context.getString(R.string.error_serverfalse_unknow);
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 result.msg = context.getString(R.string.error_pretreatmentres_ponsefalse, e.getLocalizedMessage());
             }
         } else {
-            if (response.has("msg")) {
-                try {
-                    result.msg = context.getString(R.string.error_serverfalse, response.getString("msg"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                result.msg = context.getString(R.string.error_serverfalse_unknow);
-            }
+                result.msg = context.getString(R.string.error_serverreturn_unkonw);
         }
 
         return result;

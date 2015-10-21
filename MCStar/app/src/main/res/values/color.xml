@@ -22,5 +22,8 @@
     <color name="red">#ED3F3C</color>
     <color name="transparent">#00000000</color>
     <color name="white_overlay">#90FFFFFF</color>
+    <color name="radiobutton_unchecked">#381E57</color>
+    <color name="radiobutton_checked">#696296</color>
+    <color name="login_textcolor">#7B6EB2</color>
 
 </resources>

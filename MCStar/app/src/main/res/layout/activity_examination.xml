@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/img_main"
     android:fitsSystemWindows="true">
 
     <include
@@ -12,8 +13,7 @@
         android:id="@+id/context"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@mipmap/img_other">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

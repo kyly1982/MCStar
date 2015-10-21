@@ -1,14 +1,18 @@
 package com.mckuai.mcstar.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
@@ -26,6 +30,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int REQUEST_RANKING = 3;
     private static final int REQUEST_ANSWER = 4;
 
+    private ImageButton button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +42,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onResume() {
         super.onResume();
         initToolBar();
-        findViewById(R.id.btn_getpaper).setOnClickListener(this);
+        initView();
         if (mApplication.isLogined()) {
             showUserInfo();
         }
     }
 
     @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+
+        return super.onCreateView(name, context, attrs);
+    }
+
+    @Override
     protected void onDestroy() {
         mApplication.saveProfile();
         super.onDestroy();
+    }
+
+    private void initView(){
+        button = (ImageButton) findViewById(R.id.btn_getpaper);
+        RelativeLayout shando = (RelativeLayout) findViewById(R.id.rl_shandow);
+        button.setOnClickListener(this);
+
+
+        int screenWidth =getWindowManager().getDefaultDisplay().getWidth();
+        int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+        float scal =  screenWidth / 720f;
+        float left = 122f * scal;
+        float top = 159f * scal;
+        float right = 124f * scal;
+        float bottom = 87f * scal;
+        float width = 474f * scal;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)width,(int)width);
+        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(screenWidth,screenWidth);params1.addRule(RelativeLayout.CENTER_IN_PARENT);
+        params.setMargins((int) left, (int) top, (int) right, (int) bottom);
+
+        button.setLayoutParams(params);
+        shando.setLayoutParams(params1);
     }
 
     @Override
@@ -114,10 +148,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void showUserInfo() {
         String url = (String) mToolBar.getTag();
         final String cover = mApplication.user.getHeadImg();
-        if (null == cover || (null != url && url.equals(cover))) {
-            Log.e("SUI","已经有了头像，不再加载");
-            return;
-        }
         ImageLoader loader = ImageLoader.getInstance();
         loader.loadImage(cover, new ImageLoadingListener() {
             @Override

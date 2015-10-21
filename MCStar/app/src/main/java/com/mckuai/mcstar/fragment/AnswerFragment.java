@@ -1,6 +1,7 @@
 package com.mckuai.mcstar.fragment;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,8 @@ import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
  */
 public class AnswerFragment extends BaseFragment implements View.OnClickListener {
     private ImageButton mCover;
+    private AppCompatTextView mQuestionTitle;
     private AppCompatCheckedTextView mOption_A;
     private AppCompatCheckedTextView mOption_B;
     private AppCompatCheckedTextView mOption_C;
@@ -104,6 +108,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mScore_question = (AppCompatTextView) view.findViewById(R.id.questionscore);
         mQuestionIndex = (AppCompatTextView) view.findViewById(R.id.questionIndex);
         mTime = (AppCompatTextView) view.findViewById(R.id.timer);
+        mQuestionTitle = (AppCompatTextView) view.findViewById(R.id.questionContent);
         mContributioner = (AppCompatTextView) view.findViewById(R.id.contributioner);
         mOption_A = (AppCompatCheckedTextView) view.findViewById(R.id.answerA);
         mOption_B = (AppCompatCheckedTextView) view.findViewById(R.id.answerB);
@@ -146,14 +151,14 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         isChecked = false;
         Question question = mQuestions.get(mIndex);
         ArrayList<String> answer = question.getOptionsEx();
-        mOption_A.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
-        mOption_B.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
         mOption_A.setChecked(false);
         mOption_B.setChecked(false);
+        mOption_A.setText(answer.get(0));
+        mOption_B.setText(answer.get(1));
+        mOption_A.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
+        mOption_B.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
         switch (question.getQuestionType()) {
             case "choice":
-                mOption_A.setText(answer.get(0));
-                mOption_B.setText(answer.get(1));
                 mOption_C.setText(answer.get(2));
                 mOption_D.setText(answer.get(3));
                 mOption_C.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
@@ -164,8 +169,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 mOption_D.setVisibility(View.VISIBLE);
                 break;
             case "judge":
-                mOption_A.setText(answer.get(0));
-                mOption_B.setText(answer.get(1));
                 mOption_C.setVisibility(View.GONE);
                 mOption_D.setVisibility(View.GONE);
                 break;
@@ -173,6 +176,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mQuestionIndex.setText((mIndex+1)+".");
         mScore_question.setText(getString(R.string.addscore,question.getScore()));
         mContributioner.setText(getString(R.string.contributor,question.getAuthorName()));
+        mQuestionTitle.setText(question.getTitle()+"");
         if (null != question.getIcon() && 10 < question.getIcon().length()){
             mLoader.displayImage(question.getIcon(),mImage);
             mImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -187,6 +191,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private void processResult(AppCompatCheckedTextView answer) {
         Question question = mQuestions.get(mIndex);
         String rightAnswer = question.getRightAnswer();
+        answer.setChecked(true);
         if (answer.getText().equals(rightAnswer)) {
             //答对
             rightQuestions.add(question.getId());
@@ -203,6 +208,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void processWrong(Question question,AppCompatCheckedTextView answer){
+        feedback_false();
         wrongQuestions.add(question.getId());
         String rightAnswer = question.getRightAnswer();
         if (null != answer) {
@@ -304,7 +310,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (null != loadedImage) {
-                    mCover.setImageDrawable(new BitmapDrawable(getResources(),CircleBitMap2.getCircleBitmap(loadedImage)));
+                    mCover.setImageDrawable(new BitmapDrawable(getResources(), CircleBitMap2.getCircleBitmap(loadedImage)));
                     mCover.setTag(url);
                    /* mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
                     mToolBar.setTag(cover);*/
@@ -317,6 +323,5 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             }
         });
     }
-
 
 }

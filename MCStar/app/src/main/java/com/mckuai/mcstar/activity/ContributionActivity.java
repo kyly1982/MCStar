@@ -1,22 +1,13 @@
 package com.mckuai.mcstar.activity;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.github.magiepooh.recycleritemdecoration.ItemDecorations;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
-import com.marshalchen.ultimaterecyclerview.ui.DividerItemDecoration;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.ContributionAdapter;
 import com.mckuai.mcstar.bean.Page;
@@ -44,6 +35,8 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
         super.onResume();
         if (null == mList) {
             initView();
+        }
+        if (mQuestions.isEmpty()){
             loadData();
         }
     }
@@ -54,8 +47,6 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mList.setLayoutManager(manager);
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-//        mList.addItemDecoration(dividerItemDecoration);
         mList.enableLoadmore();
         mList.enableDefaultSwipeRefresh(true);
         mList.setOnLoadMoreListener(this);
@@ -117,13 +108,13 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     @Override
     public void onSuccess(Page page, ArrayList<Question> questions) {
-        this.mPage = page;
+        this.mPage.clone(page) ;
         this.mQuestions.addAll(questions);
         showData();
     }
 
     @Override
     public void onFalse(String msg) {
-
+        feedback_false();
     }
 }

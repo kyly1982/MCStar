@@ -4,7 +4,7 @@
     <item android:id="@+id/action_playmusic"
         android:orderInCategory="1"
         android:title="@string/music_disable"
-        android:icon="@mipmap/ic_menu_music_disable"
+        android:icon="@mipmap/ic_menu_music_enable"
         app:showAsAction="ifRoom"
         />
 </menu>

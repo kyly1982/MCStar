@@ -63,6 +63,7 @@
     <string name="error_parsefalse">解析返回数据时失败，请重试！</string>
     <string name="error_requestfalse">请求失败，原因：%1$s</string>
     <string name="error_userformat_noself">返回的用户信息不正确！</string>
+    <string name="error_serverreturn_unkonw">服务器返回数据格式不正确！</string>
 
     <!-- 菜单-->
     <string name="contribution">贡献</string>
@@ -88,6 +89,11 @@
     <string name="skip">跳过 %1$dS</string>
     <string name="show_np">下一页</string>
     <string name="enter">进入</string>
+
+    <!--登录-->
+    <string name="qq_login">QQ账号登录</string>
+    <string name="login_hint1">MC 哇！</string>
+    <string name="login_wa">挖，挖，挖……</string>
 
     <!--主页-->
     <string name="getpaper">挖一下</string>
@@ -116,7 +122,7 @@
     <string name="type_choice">选择题</string>
     <string name="type_judgment">判断题</string>
     <string name="question_titlehint">这里写题目</string>
-    <string name="worldscount">%1$d字</string>
+    <string name="worldscount">最多输入%1$d字</string>
     <string name="question_imagehint">添加图片（可选）</string>
     <string name="result_right">正确答案</string>
     <string name="result_false">错误答案</string>

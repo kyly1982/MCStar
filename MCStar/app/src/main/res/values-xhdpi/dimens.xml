@@ -2,12 +2,13 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
 
-    <dimen name="fontsize_title">25sp</dimen>
+    <dimen name="fontsize_title">26sp</dimen>
     <dimen name="fontsize_stress">40sp</dimen>
-    <dimen name="fontsize_big">16sp</dimen>
-    <dimen name="fontsize_normal">14sp</dimen>
-    <dimen name="fontsize_smal">12sp</dimen>
-    <dimen name="fontsize_lable">10sp</dimen>
+    <dimen name="fontsize_big">18sp</dimen>
+    <dimen name="fontsize_normal">16sp</dimen>
+    <dimen name="fontsize_smal">14sp</dimen>
+    <dimen name="fontsize_lable">12sp</dimen>
+
 
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -19,6 +20,11 @@
     <dimen name="divi_height2">4.5dp</dimen>
 
     <dimen name="content_item_width">336dp</dimen>
+
+    <!--login-->
+    <dimen name="button_height">67dp</dimen>
+    <dimen name="button_width">284dp</dimen>
+    <dimen name="button_marginbottom">86dp</dimen>
 
     <!--main-->
     <dimen name="readybutton_width">234dp</dimen>
@@ -44,6 +50,7 @@
     <dimen name="usercover_radii_small">15dp</dimen>
     <dimen name="bottom_height">67dp</dimen>
     <dimen name="bottom_btn_padding">34.5dp</dimen>
+    <dimen name="score_paddint_bottom">64dp</dimen>
     <!--Contribution-->
     <dimen name="item_contribution_height">110dp</dimen>
     <dimen name="item_contributiontitle_height">67dp</dimen>
@@ -53,12 +60,13 @@
     <dimen name="questiontype_height">33.5dp</dimen>
     <dimen name="questiontopic_height">83dp</dimen>
     <dimen name="questionimage_height">130.5dp</dimen>
-    <dimen name="questionsubmit_height">68dp</dimen>
+    <dimen name="questionsubmit_height">69dp</dimen>
     <dimen name="question_options_height">44dp</dimen>
 
     <!--usercenter-->
-    <dimen name="usercover_width">108dp</dimen>
-    <dimen name="infolayout_height">303dp</dimen>
+    <dimen name="usercover_background_width">156.5dp</dimen>
+    <dimen name="usercover_width">113dp</dimen>
+    <dimen name="infolayout_height">290dp</dimen>
     <dimen name="iteminfo_height">151dp</dimen>
 
     <!--ranking-->
@@ -66,4 +74,5 @@
     <dimen name="item_ranking_height">64dp</dimen>
     <dimen name="item_ranking_content_height">48dp</dimen>
     <dimen name="item_ranking_paddingbottom">16dp</dimen>
+    <dimen name="item_padding_vertical">2dp</dimen>
 </resources>

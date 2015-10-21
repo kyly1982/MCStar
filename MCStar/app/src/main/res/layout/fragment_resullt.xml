@@ -92,8 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rankno"
                     android:layout_centerHorizontal="true"
-                    android:text="128"
                     android:textColor="@color/fifth_text"
+                    android:text="2"
                     android:textSize="@dimen/fontsize_big" />
 
 
@@ -104,10 +104,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="64dp"
+                android:layout_marginBottom="@dimen/score_paddint_bottom"
                 android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/primary_text"
+                android:text="12"
                 android:textSize="@dimen/fontsize_stress" />
 
 
@@ -149,7 +150,7 @@
             <View
                 android:id="@+id/v_cent6"
                 android:layout_width="0dp"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/item_padding_vertical"
                 android:layout_centerInParent="true" />
 
             <ImageView

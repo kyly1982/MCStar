@@ -1,6 +1,5 @@
 package com.mckuai.mcstar.activity;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
@@ -132,11 +131,11 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         switch (item.getItemId()) {
             case R.id.action_playmusic:
                 if (mApplication.switchPlayPauseMusic()) {
+                    item.setIcon(R.mipmap.ic_menu_music_enable);
                     item.setTitle(R.string.music_disable);
-                    item.setIcon(R.mipmap.ic_menu_music_disable);
                 } else {
                     item.setTitle(R.string.music_enable);
-                    item.setIcon(R.mipmap.ic_menu_music_enable);
+                    item.setIcon(R.mipmap.ic_menu_music_disable);
                 }
                 break;
         }
@@ -156,7 +155,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     public void onSuccess(MCUser userInfo) {
         refreshLayout.setRefreshing(false);
         isLoading = false;
-        mApplication.user = userInfo;
+        mApplication.user.clone(userInfo);
         showData();
     }
 

@@ -32,8 +32,6 @@ import java.net.SocketTimeoutException;
 public class LoginActivity extends BaseActivity implements View.OnClickListener,NetInterface.OnLoginServerListener{
 
     private static MCUser user;
-//    private static long mQQToken_Birthday;
-//    private static long mQQToken_Expires;
     private static Tencent mTencent;
     private static boolean isLogin = false;
     private static String mQQToken;
@@ -57,7 +55,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         super.onResume();
         initToolBar();
         findViewById(R.id.login).setOnClickListener(this);
-//        mApplication.playMusic();
     }
 
     @Override
@@ -87,7 +84,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 }
                 break;
             default:
-                handleResult();
+                setResult(RESULT_CANCELED);
+                this.finish();
                 break;
         }
     }
@@ -153,7 +151,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         public void onCancel() {
             // TODO Auto-generated method stub
             logoutQQ();
-            Log.e("BaseUiListener","onCancel");
+            Log.e("BaseUiListener", "onCancel");
+            setResult(RESULT_CANCELED);
+            LoginActivity.this.finish();
             MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
         }
 
@@ -247,15 +247,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onSuccess(MCUser user) {
         isLogin = true;
-        MCStar.user = user;
-        this.user = user;
-        handleResult();
+        MCStar.user.clone(user);
+        setResult(RESULT_OK);
+        this.finish();
     }
 
     @Override
     public void onFalse(String msg) {
-        setResult(null != user ? RESULT_OK : RESULT_CANCELED);
-        Log.e("登录到服务器时失败!",msg);
+        feedback_false();
+        Log.e("登录到服务器时失败!", msg);
+        setResult(RESULT_CANCELED);
+        this.finish();
     }
 }
 

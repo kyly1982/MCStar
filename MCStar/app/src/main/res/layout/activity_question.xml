@@ -14,7 +14,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/img_other"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.AppCompatButton
@@ -58,7 +57,7 @@
                     android:layout_below="@id/selecttype"
                     android:layout_marginTop="@dimen/divi_height"
                     android:layout_marginBottom="@dimen/divi_height"
-                    android:background="@drawable/background_stork"
+                    android:background="@drawable/radiobutton_unchecked"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatRadioButton
@@ -66,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/background_questiontype"
+                        android:background="@drawable/radiobutton_background"
                         android:button="@null"
                         android:checked="true"
                         android:gravity="center"
@@ -78,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/background_questiontype"
+                        android:background="@drawable/radiobutton_background"
                         android:button="@null"
                         android:gravity="center"
                         android:text="@string/type_judgment"
@@ -88,24 +87,24 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/questiontopic"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/questiontopic_height"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/rg_questiontype"
-                    android:background="@color/white"
-                    android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/item"
+                    android:textColorHint="@color/secondary_text"
                     app:errorEnabled="true"
+                    android:background="@color/white"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_topic"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/questiontopic_height"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:maxLength="50"
-                        android:background="@color/white"/>
+                        android:hint="@string/question_titlehint"
+                        android:background="@color/transparent"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <ImageButton
@@ -113,10 +112,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/questionimage_height"
                     android:layout_below="@id/questiontopic"
-                    android:layout_marginTop="@dimen/padding_vertical"
-                    android:layout_marginBottom="@dimen/padding_vertical"
                     android:background="@drawable/background_newquestion_image"
+                    android:layout_marginTop="@dimen/divi_height"
+                    android:layout_marginBottom="@dimen/divi_height"
                     android:scaleType="center"
+                    android:padding="1dp"
                     android:src="@mipmap/img_questionimage" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -132,85 +132,96 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_a"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/question_options_height"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/questionimage"
-                    android:background="@color/white"
-                    android:hint="@string/question_titlehint"
-                    android:textColorHint="@color/item"
+                    android:hint="@string/result_right"
+                    android:textColorHint="@color/primary_text"
+                    android:background="@color/item"
+                    app:errorEnabled="true"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_a"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/secondary_text"
-                        android:textColorHint="@color/secondary_text"
+                        android:layout_height="@dimen/question_options_height"
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
+                        android:background="@color/transparent"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_b"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/question_options_height"
-                    android:layout_marginTop="@dimen/padding_vertical"
-                    android:layout_marginBottom="@dimen/padding_vertical"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/option_a"
-                    android:background="@color/white"
-                    android:textColorHint="@color/item"
+                    android:layout_marginTop="@dimen/divi_height"
+                    android:layout_marginBottom="@dimen/divi_height"
+                    android:textColorHint="@color/primary_text"
+                    android:hint="@string/result_false"
+                    app:errorEnabled="true"
+                    android:background="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_b"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/secondary_text"
-                        android:textColorHint="@color/secondary_text"
+                        android:layout_height="@dimen/question_options_height"
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
+                        android:background="@color/transparent"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_c"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/question_options_height"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/option_b"
-                    android:background="@color/white"
-                    android:textColorHint="@color/item"
+                    android:textColorHint="@color/primary_text"
+                    android:hint="@string/result_false"
+                    app:errorEnabled="true"
+                    android:background="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_c"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/secondary_text"
-                        android:textColorHint="@color/secondary_text"
+                        android:layout_height="@dimen/question_options_height"
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
+                        android:background="@color/transparent"
                         android:maxLength="10" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/option_d"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/question_options_height"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/option_c"
-                    android:layout_marginTop="@dimen/padding_vertical"
-                    android:layout_marginBottom="@dimen/padding_vertical"
-                    android:background="@color/white"
-                    android:textColorHint="@color/item"
+                    android:layout_marginTop="@dimen/divi_height"
+                    android:layout_marginBottom="@dimen/divi_height"
+                    android:textColorHint="@color/primary_text"
+                    android:hint="@string/result_false"
+                    app:errorEnabled="true"
+                    android:background="@color/item"
                     app:hintAnimationEnabled="true">
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_d"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/secondary_text"
-                        android:textColorHint="@color/secondary_text"
+                        android:layout_height="@dimen/question_options_height"
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
+                        android:background="@color/transparent"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 

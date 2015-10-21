@@ -40,8 +40,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     private ImageView mCover_pre;
     private ImageView mCover_next;
     private ImageView mCover;
-    private ImageView mReExam;
-    private ImageView mShare;
+    private AppCompatTextView mReExam;
+    private AppCompatTextView mShare;
 
     private RelativeLayout user_pre;
     private RelativeLayout user_next;
@@ -107,6 +107,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
             mScore.setText("" + score);
             if (mApplication.isLogined() && null != mApplication.user.getHeadImg()){
                 mLoader.displayImage(mApplication.user.getHeadImg(),mCover,options);
+                mRank.setText(mApplication.user.getScoreRank()+"");
             }
         } else {
             if (null != user_p) {
@@ -150,8 +151,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         mCover_pre = (ImageView) view.findViewById(R.id.cover_pre);
         mCover_next = (ImageView) view.findViewById(R.id.cover_next);
         mCover = (ImageView) view.findViewById(R.id.cover_mine);
-        mReExam = (ImageView) view.findViewById(R.id.reexam);
-        mShare = (ImageView) view.findViewById(R.id.sharescore);
+        mReExam = (AppCompatTextView) view.findViewById(R.id.reexam);
+        mShare = (AppCompatTextView) view.findViewById(R.id.sharescore);
         user_pre = (RelativeLayout) view.findViewById(R.id.user_pre);
         user_next = (RelativeLayout) view.findViewById(R.id.user_next);
         user_mine = (RelativeLayout) view.findViewById(R.id.layout_ranking_mine);

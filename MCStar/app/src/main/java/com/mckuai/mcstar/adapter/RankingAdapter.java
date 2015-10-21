@@ -47,7 +47,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (null != mUser && !mUser.isEmpty()){
             MCUser user = mUser.get(position);
-            holder.ranking.setText((user.getRanking() +1)+"");
+            holder.ranking.setText(user.getScoreRank()+"");
             holder.name.setText(user.getNickName());
             holder.score.setText(mContext.getString(R.string.scores,user.getAllScore()));
             if (null != user.getHeadImg() && 10 < user.getHeadImg().length()){

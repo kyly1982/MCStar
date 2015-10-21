@@ -137,9 +137,6 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
             mApplication.user.clone(myself);
         }
         mUsers.addAll(users);
-        mUsers.addAll(users);
-        mUsers.addAll(users);
-        mUsers.addAll(users);
         showData();
     }
 
