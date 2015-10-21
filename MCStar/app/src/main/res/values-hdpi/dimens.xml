@@ -31,11 +31,11 @@
     <dimen name="readybutton_height">252dp</dimen>
 
     <!--ready-->
-    <dimen name="paper_cover_width">134dp</dimen>
-    <dimen name="paper_cover_height">162dp</dimen>
-    <dimen name="userlist_title_height">20dp</dimen>
-    <dimen name="userlist_height">52dp</dimen>
-    <dimen name="readarea_height">184dp</dimen>
+    <dimen name="paper_cover_width">100.5dp</dimen>
+    <dimen name="paper_cover_height">121.5dp</dimen>
+    <dimen name="userlist_title_height">15dp</dimen>
+    <dimen name="userlist_height">40dp</dimen>
+    <dimen name="readarea_height">138dp</dimen>
     <!--answer edited-->
     <dimen name="image_height">97dp</dimen>
     <dimen name="option_height">35dp</dimen>
