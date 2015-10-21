@@ -84,7 +84,9 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mIndex = 0;
             showQuestion();
         }
-        showUserInfo();
+        if (mApplication.isLogined()) {
+            showUserInfo();
+        }
     }
 
     @Override
