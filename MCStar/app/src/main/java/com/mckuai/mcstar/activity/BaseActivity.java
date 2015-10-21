@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.Vibrator;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationSet;
-import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
-import com.umeng.message.local.UmengLocalNotification;
 import com.umeng.message.local.UmengNotificationBuilder;
 
 /**

@@ -1,18 +1,10 @@
 package com.mckuai.mcstar.bean;
 
-import android.media.MediaPlayer;
-import android.test.suitebuilder.TestMethod;
-
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.MCStar;
 
-import org.w3c.dom.Text;
-
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.logging.SimpleFormatter;
 
 /**
  * 习题信息

@@ -38,6 +38,8 @@
                  android:paddingLeft="@dimen/margin_horizontal"
                  android:gravity="bottom"
                  android:textColor="@color/primary_text"
+                 android:textSize="@dimen/fontsize_lable"
+
                  android:text="@string/paper_examinees" />
 
              <android.support.v7.widget.AppCompatTextView
@@ -49,6 +51,7 @@
                  android:paddingRight="@dimen/margin_horizontal"
                  android:gravity="right|bottom"
                  android:layout_centerHorizontal="true"
+                 android:textSize="@dimen/fontsize_lable"
                  android:textColor="@color/forth_text"
                  android:text="@string/paper_seckill" />
 

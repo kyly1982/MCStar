@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
-import com.marshalchen.ultimaterecyclerview.ui.DividerItemDecoration;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.adapter.RankingAdapter;
 import com.mckuai.mcstar.bean.MCUser;
@@ -70,7 +69,6 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
     private void initView() {
         mRank = (AppCompatTextView) findViewById(R.id.myranking);
         mNo = (AppCompatTextView) findViewById(R.id.myrank_layout);
-//        mName = (AppCompatTextView) findViewById(R.id.myname);
         mScore = (AppCompatTextView) findViewById(R.id.myscore);
         mCover = (ImageView) findViewById(R.id.mycover);
         mList = (UltimateRecyclerView) findViewById(R.id.rankinglist);
@@ -78,9 +76,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mList.setLayoutManager(manager);
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-//        mList.addItemDecoration(dividerItemDecoration);
-        mList.setHasFixedSize(true);
+//        mList.setHasFixedSize(true);
         mList.enableLoadmore();
         mList.enableDefaultSwipeRefresh(true);
         mList.setOnLoadMoreListener(this);
@@ -100,7 +96,6 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
             MCUser user = mApplication.user;
             if (null != user && 0 != user.getId()) {
                 mRank.setText((user.getRanking() +1) + "");
-                //mName.setText(user.getNickName() + "");
                 mScore.setText(getString(R.string.scores,user.getAllScore()));
                 mNo.setVisibility(View.VISIBLE);
             }

@@ -7,13 +7,13 @@
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
 
-        android:scaleType="center"
+        android:scaleType="centerInside"
         android:src="@mipmap/ic_menu_cover"
         android:background="@color/transparent"
         />
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/score"
-        android:layout_width="45dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/usercover"
         android:layout_centerVertical="true"

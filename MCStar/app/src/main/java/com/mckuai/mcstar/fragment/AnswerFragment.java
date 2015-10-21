@@ -1,17 +1,12 @@
 package com.mckuai.mcstar.fragment;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Vibrator;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
@@ -24,7 +19,6 @@ import android.widget.ImageView;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.activity.ExaminationActivity;
 import com.mckuai.mcstar.bean.Question;
-import com.mckuai.mcstar.utils.CircleBitMap2;
 import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -291,10 +285,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private void showUserInfo() {
         final String url = (String) mCover.getTag();
         final String cover = mApplication.user.getHeadImg();
-       /* if (null == cover || (null != url && url.equals(cover))) {
-            Log.e("SUI","已经有了头像，不再加载");
-            return;
-        }*/
         ImageLoader loader = ImageLoader.getInstance();
         loader.loadImage(cover, new ImageLoadingListener() {
             @Override
@@ -310,10 +300,8 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (null != loadedImage) {
-                    mCover.setImageDrawable(new BitmapDrawable(getResources(), CircleBitMap2.getCircleBitmap(loadedImage)));
+                    mCover.setImageBitmap(CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small)));
                     mCover.setTag(url);
-                   /* mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
-                    mToolBar.setTag(cover);*/
                 }
             }
 

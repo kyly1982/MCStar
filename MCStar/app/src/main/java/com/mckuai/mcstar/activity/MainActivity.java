@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.Paper;
-import com.mckuai.mcstar.utils.CircleBitMap2;
 import com.mckuai.mcstar.utils.CircleBitmap;
 import com.mckuai.mcstar.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -89,7 +88,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mToolBar.setOnMenuItemClickListener(this);
         mToolBar.setNavigationOnClickListener(this);
         mTitle.setText(R.string.title_main);
-        mApplication.setIconHeigth(mToolBar.getNavigationIcon().getMinimumHeight());
     }
 
     @Override
@@ -163,8 +161,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (null != loadedImage) {
-
-                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, mToolBar.getNavigationIcon().getMinimumWidth())));
+                    mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmap(loadedImage,getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small))));
+//                    mToolBar.setNavigationIcon(CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small)));
                     mToolBar.setTag(cover);
                 }
             }

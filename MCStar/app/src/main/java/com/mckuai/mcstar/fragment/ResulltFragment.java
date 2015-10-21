@@ -124,7 +124,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     }
 
     private void showUserInfo(MCUser user, AppCompatTextView rank, AppCompatTextView score, ImageView cover) {
-        rank.setText((user.getRanking() + 1) +"");
+        rank.setText((user.getScoreRank() ) +"");
         score.setText(user.getAllScore() + "");
         if (null != user.getHeadImg() && 10 < user.getHeadImg().length()) {
             mLoader.displayImage(user.getHeadImg(), cover, options);

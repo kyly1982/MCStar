@@ -10,21 +10,11 @@ import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.utils.NetInterface;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
-import com.tencent.open.utils.HttpUtils;
-import com.tencent.tauth.IRequestListener;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.proguard.Z;
-
-import org.apache.http.conn.ConnectTimeoutException;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 
 /**
  * A login screen that offers login via email/password.

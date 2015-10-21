@@ -33,7 +33,7 @@
     <!--ready-->
     <dimen name="paper_cover_width">100.5dp</dimen>
     <dimen name="paper_cover_height">121.5dp</dimen>
-    <dimen name="userlist_title_height">15dp</dimen>
+    <dimen name="userlist_title_height">18dp</dimen>
     <dimen name="userlist_height">40dp</dimen>
     <dimen name="readarea_height">138dp</dimen>
     <!--answer edited-->
@@ -62,6 +62,7 @@
     <dimen name="questionimage_height">98dp</dimen>
     <dimen name="questionsubmit_height">52dp</dimen>
     <dimen name="question_options_height">33dp</dimen>
+    <dimen name="questionimage_hint_bottom">10dp</dimen>
 
     <!--usercenter 0.75-->
     <dimen name="usercover_background_width">117dp</dimen>

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mckuai.mcstar.R;
@@ -53,10 +52,10 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             if (null != user.getHeadImg() && 10 < user.getHeadImg().length()){
                 mLoader.displayImage(user.getHeadImg(),holder.cover,options);
             }
-            if (0 == user.getRanking()){
+            if (1 == user.getScoreRank()){
                 holder.lab.setBackgroundColor(mContext.getResources().getColor(R.color.green));
             } else {
-                holder.lab.setBackgroundColor(mContext.getResources().getColor(R.color.white_overlay));
+                holder.lab.setBackgroundColor(mContext.getResources().getColor(R.color.lab_rank));
             }
         }
     }

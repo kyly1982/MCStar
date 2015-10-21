@@ -98,6 +98,8 @@
                         android:id="@+id/edt_topic"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/questiontopic_height"
+                        android:paddingLeft="@dimen/divi_height"
+                        android:paddingRight="@dimen/divi_height"
                         android:textColor="@color/secondary_text"
                         android:textColorHint="@color/secondary_text"
                         android:focusable="true"
@@ -119,14 +121,15 @@
                     android:padding="1dp"
                     android:src="@mipmap/img_questionimage" />
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/questionimage_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/questionimage"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="@dimen/questionimage_hint_bottom"
                     android:textSize="@dimen/fontsize_smal"
                     android:textColor="@color/secondary_text"
-                    android:text="@string/question_imagehint"
+                    android:text="@string/question_addimage_hint"
                     />
 
                 <android.support.design.widget.TextInputLayout
@@ -134,7 +137,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/questionimage"
-                    android:hint="@string/result_right"
+                    android:paddingLeft="@dimen/divi_height"
+                    android:paddingRight="@dimen/divi_height"
                     android:textColorHint="@color/primary_text"
                     android:background="@color/item"
                     app:errorEnabled="true"
@@ -143,12 +147,13 @@
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_a"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/question_options_height"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
                         android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:background="@color/transparent"
+                        android:textSize="@dimen/fontsize_normal"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -157,6 +162,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/option_a"
+                    android:paddingLeft="@dimen/divi_height"
+                    android:paddingRight="@dimen/divi_height"
                     android:layout_marginTop="@dimen/divi_height"
                     android:layout_marginBottom="@dimen/divi_height"
                     android:textColorHint="@color/primary_text"
@@ -168,12 +175,13 @@
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_b"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/question_options_height"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
                         android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:background="@color/transparent"
+                        android:textSize="@dimen/fontsize_normal"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -181,6 +189,8 @@
                     android:id="@+id/option_c"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/divi_height"
+                    android:paddingRight="@dimen/divi_height"
                     android:layout_below="@id/option_b"
                     android:textColorHint="@color/primary_text"
                     android:hint="@string/result_false"
@@ -191,12 +201,13 @@
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_c"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/question_options_height"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
                         android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:background="@color/transparent"
+                        android:textSize="@dimen/fontsize_normal"
                         android:maxLength="10" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -205,6 +216,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/option_c"
+                    android:paddingLeft="@dimen/divi_height"
+                    android:paddingRight="@dimen/divi_height"
                     android:layout_marginTop="@dimen/divi_height"
                     android:layout_marginBottom="@dimen/divi_height"
                     android:textColorHint="@color/primary_text"
@@ -216,12 +229,13 @@
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edt_option_d"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/question_options_height"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
                         android:textColorHint="@color/primary_text"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:background="@color/transparent"
+                        android:textSize="@dimen/fontsize_normal"
                         android:maxLength="10"/>
                 </android.support.design.widget.TextInputLayout>
 

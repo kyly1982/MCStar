@@ -18,8 +18,6 @@
     <string name="tag_wrongquestion">WRONGRUESTIONSID</string>
     <string name="tag_usercover">USER_COVER</string>
     <!--其它-->
-    <string name="correct">对</string>
-    <string name="wrong">错</string>
     <string name="imagecache_dir">image</string>
     <!--配置-->
     <string name="preferences_isFirstBoot">FIRSTBOOT</string>
@@ -86,7 +84,7 @@
     <string name="title_usercenter">用户中心</string>
 
     <!--引导页-->
-    <string name="skip">跳过 %1$dS</string>
+    <string name="skip">跳过 %1$ds</string>
     <string name="show_np">下一页</string>
     <string name="enter">进入</string>
 
@@ -123,10 +121,16 @@
     <string name="type_judgment">判断题</string>
     <string name="question_titlehint">这里写题目</string>
     <string name="worldscount">最多输入%1$d字</string>
-    <string name="question_imagehint">添加图片（可选）</string>
+    <string name="question_addimage_hint">添加图片（可选）</string>
+    <string name="question_imagetoosmall">图片太小了,请重新选择一张!</string>
+    <string name="question_imagetoolarge">图片太大了,请重新选择一张!</string>
+    <string name="question_removeimage_hint">长按删除图片</string>
     <string name="result_right">正确答案</string>
     <string name="result_false">错误答案</string>
     <string name="submitquestion">提交</string>
+    <string name="correct">对</string>
+    <string name="wrong">错</string>
+    <string name="correct_or_wrong">“对”或“错”</string>
 
 
 

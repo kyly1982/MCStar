@@ -3,13 +3,11 @@ package com.mckuai.mcstar.activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpClient;
 import com.mckuai.mcstar.R;
 import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.widget.CircleBitmapDisplayer;
@@ -20,7 +18,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.tencent.tauth.Tencent;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -48,7 +45,6 @@ public class MCStar extends Application {
     private MediaPlayer mPlayer;
     private DisplayImageOptions mCircleOption;
     private DisplayImageOptions mNormalOption;
-    private int iconHeigth;
 
 
     public static MCStar getInstance() {
@@ -235,13 +231,5 @@ public class MCStar extends Application {
 
     private boolean verificationTokenLife(Long birthday, long expires) {
         return (System.currentTimeMillis() - birthday) < expires * 1000;
-    }
-
-    public int getIconHeigth() {
-        return iconHeigth;
-    }
-
-    public void setIconHeigth(int iconHeigth) {
-        this.iconHeigth = iconHeigth;
     }
 }

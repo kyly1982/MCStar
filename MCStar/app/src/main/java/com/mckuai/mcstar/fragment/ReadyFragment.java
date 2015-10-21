@@ -44,8 +44,8 @@ public class ReadyFragment extends BaseFragment {
             if (null == mList) {
                 initView();
             }
-            showData();
         }
+        showData();
     }
 
 
@@ -73,7 +73,7 @@ public class ReadyFragment extends BaseFragment {
         if (null != mUsers && !mUsers.isEmpty()) {
             if (null == mAdapter) {
                 mAdapter = new UserListAdapter(getActivity());
-                //mList.setAdapter(mAdapter);
+                mList.setAdapter(mAdapter);
             }
             mAdapter.setData(mUsers);
         } else {

@@ -1,16 +1,9 @@
 package com.mckuai.mcstar.utils;
 
-
-import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.hardware.usb.UsbRequest;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.style.QuoteSpan;
-import android.util.Log;
-
-import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -18,23 +11,19 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.mckuai.mcstar.R;
-import com.mckuai.mcstar.activity.MCStar;
 import com.mckuai.mcstar.bean.ContributionBean;
 import com.mckuai.mcstar.bean.MCUser;
 import com.mckuai.mcstar.bean.Page;
 import com.mckuai.mcstar.bean.Paper;
 import com.mckuai.mcstar.bean.Question;
 import com.mckuai.mcstar.bean.RankingListBean;
-import com.tencent.connect.UserInfo;
 
 import org.apache.http.HttpResponse;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.apache.http.Header;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
