@@ -70,6 +70,8 @@
     <string name="add">添加</string>
     <string name="music_enable">开启音乐</string>
     <string name="music_disable">关闭音乐</string>
+    <string name="addquestion">出题</string>
+    <string name="removeimage">删除图片</string>
 
     
     <!--标题-->

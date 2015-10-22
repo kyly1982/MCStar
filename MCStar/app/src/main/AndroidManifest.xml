@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mckuai.mcstar" >
+    package="com.tars.mcwa" >
 
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--suppress DeprecatedClassUsageInspection -->
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <supports-screens
@@ -23,13 +24,14 @@
         android:anyDensity = "true"/>
 
     <application
-        android:name=".activity.MCStar"
+        android:name="com.tars.mcwa.activity.MCStar"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.LeadActivity"
+            android:name="com.tars.mcwa.activity.LeadActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,52 +40,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.tars.mcwa.activity.MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.tars.mcwa.activity.LoginActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.ExaminationActivity"
+            android:name="com.tars.mcwa.activity.ExaminationActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mckuai.mcstar.activity.MainActivity" />
+                android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.ContributionActivity"
+            android:name="com.tars.mcwa.activity.ContributionActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mckuai.mcstar.activity.MainActivity" />
+                android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.RankingActivity"
+            android:name="com.tars.mcwa.activity.RankingActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mckuai.mcstar.activity.MainActivity" />
+                android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.QuestionActivity"
+            android:name="com.tars.mcwa.activity.QuestionActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.ContributionActivity"
+            android:parentActivityName="com.tars.mcwa.activity.ContributionActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mckuai.mcstar.activity.ContributionActivity" />
+                android:value="com.tars.mcwa.activity.ContributionActivity" />
         </activity>
 
         <activity
-            android:name=".activity.UserCenterActivity"
+            android:name="com.tars.mcwa.activity.UserCenterActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mckuai.mcstar.activity.MainActivity" />
+                android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
 
         <!-- 配置腾讯的相关SDK -->
@@ -158,7 +160,7 @@
             android:name="com.umeng.message.RegistrationReceiver"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.mckuai.mcstar.intent.action.COMMAND" />
+                <action android:name="com.tars.mcwa.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
@@ -175,10 +177,10 @@
             android:label="PushService"
             android:process=":push" >
             <intent-filter>
-                <action android:name="com.mckuai.mcstar.intent.action.START" />
+                <action android:name="com.tars.mcwa.intent.action.START" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.mckuai.mcstar.intent.action.COCKROACH" />
+                <action android:name="com.tars.mcwa.intent.action.COCKROACH" />
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4" />

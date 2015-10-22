@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.mckuai.mcstar.activity.ContributionActivity">
+    tools:context="com.tars.mcwa.activity.ContributionActivity">
 
     <include
         android:id="@+id/toolbar_layout"

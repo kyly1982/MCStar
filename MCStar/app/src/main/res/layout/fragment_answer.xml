@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mckuai.mcstar.fragment.AnswerFragment"
-    android:background="@color/primary">
+    tools:context="com.tars.mcwa.fragment.AnswerFragment">
 
     <include
         android:id="@+id/toolbar_layout"

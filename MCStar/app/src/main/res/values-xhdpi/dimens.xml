@@ -65,13 +65,14 @@
     <dimen name="questionimage_hint_bottom">20dp</dimen>
 
     <!--usercenter-->
-    <dimen name="usercover_background_width">156.5dp</dimen>
-    <dimen name="usercover_width">113dp</dimen>
-    <dimen name="infolayout_height">290dp</dimen>
+    <dimen name="usercover_background_width">140dp</dimen>
+    <dimen name="usercover_width">101dp</dimen>
+    <dimen name="infolayout_height">250dp</dimen>
     <dimen name="iteminfo_height">151dp</dimen>
+    <dimen name="button_share_height">64dp</dimen>
 
     <!--ranking-->
-    <dimen name="ranklable_width">35dp</dimen>
+    <dimen name="ranklable_width">55dp</dimen>
     <dimen name="item_ranking_height">64dp</dimen>
     <dimen name="item_ranking_content_height">48dp</dimen>
     <dimen name="item_ranking_paddingbottom">16dp</dimen>

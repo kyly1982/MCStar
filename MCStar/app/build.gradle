@@ -21,15 +21,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-v4:23.0.1'
-    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:design:+'
     compile 'com.loopj.android:android-async-http:+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:+'
     compile 'com.google.code.gson:gson:2.3.1'
     //    compile 'com.malinskiy:superrecyclerview:+'
     compile 'com.marshalchen.ultimaterecyclerview:library:0.3.17'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.github.magiepooh:recycler-itemdecoration:+'
+    //compile 'com.github.magiepooh:recycler-itemdecoration:+'
     //友盟统计
     compile files('libs/com.umeng.message.lib_v2.5.0.jar')
     compile files('libs/httpcore-4.4.1.jar')

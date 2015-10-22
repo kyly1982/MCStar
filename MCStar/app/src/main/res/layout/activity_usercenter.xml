@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/primary"
-    tools:context="com.mckuai.mcstar.activity.UserCenterActivity">
+    tools:context="com.tars.mcwa.activity.UserCenterActivity">
 
     <include
         android:id="@+id/toolbar_layout"
@@ -25,7 +25,7 @@
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_share"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/questionsubmit_height"
+                android:layout_height="@dimen/button_share_height"
                 android:layout_alignParentBottom="true"
                 android:background="@color/green"
                 android:text="@string/flaunt" />
@@ -63,7 +63,6 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@id/v_cent"
                         android:layout_centerHorizontal="true"
-                        android:text="0"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/fontsize_stress" />
 
@@ -97,7 +96,6 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@id/v_cent1"
                         android:layout_centerHorizontal="true"
-                        android:text="0"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/fontsize_stress" />
 
@@ -131,7 +129,6 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@id/v_cent2"
                         android:layout_centerHorizontal="true"
-                        android:text="0"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/fontsize_stress" />
 
@@ -165,7 +162,6 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@id/v_cent3"
                         android:layout_centerHorizontal="true"
-                        android:text="0"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/fontsize_stress" />
 
@@ -207,7 +203,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/divi_height"
                 android:gravity="center"
-                android:text="用户名字"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/fontsize_big" />
 
