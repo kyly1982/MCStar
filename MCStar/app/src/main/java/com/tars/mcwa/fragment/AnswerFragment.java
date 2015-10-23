@@ -21,11 +21,12 @@ import com.tars.mcwa.R;
 import com.tars.mcwa.activity.ExaminationActivity;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.utils.CircleBitmap;
-import com.tars.mcwa.widget.CircleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+//import com.tars.mcwa.widget.CircleBitmapDisplayer;
+//import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -56,7 +57,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ArrayList<Integer> rightQuestions = new ArrayList<>();
 
     private ImageLoader mLoader = ImageLoader.getInstance();
-    private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
+    //private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
     private CountDownTimer mTimer;
 
 
@@ -251,6 +252,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
 
                 @Override
                 public void onFinish() {
+                    MobclickAgent.onEvent(getActivity(),"ans_TimeOut");
                     mTime.setText("0");
                     isChecked = true;
                     processWrong(mQuestions.get(mIndex), null);

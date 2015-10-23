@@ -23,7 +23,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private static MCUser user;
     private static Tencent mTencent;
-    private static boolean isLogin = false;
     private static String mQQToken;
     private IUiListener loginListener;
 
@@ -81,7 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void loginQQ(){
-        Log.e("loginQQ","start");
+        MobclickAgent.onEvent(this, "qqlogin");
         if (!mTencent.isSessionValid()) {
             loginListener = new BaseUiListener() {
                 @Override
@@ -92,22 +91,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             };
             mTencent.login(this, "all", loginListener);
         } else {
-            Log.e("loginQQ","SessionInvalid");
+            logoutQQ();
         }
     }
 
     private void loginServer(){
+        MobclickAgent.onEvent(this,"login");
         NetInterface.loginServer(this, user, mQQToken, this);
-    }
-
-    private void handleResult(){
-        if (isLogin && null != user && 0 < user.getId() && !user.getUserName().isEmpty()){
-            setResult(RESULT_OK);
-            mApplication.saveProfile();
-        } else {
-            setResult(RESULT_CANCELED);
-        }
-        this.finish();
     }
 
     private static boolean initOpenidAndToken(JSONObject jsonObject) {
@@ -125,7 +115,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 mTencent.setOpenId(openId);
             }
         } catch (Exception e) {
-            isLogin = false;
             return false;
         }
         return true;
@@ -134,32 +123,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private class BaseUiListener implements IUiListener {
         public BaseUiListener(){
-            Log.e("BaseUiListener","create");
         }
 
         @Override
         public void onCancel() {
             // TODO Auto-generated method stub
             logoutQQ();
-            Log.e("BaseUiListener", "onCancel");
             setResult(RESULT_CANCELED);
             LoginActivity.this.finish();
-            MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
         }
 
         @Override
         public void onComplete(Object response) {
             // TODO Auto-generated method stub
-            Log.e("BaseUiListener","onComplete");
             if (null == response) {
                 logoutQQ();
-                MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                 return;
             }
             JSONObject jsonResponse = (JSONObject) response;
             if (null == jsonResponse || jsonResponse.length() == 0) {
                 logoutQQ();
-                MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                 return;
             }
             doComplete(jsonResponse);
@@ -169,9 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         @Override
         public void onError(UiError arg0) {
             // TODO Auto-generated method stub
-            mTencent.logout(LoginActivity.this);
-            MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
-            Log.e("BaseUiListener","onError");
+            logoutQQ();
         }
 
         protected  void doComplete(JSONObject values){
@@ -186,8 +167,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 @Override
                 public void onError(UiError e) {
-                    Log.e("updateUserInfo","onError");
-                    MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
                     logoutQQ();
                 }
 
@@ -203,11 +182,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             mApplication.user = user;
                         } catch (Exception e) {
                             // TODO: handle exception
-                            MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Failure");
-                            mTencent.logout(LoginActivity.this);
+                            logoutQQ();
                             return;
                         }
-                        MobclickAgent.onEvent(LoginActivity.this, "qqLogin_Success");
+                        MobclickAgent.onEvent(LoginActivity.this, "qqLogin_S");
                         loginServer();           //登录到服务器
                     }
                 }
@@ -221,22 +199,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             mInfo.getUserInfo(listener);
 
         } else {
-            Log.e("updateUserInfo","else");
             logoutQQ();
         }
     }
 
 
     private void logoutQQ() {
+        MobclickAgent.onEvent(this,"qqLogin_F");
         if (null != mTencent) {
-            isLogin = false;
             mTencent.logout(LoginActivity.this);
         }
     }
 
     @Override
     public void onSuccess(MCUser user) {
-        isLogin = true;
+        MobclickAgent.onEvent(this,"login_S");
         MCStar.user.clone(user);
         setResult(RESULT_OK);
         this.finish();
@@ -245,7 +222,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onFalse(String msg) {
         feedback_false();
-        Log.e("登录到服务器时失败!", msg);
+        MobclickAgent.onEvent(this, "login_F");
         setResult(RESULT_CANCELED);
         this.finish();
     }

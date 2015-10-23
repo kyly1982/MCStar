@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Paper;
@@ -22,6 +23,7 @@ import com.tars.mcwa.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener {
     private boolean isLoading = false;
@@ -102,6 +104,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_contribution:
+                MobclickAgent.onEvent(this,"click_RL");
                 if (!mApplication.isLogined()) {
                     callLogin(REQUEST_CONTRIBUTION);
                 } else {
@@ -110,6 +113,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.action_ranking:
+                MobclickAgent.onEvent(this,"click_CL");
                 intent = new Intent(this, RankingActivity.class);
                 startActivity(intent);
                 break;
@@ -128,6 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             default:
+                MobclickAgent.onEvent(this,"click_UC");
                 if (!mApplication.isLogined()) {
                     callLogin(REQUEST_USERCENTER);
                 } else {
@@ -139,6 +144,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void loadData() {
+        MobclickAgent.onEvent(this,"reqPaper");
         NetInterface.getQuestions(this, this);
         isLoading = true;
     }
@@ -204,6 +210,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onSuccess(Paper paper) {
+        MobclickAgent.onEvent(this,"reqPaper_S");
         isLoading = false;
         Intent intent = new Intent(this, ExaminationActivity.class);
         Bundle bundle = new Bundle();
@@ -214,7 +221,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onFalse(String msg) {
+        feedback_false();
+        MobclickAgent.onEvent(this, "reqPaper_F");
         isLoading = false;
-        Log.e("LD", "" + msg);
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
     }
 }

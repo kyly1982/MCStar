@@ -41,7 +41,7 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
         if (null != mQuestions && !mQuestions.isEmpty()){
             Question question = mQuestions.get(position);
             holder.topic.setText(question.getTitle()+"");
-            holder.time.setText(question.getInsertTimeEx());
+            holder.time.setText(question.getInsertTime()+"");
 
             Drawable drawable =null;
 

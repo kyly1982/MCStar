@@ -48,11 +48,12 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         checkUpgrade();
         mImageView = (ImageView) findViewById(R.id.ads);
         mBtn_Next = (AppCompatButton) findViewById(R.id.btn_next);
-        if (!mApplication.isFirstBoot) {
+        countTime();
+     /*   if (!mApplication.isFirstBoot) {
             countTime();
         } else {
             init();
-        }
+        }*/
     }
 
     @Override
@@ -77,7 +78,9 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void showMainActivity(){
-        timer.cancel();
+        if (null != timer) {
+            timer.cancel();
+        }
         if (null != mLoader) {
             mLoader.cancelDisplayTask(mImageView);
         }
@@ -135,7 +138,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
 
     private void checkUpgrade(){
         AppUpdate updateService = AppUpdateService.getAppUpdate(this);
-        String url = getString(R.string.interface_domain) + getString(R.string.interface_checkupgread);
+        String url = getString(R.string.interface_domain_upgread) + getString(R.string.interface_checkupgread);
         url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
         updateService.checkLatestVersionQuiet(url, new MyJsonParser());
     }

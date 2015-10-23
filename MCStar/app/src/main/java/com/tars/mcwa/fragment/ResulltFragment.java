@@ -2,10 +2,12 @@ package com.tars.mcwa.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +21,13 @@ import com.tars.mcwa.utils.NetInterface;
 import com.tars.mcwa.widget.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import java.util.ArrayList;
@@ -78,23 +83,30 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     @Override
     public void onResume() {
         super.onResume();
-        Bundle bundle = getArguments();
-        score = bundle.getInt(getString(R.string.tag_score));
-        rightQuestionId = bundle.getIntegerArrayList(getString(R.string.tag_rightquestion));
-        wrongQuestionId = bundle.getIntegerArrayList(getString(R.string.tag_wrongquestion));
-        if (null != view) {
-            if (null == mRank) {
-                initView();
-            }
-            showData(false);
-            if (mApplication.isLogined()){
-                updateResult();
-            }
+        if (null != view && null == mRank) {
+            Bundle bundle = getArguments();
+            score = bundle.getInt(getString(R.string.tag_score));
+            rightQuestionId = bundle.getIntegerArrayList(getString(R.string.tag_rightquestion));
+            wrongQuestionId = bundle.getIntegerArrayList(getString(R.string.tag_wrongquestion));
+            MobclickAgent.onEvent(getActivity(), "ans_S", rightQuestionId.size());
+            MobclickAgent.onEvent(getActivity(), "ans_F", wrongQuestionId.size());
+            initView();
+        }
+
+        showData(false);
+        if (!isUploaded){
+            updateResult();
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(resultCode, resultCode, data);
+        Log.e("RESULT","onActivityResult");
+        UMSsoHandler ssoHandler = mShareService.getConfig().getSsoHandler(requestCode);
+        if (null != ssoHandler){
+            ssoHandler.authorizeCallBack(requestCode,resultCode,data);
+        }
         if (resultCode == -1) {//返回RESULT_OK
             updateResult();
         }
@@ -132,7 +144,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     }
 
     private void updateResult() {
-        if (!isLoading && mApplication.isLogined()) {
+        if (!isLoading && !isUploaded && mApplication.isLogined()) {
             MCUser user = mApplication.user;
             mApplication.user.setAllScore(user.getAllScore() + score);
             mApplication.user.setAnswerNum(user.getAnswerNum() + 1);
@@ -167,6 +179,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
             case R.id.cover_mine:
                 if (!isLoading && mApplication.isLogined()) {
                     if (!isLoading && !isUploaded) {
+                        MobclickAgent.onEvent(getActivity(),"uploadSC_M");
                         updateResult();
                     }
                 } else {
@@ -175,11 +188,18 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
                 }
                 break;
             case R.id.reexam:
+                MobclickAgent.onEvent(getActivity(),"click_RE");
                 getActivity().setResult(Activity.RESULT_OK);
                 getActivity().finish();
                 break;
             case R.id.sharescore:
-                shareScore();
+                MobclickAgent.onEvent(getActivity(), "share_E");
+
+                View v1 = this.view.findViewById(R.id.layout_result);
+                v1.setDrawingCacheEnabled(true);
+                v1.buildDrawingCache();
+                Bitmap bitmap = v1.getDrawingCache();
+                shareScore(bitmap);
                 break;
         }
 
@@ -187,7 +207,9 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     @Override
     public void onSuccess(@NonNull MCUser myself, @Nullable MCUser user_pre, @Nullable MCUser user_next) {
+        MobclickAgent.onEvent(getActivity(),"uploadSC_S");
         isLoading = false;
+        isUploaded = true;
         mApplication.user = myself;
         this.user_p = user_pre;
         this.user_n = user_next;
@@ -196,18 +218,24 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     @Override
     public void onFalse(String msg) {
+        MobclickAgent.onEvent(getActivity(),"uploadSC_F");
         isLoading = false;
+        feedback_false();
     }
 
-    private void shareScore(){
+    private void shareScore(Bitmap bitmap){
+//        configPlatforms();
         if (isUploaded){
-            mShareService.setShareContent(getString(R.string.share_title_scorewithrank));
-            mShareService.setShareContent(getString(R.string.share_content_scorewithrank, mApplication.user.getRanking()));
+            mShareService.setShareContent(getString(R.string.share_title_rank));
+            mShareService.setShareContent(getString(R.string.share_content_rank, mApplication.user.getScoreRank()));
         } else {
             mShareService.setShareContent(getString(R.string.share_title_score));
-            mShareService.setShareContent(getString(R.string.share_content_score, mApplication.user.getRanking()));
+            mShareService.setShareContent(getString(R.string.share_content_score, score));
         }
-//        mShareService.setShareImage();
+        if (null != bitmap){
+            UMImage image = new UMImage(getActivity(),bitmap);
+            mShareService.setShareImage(image);
+        }
         mShareService.openShare(getActivity(),false);
     }
 

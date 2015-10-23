@@ -1,5 +1,7 @@
 package com.tars.mcwa.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
@@ -16,13 +18,16 @@ import com.tars.mcwa.utils.NetInterface;
 import com.tars.mcwa.widget.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
-public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, NetInterface.OnGetUserInfoListener, SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
+public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, NetInterface.OnGetUserInfoListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private AppCompatTextView name;
     private AppCompatTextView count;
@@ -72,6 +77,15 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        UMSsoHandler ssoHandler = mShareService.getConfig().getSsoHandler(requestCode);
+        if (null != ssoHandler){
+            ssoHandler.authorizeCallBack(requestCode,resultCode,data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void initView() {
         name = (AppCompatTextView) findViewById(R.id.username);
         count = (AppCompatTextView) findViewById(R.id.papercount);
@@ -91,11 +105,15 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         isLoading = true;
     }
 
-    private void share(){
-            mShareService.setShareContent(getString(R.string.share_title_scorewithrank));
-            mShareService.setShareContent(getString(R.string.share_content_scorewithrank, mApplication.user.getRanking()));
-//        mShareService.setShareImage();
-        mShareService.openShare(this,false);
+    private void share(Bitmap bitmap) {
+        String content = getString(R.string.share_content_usercenter, mApplication.user.getAnswerNum(),mApplication.user.getAllScore());
+        mShareService.setShareContent(getString(R.string.share_title_usercenter));
+        mShareService.setShareContent(content);
+        if (null != bitmap) {
+            UMImage image = new UMImage(this, bitmap);
+            mShareService.setShareImage(image);
+        }
+        mShareService.openShare(this, false);
     }
 
     private void showData() {
@@ -108,7 +126,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
             score_avg.setText((int) (user.getAllScore() / user.getAnswerNum()) + "");
         }
         if (null != user.getHeadImg() && 10 < user.getHeadImg().length()) {
-            mLoader.displayImage(user.getHeadImg(),cover,options);
+            mLoader.displayImage(user.getHeadImg(), cover, options);
         }
     }
 
@@ -131,9 +149,11 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         switch (item.getItemId()) {
             case R.id.action_playmusic:
                 if (mApplication.switchPlayPauseMusic()) {
+                    MobclickAgent.onEvent(this, "enableMusic");
                     item.setIcon(R.mipmap.ic_menu_music_enable);
                     item.setTitle(R.string.music_disable);
                 } else {
+                    MobclickAgent.onEvent(this, "disableMusic");
                     item.setTitle(R.string.music_enable);
                     item.setIcon(R.mipmap.ic_menu_music_disable);
                 }
@@ -144,15 +164,21 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_share:
-                share();
+                MobclickAgent.onEvent(this, "share_UC");
+                View view = v.getRootView();
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+                Bitmap bitmap = view.getDrawingCache();
+                share(bitmap);
                 break;
         }
     }
 
     @Override
     public void onSuccess(MCUser userInfo) {
+        MobclickAgent.onEvent(this, "reqUC_S");
         refreshLayout.setRefreshing(false);
         isLoading = false;
         mApplication.user.clone(userInfo);
@@ -161,6 +187,8 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
 
     @Override
     public void onFalse(String msg) {
+        MobclickAgent.onEvent(this, "reqUC_F");
+        feedback_false();
         refreshLayout.setRefreshing(false);
         isLoading = false;
     }
@@ -168,12 +196,12 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     @Override
     public void onRefresh() {
         if (!isLoading) {
+            MobclickAgent.onEvent(this, "reqRefUC");
             loadData();
         }
     }
 
-    private void configPlatforms()
-    {
+    private void configPlatforms() {
 /*        String targetUrl = "http://www.mckuai.com/thread-" + post.getId() + ".html";
         String title = "麦块for我的世界盒子";
         String context = post.getTalkTitle();
@@ -189,7 +217,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         mShareService.setShareContent(context);
         mShareService.setShareMedia(image);*/
 
-        String appID_QQ = "101155101";
+        String appID_QQ = "1104907496";
         String appAppKey_QQ = "78b7e42e255512d6492dfd135037c91c";
         // 添加qq
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, appID_QQ, appAppKey_QQ);

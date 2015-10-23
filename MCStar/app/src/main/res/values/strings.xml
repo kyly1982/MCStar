@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MC Wa</string>
     <!--渠道-->
-    <string name="channel">渠道</string>
+    <string name="channel">mcwa</string>
 
     <!--通用-->
      <string name="scores">%1$d分</string>
@@ -35,6 +35,7 @@
     <string name="preferences_uploadcount">UPLOADCOUNT</string>
 
     <!--接口-->
+    <string name="interface_domain_upgread">http://api.mckuai.com/</string>
     <string name="interface_domain">http://221.237.152.39:8081/</string>
     <string name="interface_loginserver">interface.do?act=login</string>
     <!--获取考卷 无参数-->
@@ -51,7 +52,7 @@
     <string name="interface_contribution">interface.do?act=uploadList</string>
     <!--排行榜，参数userId=2&page=1-->
     <string name="interface_rankinglist">interface.do?act=rankList</string>
-    <string name="interface_checkupgread">升级</string>
+    <string name="interface_checkupgread">interface.do?act=androidUpdate</string>
 
     <string name="error_pretreatmentres_ponsefalse">预解析失败，原因:%1$s</string>
     <string name="error_pretreatmentres_nullerror">返回数据为空或长度不足！</string>
@@ -158,12 +159,12 @@
     <string name="data_empty">暂时还没有内容，向下动拉刷新！</string>
 
     <!--分享-->
-    <string name="share_title_score">只有分数的分享</string>
-    <string name="share_title_scorewithrank">有分数和排行数据的分享</string>
-    <string name="share_title_usercenter">用户中心分享</string>
-    <string name="share_content_score">我获得了%1$d分，来PK一下吧！</string>
-    <string name="share_content_scorewithrank">我已经是第%1$d名了，你敢来PK一下吗！</string>
-    <string name="share_content_usercenter">我获得了%1$d分，来PK一下吧！</string>
+    <string name="share_title_score">一起来玩MC哇吧</string>
+    <string name="share_content_score">我正在玩MC哇，刚刚获得了%1$d分，敢来比一比吗？</string>
+    <string name="share_title_rank">一起来玩MC哇吧</string>
+    <string name="share_content_rank">我正在玩MC哇，我已经是第%1$d名了，敢来比一比吗？</string>
+    <string name="share_title_usercenter">一起来玩MC哇吧</string>
+    <string name="share_content_usercenter">我正在玩MC哇，已经回答了%1$d题，获得了%2$d分，敢来比一比吗？</string>
 
     <!-- 更新-->
     <string name="download_failure">下载新版本失败 !</string>
@@ -174,5 +175,7 @@
     <string name="later_update_tip">Updating&#8230; (Submited when you\'r NOT on Wifi)</string>
     <string name="update">更新</string>
     <string name="ignore">忽略</string>
+
+    <!--统计-->
 
 </resources>

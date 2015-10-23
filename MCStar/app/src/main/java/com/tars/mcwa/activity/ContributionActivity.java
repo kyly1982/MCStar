@@ -13,6 +13,7 @@ import com.tars.mcwa.adapter.ContributionAdapter;
 import com.tars.mcwa.bean.Page;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.utils.NetInterface;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,7 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
+                MobclickAgent.onEvent(this,"clickAQ");
                 Intent intent = new Intent(this, QuestionActivity.class);
                 startActivity(intent);
                 break;
@@ -95,12 +97,14 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     @Override
     public void loadMore(int itemsCount, int maxLastVisiblePosition) {
         if (!mPage.EOF()){
+            MobclickAgent.onEvent(this,"reqCL_More");
             loadData();
         }
     }
 
     @Override
     public void onRefresh() {
+        MobclickAgent.onEvent(this,"reqRefCL");
         mPage.setPage(0);
         mQuestions.clear();
         loadData();
@@ -108,6 +112,7 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     @Override
     public void onSuccess(Page page, ArrayList<Question> questions) {
+        MobclickAgent.onEvent(this,"reqCL_S");
         this.mPage.clone(page) ;
         this.mQuestions.addAll(questions);
         showData();
@@ -115,6 +120,7 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
 
     @Override
     public void onFalse(String msg) {
+        MobclickAgent.onEvent(this,"reqCL_F");
         feedback_false();
     }
 }

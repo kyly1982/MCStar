@@ -1,7 +1,10 @@
 package com.tars.mcwa.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -14,8 +17,10 @@ import com.tars.mcwa.fragment.ResulltFragment;
 import java.util.ArrayList;
 
 public class ExaminationActivity extends BaseActivity {
-    FragmentManager mFragmentManager;
+    private FragmentManager mFragmentManager;
     private int mPosition = 0;  //页面
+    private ResulltFragment resulltFragment;
+
     public Paper paper;
 
     public static int score = 0;
@@ -36,14 +41,22 @@ public class ExaminationActivity extends BaseActivity {
         if (null == paper) {
             paper = (Paper) getIntent().getSerializableExtra(getString(R.string.tag_paper));
             mPosition = 0;
-        }
-        if (null != paper && null != paper.getQuestion()) {
-            switchFragment(mPosition);
-        } else {
+            if (null != paper.getQuestion()){
+                switchFragment(mPosition);
+            }
+        } else if (null == resulltFragment){
             this.finish();
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("Exam", "onActivityResult");
+        if (null != resulltFragment){
+            resulltFragment.onActivityResult(requestCode,resultCode,data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void initToolBar() {
@@ -82,14 +95,14 @@ public class ExaminationActivity extends BaseActivity {
             case 2:
                 mToolBar.setVisibility(View.VISIBLE);
                 mTitle.setText(R.string.title_achievement);
-                ResulltFragment resulltFragment = new ResulltFragment();
+                resulltFragment = new ResulltFragment();
                 Bundle bundle2 = new Bundle();
                 bundle2.putString(getString(R.string.tag_name), getString(R.string.title_achievement));
                 bundle2.putInt(getString(R.string.tag_score), score);
                 bundle2.putIntegerArrayList(getString(R.string.tag_wrongquestion), wrongQuestions);
-                bundle2.putIntegerArrayList(getString(R.string.tag_rightquestion),rightQuestions);
+                bundle2.putIntegerArrayList(getString(R.string.tag_rightquestion), rightQuestions);
                 resulltFragment.setArguments(bundle2);
-                mFragmentManager.beginTransaction().replace(R.id.context, resulltFragment, getString(R.string.title_achievement)).commit();
+                mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag(getString(R.string.title_answer))).replace(R.id.context, resulltFragment, getString(R.string.title_achievement)).commit();
                 break;
         }
     }

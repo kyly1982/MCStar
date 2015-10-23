@@ -18,6 +18,7 @@ import com.tars.mcwa.utils.NetInterface;
 import com.tars.mcwa.widget.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -87,6 +88,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
         if (mApplication.isLogined()){
             NetInterface.getRankingList(this,mApplication.user.getId(),mPage.getNextPage(),this);
         } else {
+            MobclickAgent.onEvent(this,"reqRL_S");
             NetInterface.getRankingList(this,0,mPage.getNextPage(),this);
         }
     }
@@ -114,12 +116,14 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
     @Override
     public void loadMore(int itemsCount, int maxLastVisiblePosition) {
         if (!mPage.EOF()){
+            MobclickAgent.onEvent(this,"reqRL_More");
             loadData();
         }
     }
 
     @Override
     public void onRefresh() {
+        MobclickAgent.onEvent(this,"rerRefRL");
         mPage.setPage(0);
         mUsers.clear();
         loadData();
@@ -127,6 +131,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
 
     @Override
     public void onSuccess(Page page, MCUser myself,ArrayList<MCUser> users) {
+        MobclickAgent.onEvent(this,"reqRL_S");
         mPage.clone(page);
         if (null !=myself) {
             mApplication.user.clone(myself);
@@ -137,7 +142,8 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
 
     @Override
     public void onFalse(String msg) {
-        Log.e("RA", msg);
+        MobclickAgent.onEvent(this,"reqRL_F");
+        feedback_false();
         mList.setRefreshing(false);
     }
 }

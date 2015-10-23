@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.utils.NetInterface;
+import com.umeng.analytics.MobclickAgent;
 
 public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, NetInterface.OnUploadQuestionListener, NetInterface.OnUploadPicsListener, View.OnLongClickListener, View.OnFocusChangeListener {
 
@@ -35,8 +36,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private TextInputLayout option_d;
     private ImageButton image;
     private AppCompatButton submit;
-    private AppCompatRadioButton choice;
-    private AppCompatRadioButton judge;
+//    private AppCompatRadioButton choice;
+//    private AppCompatRadioButton judge;
     private AppCompatTextView hint;
     private Question mQuestion = new Question();
 
@@ -76,10 +77,21 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (1 == requestCode) {
-
+        switch (resultCode){
+            case RESULT_OK:
+                if (requestCode == REQUEST_GETPIC){
+                    getPic(data);
+                } else {
+                    uploadQuestion();
+                }
+                break;
+            default:
+                if (requestCode == REQUEST_GETPIC){
+                    MobclickAgent.onEvent(this,"addQP_F");
+                }
+                break;
         }
-        if (resultCode == RESULT_OK) {
+        /*if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_GETPIC:
                     getPic(data);
@@ -88,7 +100,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                     uploadQuestion();
                     break;
             }
-        }
+        }*/
     }
 
     private void getPic(Intent data) {
@@ -114,6 +126,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             if (100 > width || 40 > height) {
                 //图片分辨率太低
                 Toast.makeText(this, getString(R.string.question_imagetoosmall), Toast.LENGTH_SHORT).show();
+                MobclickAgent.onEvent(this,"addQP_F");
                 return;
             }
 
@@ -127,9 +140,11 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 bitmap = BitmapFactory.decodeFile(picuri, opts);
             } catch (OutOfMemoryError err) {
                 // showNotification("图片过大!");
+                MobclickAgent.onEvent(this,"addQP_F");
                 Toast.makeText(this, getString(R.string.question_imagetoolarge), Toast.LENGTH_SHORT).show();
                 return;
             }
+            MobclickAgent.onEvent(this,"addQP_S");
             image.setScaleType(ImageView.ScaleType.FIT_CENTER);
             image.setImageBitmap(bitmap);
             hint.setText(getString(R.string.question_removeimage_hint));
@@ -144,8 +159,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
         option_c = (TextInputLayout) findViewById(R.id.option_c);
         option_d = (TextInputLayout) findViewById(R.id.option_d);
         submit = (AppCompatButton) findViewById(R.id.submit);
-        choice = (AppCompatRadioButton) findViewById(R.id.type_choice);
-        judge = (AppCompatRadioButton) findViewById(R.id.type_judgment);
+//        choice = (AppCompatRadioButton) findViewById(R.id.type_choice);
+//        judge = (AppCompatRadioButton) findViewById(R.id.type_judgment);
         hint = (AppCompatTextView) findViewById(R.id.questionimage_hint);
 
         image = (ImageButton) findViewById(R.id.questionimage);
@@ -253,9 +268,15 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private void uploadQuestion() {
         if (mApplication.isLogined()) {
             if (null != bitmap && null == pic) {
+                MobclickAgent.onEvent(this,"uploadQP");
                 NetInterface.uploadPic(this, mApplication.user, bitmap, this);
                 return;
                 //有图片但未上传图片
+            }
+            if (mQuestion.getQuestionType().equals("choice")){
+                MobclickAgent.onEvent(this,"uploadChoice");
+            } else {
+                MobclickAgent.onEvent(this,"uploadJudge");
             }
             NetInterface.uploadQuestion(this, mApplication.user, mQuestion, pic, this);
         } else {
@@ -331,6 +352,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 }
                 break;
             case R.id.questionimage:
+                MobclickAgent.onEvent(this,"clickQP");
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQUEST_GETPIC);
@@ -370,22 +392,28 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public void onSuccess() {
+        MobclickAgent.onEvent(this,"upload_S");
         mApplication.user.setUploadNum(mApplication.user.getUploadNum() + 1);
+        setResult(RESULT_OK);
         this.finish();
     }
 
     @Override
     public void onSuccess(String url) {
+        MobclickAgent.onEvent(this,"uploadQP_S");
         pic = url;
         uploadQuestion();
     }
 
     @Override
     public void onFalse(int requestCode, String msg) {
+        feedback_false();
         switch (requestCode) {
             case REQUEST_UPLOADPIC:
+                MobclickAgent.onEvent(this,"uploadQP_F");
                 break;
             case REQUEST_UPLOADQUESTION:
+                MobclickAgent.onEvent(this,"upload_F");
                 break;
         }
         Log.e("UQ", msg);

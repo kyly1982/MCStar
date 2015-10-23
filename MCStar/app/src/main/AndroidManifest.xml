@@ -91,6 +91,13 @@
         <!-- 配置腾讯的相关SDK -->
 
         <activity
+            android:name="com.tars.mcwa.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true" >
@@ -109,6 +116,14 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <!-- 友盟相关 -->
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
 
         <!-- 友盟消息配置 -->
         <!-- 监听通知点击或者忽略处理的广播 -->
@@ -243,15 +258,15 @@
         <!-- 友盟统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="YOUR_APP_KEY" />
+            android:value="5629a1da67e58efa810009e0" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Channel ID" />
+            android:value="@string/channel" />
 
         <!-- 友盟消息推送 -->
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+            android:value="ecb056db77ffc14f02333095590c5b76" />
 
     </application>
 
