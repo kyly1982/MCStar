@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.tars.mcwa.R;
 import com.tars.mcwa.activity.ExaminationActivity;
 import com.tars.mcwa.bean.Question;
@@ -59,6 +61,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ImageLoader mLoader = ImageLoader.getInstance();
     //private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
     private CountDownTimer mTimer;
+    private boolean isTimeOut = false;
 
 
     public AnswerFragment() {
@@ -178,7 +181,9 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mImage.setVisibility(View.GONE);
         }
         mTime.setText("10");
+        isTimeOut = false;
         countTime(10);
+        isTimeOut = false;
     }
 
     private void processResult(AppCompatCheckedTextView answer) {
@@ -202,6 +207,9 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
 
     private void processWrong(Question question, AppCompatCheckedTextView answer) {
         feedback_false();
+        if (!isTimeOut) {
+            YoYo.with(Techniques.Shake).playOn(answer);
+        }
         wrongQuestions.add(question.getId());
         String rightAnswer = question.getRightAnswer();
         if (null != answer) {
@@ -255,6 +263,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                     MobclickAgent.onEvent(getActivity(),"ans_TimeOut");
                     mTime.setText("0");
                     isChecked = true;
+                    isTimeOut = true;
                     processWrong(mQuestions.get(mIndex), null);
                 }
             };
@@ -267,10 +276,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
-                    handler.removeMessages(1);
-                    ((ExaminationActivity) getActivity()).showNextFragment();
-                    break;
                 case 2:
                     handler.removeMessages(2);
                     checkExaminationFinished(false);

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Paper;
 import com.tars.mcwa.utils.CircleBitmap;
@@ -33,6 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int REQUEST_ANSWER = 4;
 
     private ImageButton button;
+    private AppCompatTextView hint ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initToolBar();
         initView();
         showUserInfo();
+        YoYo.with(Techniques.Swing);
     }
 
     @Override
@@ -64,7 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         button = (ImageButton) findViewById(R.id.btn_getpaper);
         RelativeLayout shando = (RelativeLayout) findViewById(R.id.rl_shandow);
         button.setOnClickListener(this);
-
+        hint = (AppCompatTextView) findViewById(R.id.hint_getpaper);
 
         int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         int screenHeight = getWindowManager().getDefaultDisplay().getHeight();

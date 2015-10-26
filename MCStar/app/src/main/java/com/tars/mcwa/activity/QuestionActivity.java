@@ -19,12 +19,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.utils.NetInterface;
 import com.umeng.analytics.MobclickAgent;
+
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, NetInterface.OnUploadQuestionListener, NetInterface.OnUploadPicsListener, View.OnLongClickListener, View.OnFocusChangeListener {
 
@@ -36,7 +41,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private TextInputLayout option_d;
     private ImageButton image;
     private AppCompatButton submit;
-//    private AppCompatRadioButton choice;
+    //    private AppCompatRadioButton choice;
 //    private AppCompatRadioButton judge;
     private AppCompatTextView hint;
     private Question mQuestion = new Question();
@@ -45,10 +50,19 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private static final int REQUEST_GETPIC = 2;
     private static final int REQUEST_UPLOADPIC = 3;
     private static final int REQUEST_UPLOADQUESTION = 4;
+    private static final int TOPIC_LENGTH_MIN = 5;
+    private static final int TOPIC_LENGTH_MAX = 50;
+    private static final int OPTION_LENGTH_MIN = 1;
+    private static final int OPTION_LENGTH_MAX = 10;
+
     private static String pic;
     private Bitmap bitmap;
-//    private ImageLoader mLoader = ImageLoader.getInstance();
+    private CircularProgressBar progressBar;
+    private TextView upload;
+    //    private ImageLoader mLoader = ImageLoader.getInstance();
     private Vibrator vibrator;//振动
+
+    private boolean isUpload = false;
 
 
     @Override
@@ -77,17 +91,17 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode){
+        switch (resultCode) {
             case RESULT_OK:
-                if (requestCode == REQUEST_GETPIC){
+                if (requestCode == REQUEST_GETPIC) {
                     getPic(data);
                 } else {
                     uploadQuestion();
                 }
                 break;
             default:
-                if (requestCode == REQUEST_GETPIC){
-                    MobclickAgent.onEvent(this,"addQP_F");
+                if (requestCode == REQUEST_GETPIC) {
+                    MobclickAgent.onEvent(this, "addQP_F");
                 }
                 break;
         }
@@ -126,7 +140,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             if (100 > width || 40 > height) {
                 //图片分辨率太低
                 Toast.makeText(this, getString(R.string.question_imagetoosmall), Toast.LENGTH_SHORT).show();
-                MobclickAgent.onEvent(this,"addQP_F");
+                MobclickAgent.onEvent(this, "addQP_F");
                 return;
             }
 
@@ -140,11 +154,11 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 bitmap = BitmapFactory.decodeFile(picuri, opts);
             } catch (OutOfMemoryError err) {
                 // showNotification("图片过大!");
-                MobclickAgent.onEvent(this,"addQP_F");
+                MobclickAgent.onEvent(this, "addQP_F");
                 Toast.makeText(this, getString(R.string.question_imagetoolarge), Toast.LENGTH_SHORT).show();
                 return;
             }
-            MobclickAgent.onEvent(this,"addQP_S");
+            MobclickAgent.onEvent(this, "addQP_S");
             image.setScaleType(ImageView.ScaleType.FIT_CENTER);
             image.setImageBitmap(bitmap);
             hint.setText(getString(R.string.question_removeimage_hint));
@@ -162,6 +176,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 //        choice = (AppCompatRadioButton) findViewById(R.id.type_choice);
 //        judge = (AppCompatRadioButton) findViewById(R.id.type_judgment);
         hint = (AppCompatTextView) findViewById(R.id.questionimage_hint);
+        progressBar = (CircularProgressBar) findViewById(R.id.cpb);
+        upload = (TextView) findViewById(R.id.upload);
 
         image = (ImageButton) findViewById(R.id.questionimage);
         type.setOnCheckedChangeListener(this);
@@ -209,7 +225,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             case R.id.edt_topic:
                 if (hasFocus) {
                     topic.setErrorEnabled(true);
-                    topic.setError(getString(R.string.worldscount, 50));
+                    topic.setError(getString(R.string.worldslimit,TOPIC_LENGTH_MIN, TOPIC_LENGTH_MAX));
                 } else {
                     topic.setErrorEnabled(false);
                 }
@@ -220,7 +236,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                     if (mQuestion.getQuestionType().equals("judge")) {
                         option_a.setError(getString(R.string.correct_or_wrong));
                     } else {
-                        option_a.setError(getString(R.string.worldscount, 10));
+                        option_a.setError(getString(R.string.worldslimit, OPTION_LENGTH_MIN,OPTION_LENGTH_MAX));
                     }
                 } else {
                     option_a.setErrorEnabled(false);
@@ -232,7 +248,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                     if (mQuestion.getQuestionType().equals("judge")) {
                         option_b.setError(getString(R.string.correct_or_wrong));
                     } else {
-                        option_b.setError(getString(R.string.worldscount, 10));
+                        option_b.setError(getString(R.string.worldslimit, OPTION_LENGTH_MIN,OPTION_LENGTH_MAX));
                     }
                 } else {
                     option_b.setErrorEnabled(false);
@@ -241,7 +257,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             case R.id.edt_option_c:
                 if (hasFocus) {
                     option_c.setErrorEnabled(true);
-                    option_c.setError(getString(R.string.worldscount, 10));
+                    option_c.setError(getString(R.string.worldslimit, OPTION_LENGTH_MIN,OPTION_LENGTH_MAX));
                 } else {
                     option_c.setErrorEnabled(false);
                 }
@@ -249,7 +265,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             case R.id.edt_option_d:
                 if (hasFocus) {
                     option_d.setErrorEnabled(true);
-                    option_d.setError(getString(R.string.worldscount, 10));
+                    option_d.setError(getString(R.string.worldslimit, OPTION_LENGTH_MIN,OPTION_LENGTH_MAX));
                 } else {
                     option_d.setErrorEnabled(false);
                 }
@@ -267,16 +283,18 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     private void uploadQuestion() {
         if (mApplication.isLogined()) {
+            showProgress();
+            isUpload = true;
             if (null != bitmap && null == pic) {
-                MobclickAgent.onEvent(this,"uploadQP");
+                MobclickAgent.onEvent(this, "uploadQP");
                 NetInterface.uploadPic(this, mApplication.user, bitmap, this);
                 return;
                 //有图片但未上传图片
             }
-            if (mQuestion.getQuestionType().equals("choice")){
-                MobclickAgent.onEvent(this,"uploadChoice");
+            if (mQuestion.getQuestionType().equals("choice")) {
+                MobclickAgent.onEvent(this, "uploadChoice");
             } else {
-                MobclickAgent.onEvent(this,"uploadJudge");
+                MobclickAgent.onEvent(this, "uploadJudge");
             }
             NetInterface.uploadQuestion(this, mApplication.user, mQuestion, pic, this);
         } else {
@@ -291,68 +309,86 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
             mQuestion.setAnswerTwo(option_b.getEditText().getText().toString());
             mQuestion.setAnswerThree(option_c.getEditText().getText().toString());
             mQuestion.setAnswerFour(option_d.getEditText().getText().toString());
-        } else if (mQuestion.getAnswerOne().equals(getString(R.string.correct))){
+        } else if (mQuestion.getAnswerOne().equals(getString(R.string.correct))) {
             mQuestion.setAnswerTwo(getString(R.string.wrong));
-        } else if (mQuestion.getAnswerOne().equals(getString(R.string.wrong))){
+        } else if (mQuestion.getAnswerOne().equals(getString(R.string.wrong))) {
             mQuestion.setAnswerTwo(getString(R.string.correct));
         }
     }
 
     private boolean checkParams() {
         boolean result = false;
-        if (null != mQuestion.getTitle() && 5 < mQuestion.getTitle().length() && 51 > mQuestion.getTitle().length()) {
-            if (null != mQuestion.getAnswerOne() && 0 < mQuestion.getAnswerOne().length() && 11 > mQuestion.getAnswerOne().length()) {
+        if (null != mQuestion.getTitle() && TOPIC_LENGTH_MIN <= mQuestion.getTitle().length() && TOPIC_LENGTH_MAX >= mQuestion.getTitle().length()) {
+            if (null != mQuestion.getAnswerOne() && OPTION_LENGTH_MIN <= mQuestion.getAnswerOne().length() && OPTION_LENGTH_MAX >= mQuestion.getAnswerOne().length()) {
                 if (mQuestion.getQuestionType().equals("judge")) {
                     if (mQuestion.getAnswerOne().equals(getString(R.string.wrong)) || mQuestion.getAnswerOne().equals(getString(R.string.correct))) {
                         return true;
                     } else {
                         option_a.getEditText().requestFocus();
+                        YoYo.with(Techniques.Shake).playOn(option_a);
                         return false;
                     }
                 } else {
-                    if (null != mQuestion.getAnswerTwo() && 0 < mQuestion.getAnswerTwo().length() && 11 > mQuestion.getAnswerTwo().length()) {
-                        if (null != mQuestion.getAnswerThree() && 0 < mQuestion.getAnswerThree().length() && 11 > mQuestion.getAnswerThree().length()) {
-                            if (null != mQuestion.getAnswerFour() && 0 < mQuestion.getAnswerFour().length() && 11 > mQuestion.getAnswerFour().length()) {
+                    if (null != mQuestion.getAnswerTwo() && OPTION_LENGTH_MIN <= mQuestion.getAnswerTwo().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerTwo().length()) {
+                        if (null != mQuestion.getAnswerThree() && OPTION_LENGTH_MIN <= mQuestion.getAnswerThree().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerThree().length()) {
+                            if (null != mQuestion.getAnswerFour() && OPTION_LENGTH_MIN <=mQuestion.getAnswerFour().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerFour().length()) {
                                 result = true;
                             } else {
                                 //D
                                 option_d.getEditText().requestFocus();
+                                YoYo.with(Techniques.Shake).playOn(option_d);
                             }
                         } else {
                             //C
                             option_c.getEditText().requestFocus();
+                            YoYo.with(Techniques.Shake).playOn(option_c);
                         }
                     } else {
                         //B
                         option_b.getEditText().requestFocus();
+                        YoYo.with(Techniques.Shake).playOn(option_b);
                     }
                 }
             } else {
                 //答案A长度不正确
                 option_a.getEditText().requestFocus();
+                YoYo.with(Techniques.Shake).playOn(option_a);
             }
 
         } else {
             //标题长度不正确
             topic.getEditText().requestFocus();
+            YoYo.with(Techniques.Shake).playOn(topic);
         }
         return result;
+    }
+
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+        upload.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        upload.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.submit:
-                getQuestion();
-                if (checkParams()) {
-                    uploadQuestion();
-                } else {
-                    Log.e("UQ", "参数不正确");
-                    feedback_false();
+                if (!isUpload) {
+                    getQuestion();
+                    if (checkParams()) {
+                        uploadQuestion();
+                    } else {
+                        Log.e("UQ", "参数不正确");
+                        feedback_false();
+                    }
                 }
                 break;
             case R.id.questionimage:
-                MobclickAgent.onEvent(this,"clickQP");
+                MobclickAgent.onEvent(this, "clickQP");
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQUEST_GETPIC);
@@ -392,7 +428,9 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public void onSuccess() {
-        MobclickAgent.onEvent(this,"upload_S");
+        isUpload = false;
+        MobclickAgent.onEvent(this, "upload_S");
+        hideProgress();
         mApplication.user.setUploadNum(mApplication.user.getUploadNum() + 1);
         setResult(RESULT_OK);
         this.finish();
@@ -400,7 +438,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public void onSuccess(String url) {
-        MobclickAgent.onEvent(this,"uploadQP_S");
+        MobclickAgent.onEvent(this, "uploadQP_S");
         pic = url;
         uploadQuestion();
     }
@@ -408,12 +446,14 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     @Override
     public void onFalse(int requestCode, String msg) {
         feedback_false();
+        hideProgress();
+        isUpload = false;
         switch (requestCode) {
             case REQUEST_UPLOADPIC:
-                MobclickAgent.onEvent(this,"uploadQP_F");
+                MobclickAgent.onEvent(this, "uploadQP_F");
                 break;
             case REQUEST_UPLOADQUESTION:
-                MobclickAgent.onEvent(this,"upload_F");
+                MobclickAgent.onEvent(this, "upload_F");
                 break;
         }
         Log.e("UQ", msg);

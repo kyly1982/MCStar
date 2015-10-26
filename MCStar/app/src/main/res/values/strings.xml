@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MC Wa</string>
+    <string name="app_name">MC哇</string>
     <!--渠道-->
     <string name="channel">mcwa</string>
 
@@ -35,8 +35,9 @@
     <string name="preferences_uploadcount">UPLOADCOUNT</string>
 
     <!--接口-->
-    <string name="interface_domain_upgread">http://api.mckuai.com/</string>
-    <string name="interface_domain">http://221.237.152.39:8081/</string>
+    <!--测试 http://221.237.152.39:8081/-->
+    <!--正式 http://wa.mckuai.com/ -->
+    <string name="interface_domain">http://wa.mckuai.com/</string>
     <string name="interface_loginserver">interface.do?act=login</string>
     <!--获取考卷 无参数-->
     <string name="interface_getquestionlist">interface.do?act=question</string>
@@ -124,6 +125,7 @@
     <string name="type_judgment">判断题</string>
     <string name="question_titlehint">这里写题目</string>
     <string name="worldscount">最多输入%1$d字</string>
+    <string name="worldslimit">限制输入%1$d到%2$d个字</string>
     <string name="question_addimage_hint">添加图片（可选）</string>
     <string name="question_imagetoosmall">图片太小了,请重新选择一张!</string>
     <string name="question_imagetoolarge">图片太大了,请重新选择一张!</string>
@@ -134,6 +136,7 @@
     <string name="correct">对</string>
     <string name="wrong">错</string>
     <string name="correct_or_wrong">“对”或“错”</string>
+    <string name="upload">上传中，请稍候…</string>
 
 
 

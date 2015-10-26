@@ -217,24 +217,27 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         mShareService.setShareContent(context);
         mShareService.setShareMedia(image);*/
 
+        String title = "MC哇";
+        String url = "www.mckuai.com";
         String appID_QQ = "1104907496";
         String appAppKey_QQ = "78b7e42e255512d6492dfd135037c91c";
         // 添加qq
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, appID_QQ, appAppKey_QQ);
-//        qqSsoHandler.setTargetUrl(targetUrl);
-//        qqSsoHandler.setTitle(title);
+        qqSsoHandler.setTargetUrl(url);
+        qqSsoHandler.setTitle(title);
         qqSsoHandler.addToSocialSDK();
         // 添加QQ空间参数
         QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, appID_QQ, appAppKey_QQ);
 //        qZoneSsoHandler.setTargetUrl(targetUrl);
         qZoneSsoHandler.addToSocialSDK();
 
-        String appIDWX = "wx49ba2c7147d2368d";
-        String appSecretWX = "85aa75ddb9b37d47698f24417a373134";
+//        String appIDWX = "wx49ba2c7147d2368d";
+        String appIDWX = "wxc49b6a0e3c78364d";
+        String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
         // 添加微信
         UMWXHandler wxHandler = new UMWXHandler(this, appIDWX, appSecretWX);
-//        wxHandler.setTargetUrl(targetUrl);
-//        wxHandler.setTitle(title);
+        wxHandler.setTargetUrl(url);
+        wxHandler.setTitle(title);
         wxHandler.showCompressToast(false);
         wxHandler.addToSocialSDK();
         // 添加微信朋友圈
