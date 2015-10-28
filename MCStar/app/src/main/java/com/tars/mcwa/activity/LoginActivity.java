@@ -14,7 +14,16 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -25,6 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private static Tencent mTencent;
     private static String mQQToken;
     private IUiListener loginListener;
+    UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +76,63 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login:
-                if (null == user || user.getUserName() == null){
-                    loginQQ();
-                } else {
-                    loginServer();
-                }
+//                if (null == user || user.getUserName() == null){
+//                    loginQQ();
+//                } else {
+//                    loginServer();
+//                }
+                loginWX();
                 break;
             default:
                 setResult(RESULT_CANCELED);
                 this.finish();
                 break;
         }
+    }
+
+    private void loginWX(){
+        String appIDWX = "wxc49b6a0e3c78364d";
+        String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
+        UMWXHandler wxHandler = new UMWXHandler(this,appIDWX,appSecretWX);
+        wxHandler.addToSocialSDK();
+        mController.doOauthVerify(this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMAuthListener() {
+            @Override
+            public void onStart(SHARE_MEDIA share_media) {
+                Log.e("wxlogin","onStart");
+            }
+
+            @Override
+            public void onComplete(Bundle bundle, SHARE_MEDIA share_media) {
+                Log.e("wxlogin","onComplete");
+                mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMDataListener() {
+                    @Override
+                    public void onStart() {
+                        Log.e("wxlogin","获取平台数据开始...");
+
+                    }
+
+                    @Override
+                    public void onComplete(int status, Map<String, Object> userinfo) {
+                        Log.e("wxlogin","onStart");
+                        if (200 == status && null != userinfo){
+                            Log.e("wxlogin",userinfo.toString());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onError(SocializeException e, SHARE_MEDIA share_media) {
+                Log.e("wxlogin","onError");
+
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA share_media) {
+                Log.e("wxlogin","onCancel");
+
+            }
+        });
     }
 
     private void loginQQ(){
