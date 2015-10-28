@@ -225,6 +225,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private void shareScore(Bitmap bitmap){
 //        configPlatforms();
+        mShareService.setAppWebSite("http://www.mckuai.com");
         if (isUploaded){
             mShareService.setShareContent(getString(R.string.share_title_rank));
             mShareService.setShareContent(getString(R.string.share_content_rank, mApplication.user.getScoreRank()));
@@ -256,7 +257,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         mShareService.setShareContent(context);
         mShareService.setShareMedia(image);*/
         String title = "MC哇";
-        String url = "www.mckuai.com";
+        String url = "http://www.mckuai.com";
         String appID_QQ = "101155101";
         String appAppKey_QQ = "78b7e42e255512d6492dfd135037c91c";
         // 添加qq
@@ -273,7 +274,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
         // 添加微信
         UMWXHandler wxHandler = new UMWXHandler(getActivity(), appIDWX, appSecretWX);
-//        wxHandler.setTargetUrl(targetUrl);
+        wxHandler.setTargetUrl(url);
         wxHandler.setTitle(title);
         wxHandler.showCompressToast(false);
         wxHandler.addToSocialSDK();

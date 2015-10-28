@@ -53,11 +53,9 @@ public class MCStar extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        Log.e(TAG, "onCreate");
     }
 
     public void init() {
-//        client = new AsyncHttpClient();
         gson = new Gson();
         initImageLoader();
         readPreference();
@@ -66,7 +64,7 @@ public class MCStar extends Application {
     }
 
     public void setUser(MCUser user) {
-        user = user;
+        this.user.clone(user);
     }
 
     public boolean LogOut() {

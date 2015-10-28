@@ -10,6 +10,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationSet;
@@ -164,6 +165,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             }
         }
+        Log.e("BA","onKeyUp");
         return super.onKeyUp(keyCode, event);
     }
 

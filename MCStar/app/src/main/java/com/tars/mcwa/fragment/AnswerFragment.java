@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,6 @@ import com.tars.mcwa.R;
 import com.tars.mcwa.activity.ExaminationActivity;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.utils.CircleBitmap;
-//import com.tars.mcwa.widget.CircleBitmapDisplayer;
-//import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -57,11 +54,13 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ArrayList<Question> mQuestions;
     private ArrayList<Integer> wrongQuestions = new ArrayList<>();
     private ArrayList<Integer> rightQuestions = new ArrayList<>();
+    private final String TAG="AnswerFragment";
 
     private ImageLoader mLoader = ImageLoader.getInstance();
-    //private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
     private CountDownTimer mTimer;
     private boolean isTimeOut = false;
+
+
 
 
     public AnswerFragment() {
@@ -75,15 +74,16 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_answer, container, false);
         initView(view);
+//        Log.e(TAG,"onCreateView");
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+//        Log.e(TAG, "onResume");
         mQuestions = (ArrayList<Question>) getArguments().getSerializable(getString(R.string.tag_questions));
         if (null != mQuestions && !mQuestions.isEmpty()) {
-            Log.e("AS=", "" + mQuestions.size());
             mIndex = 0;
             showQuestion();
         }
@@ -93,13 +93,14 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onPause() {
         super.onPause();
+//        Log.e(TAG, "onPause");
         mTimer.cancel();
-        handler.removeMessages(1);
         handler.removeMessages(2);
         handler.removeMessages(3);
     }
 
     private void initView(View view) {
+//        Log.e(TAG, "initView");
         mCover = (ImageButton) view.findViewById(R.id.usercover);
         mScore = (AppCompatTextView) view.findViewById(R.id.score);
         mScore_question = (AppCompatTextView) view.findViewById(R.id.questionscore);
@@ -142,13 +143,15 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-
     private void showQuestion() {
+//        Log.e(TAG, "showQuestion");
         isChecked = false;
         Question question = mQuestions.get(mIndex);
         ArrayList<String> answer = question.getOptionsEx();
         mOption_A.setChecked(false);
         mOption_B.setChecked(false);
+        mOption_C.setChecked(false);
+        mOption_D.setChecked(false);
         mOption_A.setText(answer.get(0));
         mOption_B.setText(answer.get(1));
         mOption_A.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
@@ -159,8 +162,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 mOption_D.setText(answer.get(3));
                 mOption_C.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
                 mOption_D.setBackgroundDrawable(getResources().getDrawable(R.drawable.option_selector));
-                mOption_C.setChecked(false);
-                mOption_D.setChecked(false);
                 mOption_C.setVisibility(View.VISIBLE);
                 mOption_D.setVisibility(View.VISIBLE);
                 break;
@@ -187,6 +188,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void processResult(AppCompatCheckedTextView answer) {
+//        Log.e(TAG, "processResult");
         Question question = mQuestions.get(mIndex);
         String rightAnswer = question.getRightAnswer();
         answer.setChecked(true);
@@ -206,15 +208,14 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void processWrong(Question question, AppCompatCheckedTextView answer) {
+//        Log.e(TAG, "processWrong");
         feedback_false();
-        if (!isTimeOut) {
+        if (null != answer) {
             YoYo.with(Techniques.Shake).playOn(answer);
+            answer.setBackgroundColor(getResources().getColor(R.color.red));
         }
         wrongQuestions.add(question.getId());
         String rightAnswer = question.getRightAnswer();
-        if (null != answer) {
-            answer.setBackgroundColor(getResources().getColor(R.color.red));
-        }
         if (mOption_A.getText().equals(rightAnswer)) {
             mOption_A.setBackgroundColor(getResources().getColor(R.color.green));
         } else if (mOption_B.getText().equals(rightAnswer)) {
@@ -228,16 +229,19 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void checkExaminationFinished(boolean isUserAction) {
+//        Log.e(TAG, "checkExaminationFinished");
         mIndex++;
         if (mIndex < mQuestions.size()) {
             showQuestion();
         } else {
             //已做完
+//            Log.e("AQ","问题已做完");
             finishExamination(isUserAction);
         }
     }
 
     private void finishExamination(boolean isUserFinished) {
+//        Log.e(TAG, "finishExamination");
         ExaminationActivity activity = (ExaminationActivity) getActivity();
 
         ExaminationActivity.score = this.score;
@@ -246,20 +250,24 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
 
         if (!isUserFinished) {
             //显示时间到的信息
+//            Log.e(TAG, "finishExamination,time out");
         }
         ((ExaminationActivity) getActivity()).showNextFragment();
     }
 
     private void countTime(int time) {
+//        Log.e(TAG, "countTime");
         if (null == mTimer) {
             mTimer = new CountDownTimer(time * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
+//                    Log.e(TAG, "onTick:"+millisUntilFinished / 1000);
                     mTime.setText(millisUntilFinished / 1000 + "");
                 }
 
                 @Override
                 public void onFinish() {
+//                    Log.e(TAG, "ans_TimeOut");
                     MobclickAgent.onEvent(getActivity(),"ans_TimeOut");
                     mTime.setText("0");
                     isChecked = true;
@@ -288,6 +296,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     };
 
     private void showUserInfo() {
+//        Log.e(TAG, "showUserInfo");
         if (mApplication.isLogined()) {
             final String cover = mApplication.user.getHeadImg();
             if (null != cover && 10 < cover.length()) {

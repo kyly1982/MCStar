@@ -40,6 +40,8 @@ public class BaseFragment extends Fragment {
         MobclickAgent.onPageEnd(pageName == null ? getClass().getName() : pageName);
     }
 
+
+
     protected void feedback_false(){
         feedback_affirm(1, null);
     }

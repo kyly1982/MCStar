@@ -107,6 +107,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
 
     private void share(Bitmap bitmap) {
         String content = getString(R.string.share_content_usercenter, mApplication.user.getAnswerNum(),mApplication.user.getAllScore());
+        mShareService.setAppWebSite("http://www.mckuai.com");
         mShareService.setShareContent(getString(R.string.share_title_usercenter));
         mShareService.setShareContent(content);
         if (null != bitmap) {
@@ -218,7 +219,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         mShareService.setShareMedia(image);*/
 
         String title = "MC哇";
-        String url = "www.mckuai.com";
+        String url = "http://www.mckuai.com";
         String appID_QQ = "1104907496";
         String appAppKey_QQ = "78b7e42e255512d6492dfd135037c91c";
         // 添加qq
@@ -242,8 +243,8 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         wxHandler.addToSocialSDK();
         // 添加微信朋友圈
         UMWXHandler wxCircleHandler = new UMWXHandler(this, appIDWX, appSecretWX);
-//        wxCircleHandler.setTitle(title);
-//        wxCircleHandler.setTargetUrl(targetUrl);
+        wxCircleHandler.setTitle(title);
+        wxCircleHandler.setTargetUrl(url);
         wxCircleHandler.setToCircle(true);
         wxHandler.showCompressToast(false);
         wxCircleHandler.addToSocialSDK();

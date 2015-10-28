@@ -1,6 +1,5 @@
 package com.tars.mcwa.activity;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,11 +25,13 @@ public class ExaminationActivity extends BaseActivity {
     public static int score = 0;
     public static ArrayList<Integer> rightQuestions;
     public static ArrayList<Integer> wrongQuestions;
-    public static boolean examinationAGain = false;
+
+    private final String TAG="Examination";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Log.e(TAG,"onCreate");
         setContentView(R.layout.activity_examination);
         initToolBar();
     }
@@ -38,6 +39,7 @@ public class ExaminationActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+//        Log.e(TAG, "onResume");
         if (null == paper) {
             paper = (Paper) getIntent().getSerializableExtra(getString(R.string.tag_paper));
             mPosition = 0;
@@ -51,7 +53,7 @@ public class ExaminationActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("Exam", "onActivityResult");
+//        Log.e("Exam", "onActivityResult");
         if (null != resulltFragment){
             resulltFragment.onActivityResult(requestCode,resultCode,data);
         }
@@ -71,6 +73,7 @@ public class ExaminationActivity extends BaseActivity {
     }
 
     private void switchFragment(int position) {
+//        Log.e(TAG,"switchFragment,position="+position);
         if (null == mFragmentManager){
             mFragmentManager = getFragmentManager();
         }

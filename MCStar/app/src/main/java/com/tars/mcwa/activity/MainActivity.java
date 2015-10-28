@@ -61,9 +61,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         mApplication.saveProfile();
-        super.onDestroy();
+        super.onStop();
     }
 
     private void initView() {

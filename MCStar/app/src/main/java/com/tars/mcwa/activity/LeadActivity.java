@@ -45,6 +45,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         mApplication.init();
+        mApplication.readPreference();
         checkUpgrade();
         mImageView = (ImageView) findViewById(R.id.ads);
         mBtn_Next = (AppCompatButton) findViewById(R.id.btn_next);
