@@ -116,7 +116,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private void showData(boolean isUploading) {
         if (!isUploading) {
-            mScore.setText("" + score);
+            mScore.setText(score +"");
             if (mApplication.isLogined() && null != mApplication.user.getHeadImg()){
                 mLoader.displayImage(mApplication.user.getHeadImg(),mCover,options);
                 mRank.setText(mApplication.user.getScoreRank()+"");
@@ -137,7 +137,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private void showUserInfo(MCUser user, AppCompatTextView rank, AppCompatTextView score, ImageView cover) {
         rank.setText((user.getScoreRank() ) +"");
-        score.setText(user.getAllScore() + "");
+        score.setText(getString(R.string.scores,user.getAllScore()));
         if (null != user.getHeadImg() && 10 < user.getHeadImg().length()) {
             mLoader.displayImage(user.getHeadImg(), cover, options);
         }
@@ -256,10 +256,11 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 //         添加内容和图片
         mShareService.setShareContent(context);
         mShareService.setShareMedia(image);*/
+
         String title = "MC哇";
         String url = "http://www.mckuai.com";
-        String appID_QQ = "101155101";
-        String appAppKey_QQ = "78b7e42e255512d6492dfd135037c91c";
+        String appID_QQ = "1104907496";
+        String appAppKey_QQ = "DbdC0Qvfkj4yOLsG";
         // 添加qq
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(), appID_QQ, appAppKey_QQ);
         qqSsoHandler.setTargetUrl(url);
@@ -267,7 +268,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         qqSsoHandler.addToSocialSDK();
         // 添加QQ空间参数
         QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(getActivity(), appID_QQ, appAppKey_QQ);
-//        qZoneSsoHandler.setTargetUrl(targetUrl);
+        qZoneSsoHandler.setTargetUrl(url);
         qZoneSsoHandler.addToSocialSDK();
 
         String appIDWX = "wxc49b6a0e3c78364d";

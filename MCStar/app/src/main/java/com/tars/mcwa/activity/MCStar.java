@@ -30,9 +30,10 @@ public class MCStar extends Application {
     static MCStar instance;
     public static MCUser user;
     public static Gson gson;
-    public long mQQToken_Birthday;
-    public long mQQToken_Expires;
-    public boolean isFirstBoot = false;
+    public long mWXToken_Birthday;
+    public long mWXToken_Expires;
+    public String mWXToken;
+    public boolean isFirstBoot = true;
 
 
     private final int IMAGE_POOL_SIZE = 3;// 线程池数量
@@ -84,14 +85,15 @@ public class MCStar extends Application {
 
     public MCUser readPreference() {
         SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
-        isFirstBoot = preferences.getBoolean(getString(R.string.preferences_isFirstBoot), false);
+        isFirstBoot = preferences.getBoolean(getString(R.string.preferences_isFirstBoot), true);
         if (!isFirstBoot) {
-            mQQToken_Birthday = preferences.getLong(getString(R.string.preferences_tokentime), 0);
-            mQQToken_Expires = preferences.getLong(getString(R.string.preferences_tokenexpires), 0);
+            mWXToken_Birthday = preferences.getLong(getString(R.string.preferences_tokentime), 0);
+            mWXToken_Expires = preferences.getLong(getString(R.string.preferences_tokenexpires), 0);
             // 检查qq的token是否有效如果在有效期内则获取qqtoken
-            if (verificationTokenLife(mQQToken_Birthday, mQQToken_Expires)) {
+            if (verificationTokenLife(mWXToken_Birthday, mWXToken_Expires)) {
                 user = new MCUser();
-                user.setUserName(preferences.getString(getString(R.string.preferences_username), null)); //姓名,实为qqtoken
+                mWXToken = preferences.getString(getString(R.string.preferences_accesstoken_wx),null);
+                user.setUserName(preferences.getString(getString(R.string.preferences_username), null)); //姓名,实为wx的access_token
                 user.setNickName(preferences.getString(getString(R.string.preferences_nickname), null));// 显示名
                 user.setHeadImg(preferences.getString(getString(R.string.preferences_cover), null));// 用户头像
                 user.setSex(preferences.getString(getString(R.string.preferences_six), null));// 性别
@@ -109,9 +111,9 @@ public class MCStar extends Application {
         if (null != user) {
             SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(getString(R.string.preferences_isFirstBoot),true);
-            editor.putLong(getString(R.string.preferences_tokentime), mQQToken_Birthday);
-            editor.putLong(getString(R.string.preferences_tokenexpires), mQQToken_Expires);
+            editor.putBoolean(getString(R.string.preferences_isFirstBoot),false);
+            editor.putLong(getString(R.string.preferences_tokentime), mWXToken_Birthday);
+            editor.putLong(getString(R.string.preferences_tokenexpires), mWXToken_Expires);
             editor.putInt(getString(R.string.preferences_id), user.getId());         //id
             editor.putInt(getString(R.string.preferences_level), user.getLevel());       //level
             editor.putLong(getString(R.string.preferences_score), user.getAllScore()); //分数

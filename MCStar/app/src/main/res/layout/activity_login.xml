@@ -23,7 +23,18 @@
             android:background="@color/green"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/fontsize_big"
-            android:text="@string/qq_login"
+            android:text="@string/wx_login"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/hint_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@id/login"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/fontsize_smal"
+            android:visibility="gone"
             />
 
         <ImageView

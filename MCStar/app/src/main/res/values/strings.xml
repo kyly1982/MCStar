@@ -20,8 +20,9 @@
     <!--其它-->
     <string name="imagecache_dir">image</string>
     <!--配置-->
-    <string name="preferences_isFirstBoot">FIRSTBOOT</string>
     <string name="preferences_filename">config</string>
+    <string name="preferences_accesstoken_wx">WXTOKEN</string>
+    <string name="preferences_isFirstBoot">FIRSTBOOT</string>
     <string name="preferences_tokentime">CERTIFIEDTIME</string>
     <string name="preferences_tokenexpires">INVALIDTIME</string>
     <string name="preferences_id">USER_ID</string>
@@ -64,6 +65,10 @@
     <string name="error_requestfalse">请求失败，原因：%1$s</string>
     <string name="error_userformat_noself">返回的用户信息不正确！</string>
     <string name="error_serverreturn_unkonw">服务器返回数据格式不正确！</string>
+    <string name="error_loginfaile_mc">登录到服务器失败，原因：%1$s</string>
+    <string name="error_loginfaile_wx">微信授权失败，请重试！</string>
+    <string name="error_code">错误代码：%1$d</string>
+    <string name="error_wxisuninstall">未安装微信，请先安装微信！</string>
 
     <!-- 菜单-->
     <string name="contribution">贡献</string>
@@ -94,8 +99,12 @@
 
     <!--登录-->
     <string name="qq_login">QQ账号登录</string>
+    <string name="wx_login">使用微信账号登录</string>
     <string name="login_hint1">MC 哇！</string>
     <string name="login_wa">挖，挖，挖……</string>
+    <string name="hint_loginwx_ready">即将登录到微信…</string>
+    <string name="hint_loginserver">正在登录，请稍候…</string>
+    <string name="hint_canclelogin">已取消登录！</string>
 
     <!--主页-->
     <string name="getpaper">挖一下</string>

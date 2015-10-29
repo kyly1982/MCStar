@@ -24,13 +24,12 @@ import org.json.JSONTokener;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class LeadActivity extends BaseActivity implements View.OnClickListener{
+public class LeadActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView;
     private AppCompatButton mBtn_Next;
     private ArrayList<ImageView> mIndications;
     private ArrayList<String> urls;
     int mLastPosition = 0;
-    static final String TAG = "LA";
     private CountDownTimer timer;
     private ImageLoader mLoader;
 
@@ -38,23 +37,22 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead);
+        mImageView = (ImageView) findViewById(R.id.ads);
+        mBtn_Next = (AppCompatButton) findViewById(R.id.btn_next);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        mApplication.init();
-        mApplication.readPreference();
-        checkUpgrade();
-        mImageView = (ImageView) findViewById(R.id.ads);
-        mBtn_Next = (AppCompatButton) findViewById(R.id.btn_next);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         countTime();
-     /*   if (!mApplication.isFirstBoot) {
-            countTime();
-        } else {
-            init();
-        }*/
+        mApplication.init();
+        checkUpgrade();
     }
 
     @Override
@@ -63,11 +61,11 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         super.onPause();
     }
 
-    private void countTime(){
-        timer = new CountDownTimer(2500,500) {
+    private void countTime() {
+        timer = new CountDownTimer(2500, 500) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mBtn_Next.setText(getString(R.string.skip,millisUntilFinished / 1000));
+                mBtn_Next.setText(getString(R.string.skip, millisUntilFinished / 1000));
             }
 
             @Override
@@ -78,7 +76,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         timer.start();
     }
 
-    private void showMainActivity(){
+    private void showMainActivity() {
         if (null != timer) {
             timer.cancel();
         }
@@ -93,7 +91,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
 
     }
 
-    private void init(){
+    private void init() {
         urls = new ArrayList<>(10);
         urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/92001444245157450.png");
 /*        urls.add("http://cdn.mckuai.com/uploadimg/talkContImg/20151008/42301444245394430.png");
@@ -104,12 +102,12 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
         int count = urls.size();
         //画点
         LinearLayoutCompat indicationRoot = (LinearLayoutCompat) findViewById(R.id.ll_indication);
-        if ( 1 < count) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(30,30);
-            params.setMargins(5,5,5,5);
+        if (1 < count) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(30, 30);
+            params.setMargins(5, 5, 5, 5);
             mIndications = new ArrayList<>(count);
 
-            for (int i = 0;i < count;i++){
+            for (int i = 0; i < count; i++) {
                 ImageView imageView = new ImageView(this);
                 imageView.setLayoutParams(params);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -118,26 +116,25 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
                 indicationRoot.addView(imageView);
             }
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
-        }
-        else {
+        } else {
             indicationRoot.setVisibility(View.GONE);
         }
     }
 
-    private void showImage(){
+    private void showImage() {
         if (urls.size() > 1) {
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_gray);
             mLastPosition++;
             mIndications.get(mLastPosition).setImageResource(R.drawable.icon_circle_blue);
         }
         mLoader = ImageLoader.getInstance();
-        mLoader.displayImage(urls.get(mLastPosition),mImageView);
-        if (mLastPosition == urls.size() -1){
+        mLoader.displayImage(urls.get(mLastPosition), mImageView);
+        if (mLastPosition == urls.size() - 1) {
             mBtn_Next.setText(R.string.enter);
         }
     }
 
-    private void checkUpgrade(){
+    private void checkUpgrade() {
         AppUpdate updateService = AppUpdateService.getAppUpdate(this);
         String url = getString(R.string.interface_domain) + getString(R.string.interface_checkupgread);
         url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
@@ -148,23 +145,19 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (mLastPosition == urls.size() - 1) {
             showMainActivity();
-        }else {
+        } else {
             showImage();
         }
     }
 
-    static class MyJsonParser extends SimpleJSONParser implements ResponseParser
-    {
+    static class MyJsonParser extends SimpleJSONParser implements ResponseParser {
         @Override
-        public Version parser(String response)
-        {
-            try
-            {
+        public Version parser(String response) {
+            try {
                 JSONTokener jsonParser = new JSONTokener(response);
                 JSONObject json = (JSONObject) jsonParser.nextValue();
                 Version version = null;
-                if (json.has("state") && json.has("dataObject"))
-                {
+                if (json.has("state") && json.has("dataObject")) {
                     JSONObject dataField = json.getJSONObject("dataObject");
                     int code = dataField.getInt("code");
                     String name = dataField.getString("name");
@@ -173,8 +166,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener{
                     version = new Version(code, name, feature, targetUrl);
                 }
                 return version;
-            } catch (JSONException exp)
-            {
+            } catch (JSONException exp) {
                 exp.printStackTrace();
                 return null;
             }
