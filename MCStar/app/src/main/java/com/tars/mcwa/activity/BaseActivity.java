@@ -2,6 +2,8 @@ package com.tars.mcwa.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.Vibrator;
@@ -30,6 +32,7 @@ public class BaseActivity extends AppCompatActivity {
     protected static Toolbar mToolBar;
     protected static TextView mTitle;
     protected Vibrator vibrator;
+    protected SoundPool soundPool;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -100,59 +103,45 @@ public class BaseActivity extends AppCompatActivity {
 
 
 
-    protected void feedback_false(){
-        feedback_affirm(1,null);
-    }
-
-    protected void feedback_success(){
-        feedback_affirm(0,null);
-    }
-
-    protected void feedback_affirm(final int type,  View view) {
+    protected void feedback(final boolean isSuccess, final boolean needMusic) {
         if (null == vibrator) {
-            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         }
-        if (vibrator.hasVibrator()) {
-            switch (type) {
-                case 0:
-                    long[] pattern = {100, 500};
-                    vibrator.vibrate(pattern, -1);
-                    break;
-                case 1:
-                    long[] pattern1 = {100, 300, 100, 300};
-                    vibrator.vibrate(pattern1, -1);
-                    if (null != view){
-                        shake(view);
-                    }
-                    break;
-            }
+        if (vibrator.hasVibrator() && isSuccess) {
+            long[] pattern1 = {100, 300, 100, 300};
+            vibrator.vibrate(pattern1, -1);
         }
-
+        if (needMusic) {
+            playSound(true == isSuccess ? 1 : 0);
+        }
     }
 
-    private void shake(@NonNull View view) {
-        view.setAnimation(makeShakeAnimation());
+    protected void playBackgroundMusic(){
+        playSound(2);
     }
 
-    private AnimationSet makeShakeAnimation(){
 
-        AnimationSet shake = new AnimationSet(true);
-        for (int i = 0;i < 16;i++){
-            TranslateAnimation translateAnimation = new TranslateAnimation(0,-15,0,0);
+    protected void playSound(int type){
+        if (null == soundPool) {
+            soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 5);
         }
-
-        return  shake;
+        int id;
+        switch (type){
+            case 0:
+                id =soundPool.load(this, R.raw.music,2);
+                soundPool.play(id,1,1,2,0,1);
+                break;
+            case 1:
+                id =soundPool.load(this, R.raw.music,2);
+                soundPool.play(id,1,1,2,0,1);
+                break;
+            case 2:
+                id =soundPool.load(this, R.raw.music,1);
+                soundPool.play(id,0.5f,0.5f,2,0,1);
+                break;
+        }
     }
-/*
-    public static void setToolBarClickListener(Toolbar.OnMenuItemClickListener itemClickListener, View.OnClickListener navigationClickListener) {
-        if (null != itemClickListener) {
-            mToolBar.setOnMenuItemClickListener(itemClickListener);
-        }
 
-        if (null != navigationClickListener) {
-            mToolBar.setNavigationOnClickListener(navigationClickListener);
-        }
-    }*/
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {

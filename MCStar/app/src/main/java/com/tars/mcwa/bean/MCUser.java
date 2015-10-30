@@ -126,4 +126,12 @@ public class MCUser implements Serializable {
     public void setScoreRank(int scoreRank) {
         this.scoreRank = scoreRank;
     }
+
+    public void addScore(int score){
+        this.allScore += score;
+    }
+
+    public void addAnswerNumber(){
+        this.answerNum++;
+    }
 }

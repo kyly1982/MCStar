@@ -72,7 +72,7 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_resullt, container, false);;
+        view = inflater.inflate(R.layout.fragment_resullt, container, false);
         mShareService = UMServiceFactory.getUMSocialService("com.umeng.share");
         options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).displayer(new CircleBitmapDisplayer()).build();
         mLoader = ImageLoader.getInstance();
@@ -145,9 +145,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private void updateResult() {
         if (!isLoading && !isUploaded && mApplication.isLogined()) {
-            MCUser user = mApplication.user;
-            mApplication.user.setAllScore(user.getAllScore() + score);
-            mApplication.user.setAnswerNum(user.getAnswerNum() + 1);
+            mApplication.user.addScore(score);
+            mApplication.user.addAnswerNumber();
             NetInterface.uploadResult(getActivity(), mApplication.user.getId(), score, rightQuestionId, wrongQuestionId, this);
             isLoading = true;
         }
@@ -210,7 +209,10 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         MobclickAgent.onEvent(getActivity(),"uploadSC_S");
         isLoading = false;
         isUploaded = true;
-        mApplication.user = myself;
+//        mApplication.user = myself;
+        mApplication.user.setAllScore(myself.getAllScore());
+        mApplication.user.setScoreRank(myself.getScoreRank());
+        mApplication.user.setRanking(myself.getRanking());
         this.user_p = user_pre;
         this.user_n = user_next;
         showData(true);
@@ -219,18 +221,18 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
     @Override
     public void onFalse(String msg) {
         MobclickAgent.onEvent(getActivity(),"uploadSC_F");
+        isUploaded = false;
         isLoading = false;
         feedback_false();
     }
 
     private void shareScore(Bitmap bitmap){
-//        configPlatforms();
-        mShareService.setAppWebSite("http://www.mckuai.com");
+        mShareService.setAppWebSite(getString(R.string.share_url_download));
         if (isUploaded){
-            mShareService.setShareContent(getString(R.string.share_title_rank));
+//            mShareService.setShareContent(getString(R.string.share_title_rank));
             mShareService.setShareContent(getString(R.string.share_content_rank, mApplication.user.getScoreRank()));
         } else {
-            mShareService.setShareContent(getString(R.string.share_title_score));
+//            mShareService.setShareContent(getString(R.string.share_title_score));
             mShareService.setShareContent(getString(R.string.share_content_score, score));
         }
         if (null != bitmap){
@@ -242,23 +244,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
 
     private void configPlatforms()
     {
-/*        String targetUrl = "http://www.mckuai.com/thread-" + post.getId() + ".html";
-        String title = "麦块for我的世界盒子";
-        String context = post.getTalkTitle();
-        UMImage image;
-        if (null != post.getMobilePic() && 10 < post.getMobilePic().length())
-        {
-            image = new UMImage(this, post.getMobilePic());
-        } else
-        {
-            image = new UMImage(this, R.drawable.icon_share_default);
-        }
-//         添加内容和图片
-        mShareService.setShareContent(context);
-        mShareService.setShareMedia(image);*/
-
-        String title = "MC哇";
-        String url = "http://www.mckuai.com";
+        String title = getString(R.string.share_title_rank);
+        String url = getString(R.string.share_url_download);
         String appID_QQ = "1104907496";
         String appAppKey_QQ = "DbdC0Qvfkj4yOLsG";
         // 添加qq

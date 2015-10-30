@@ -136,7 +136,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
 
     private void checkUpgrade() {
         AppUpdate updateService = AppUpdateService.getAppUpdate(this);
-        String url = getString(R.string.interface_domain) + getString(R.string.interface_checkupgread);
+        String url = getString(R.string.interface_domain_update) + getString(R.string.interface_checkupgread);
         url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
         updateService.checkLatestVersionQuiet(url, new MyJsonParser());
     }

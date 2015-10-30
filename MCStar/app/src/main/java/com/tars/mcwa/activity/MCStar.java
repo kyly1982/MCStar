@@ -100,6 +100,8 @@ public class MCStar extends Application {
                 user.setId(preferences.getInt(getString(R.string.preferences_id), 0));                    //id
                 user.setLevel(preferences.getInt(getString(R.string.preferences_level), 0));           //level
                 user.setAllScore(preferences.getLong(getString(R.string.preferences_score), 0));     //分数
+                user.setRanking(preferences.getLong(getString(R.string.preferences_ranking), 0));
+                user.setScoreRank(preferences.getInt(getString(R.string.preferences_scorerank), 0));
                 user.setAnswerNum(preferences.getInt(getString(R.string.preferences_answercount), 0));  //ac
                 user.setUploadNum(preferences.getInt(getString(R.string.preferences_uploadcount), 0));
             }
@@ -114,6 +116,8 @@ public class MCStar extends Application {
             editor.putBoolean(getString(R.string.preferences_isFirstBoot),false);
             editor.putLong(getString(R.string.preferences_tokentime), mWXToken_Birthday);
             editor.putLong(getString(R.string.preferences_tokenexpires), mWXToken_Expires);
+            editor.putInt(getString(R.string.preferences_scorerank), user.getScoreRank());
+            editor.putLong(getString(R.string.preferences_ranking), user.getRanking());
             editor.putInt(getString(R.string.preferences_id), user.getId());         //id
             editor.putInt(getString(R.string.preferences_level), user.getLevel());       //level
             editor.putLong(getString(R.string.preferences_score), user.getAllScore()); //分数

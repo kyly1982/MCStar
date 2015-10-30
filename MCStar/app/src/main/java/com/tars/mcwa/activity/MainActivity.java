@@ -49,9 +49,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onResume() {
         super.onResume();
         initToolBar();
-        initView();
+        if (null == hint) {
+            initView();
+        }
         showUserInfo();
-        YoYo.with(Techniques.Swing);
+        YoYo.with(Techniques.Swing).playOn(hint);
     }
 
     @Override

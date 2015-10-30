@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -44,7 +45,6 @@ public class NetInterface {
         mClient.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                Log.e("NE", "" + response.toString());
                 PretreatmentResult result = pretreatmentResponse(context, response);
                 if (result.isSuccess) {
                     Gson gson = new Gson();
@@ -61,7 +61,6 @@ public class NetInterface {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                super.onFailure(statusCode, headers, throwable, errorResponse);
                 listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
@@ -123,9 +122,7 @@ public class NetInterface {
                     Gson gson = new Gson();
                     ArrayList<MCUser> users = gson.fromJson(result.msg, new TypeToken<ArrayList<MCUser>>() {
                     }.getType());
-//                    MCUser user = gson.fromJson(result.msg,MCUser.class);
                     if (null != users && !users.isEmpty() && 4 > users.size()) {
-                        MCUser myself, user_pre, user_next;
                         switch (users.size()) {
                             case 1:
                                 if (users.get(0).getId() == userId) {
@@ -144,7 +141,7 @@ public class NetInterface {
                                 }
                                 break;
                             default:
-                                if (userId == users.get(1).getId()){
+                                if (userId == users.get(1).getId()) {
                                     listener.onSuccess(users.get(1), users.get(0), users.get(2));
                                 } else {
                                     listener.onFalse(context.getString(R.string.error_userformat_noself));
@@ -167,7 +164,6 @@ public class NetInterface {
     }
 
     public static void uploadQuestion(@NonNull final Context context, MCUser user, @NonNull Question questin, @Nullable String picUrl, @NonNull final OnUploadQuestionListener listener) {
-//        String url = "http://192.168.10.106/" + context.getString(R.string.interface_upload);
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_upload);
         RequestParams params = new RequestParams();
         params.put("authorId", user.getId());
@@ -191,13 +187,13 @@ public class NetInterface {
                 if (result.isSuccess) {
                     listener.onSuccess();
                 } else {
-                    listener.onFalse(4,result.msg);
+                    listener.onFalse(4, result.msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                listener.onFalse(4,context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+                listener.onFalse(4, context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
 
@@ -205,10 +201,9 @@ public class NetInterface {
 
     public static void uploadPic(@NonNull final Context context, @NonNull MCUser user, @NonNull Bitmap bitmap, @NonNull final OnUploadPicsListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_upload_pic);
-//        String url = "http://192.168.10.106/" + context.getString(R.string.interface_upload_pic);
         if (null != bitmap) {
             RequestParams params = new RequestParams();
-            params.put("upload", Bitmap2IS(bitmap),"01.jpg","image/jpeg");
+            params.put("upload", Bitmap2IS(bitmap), "01.jpg", "image/jpeg");
             mClient.post(context, url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -216,7 +211,7 @@ public class NetInterface {
                     if (result.isSuccess) {
                         listener.onSuccess(result.msg);
                     } else {
-                        listener.onFalse(3,result.msg);
+                        listener.onFalse(3, result.msg);
                     }
                 }
 
@@ -227,11 +222,11 @@ public class NetInterface {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    listener.onFalse(3,context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+                    listener.onFalse(3, context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
                 }
             });
         } else {
-            listener.onFalse(3,"图片不存在！");
+            listener.onFalse(3, "图片不存在！");
         }
 
 
@@ -260,7 +255,6 @@ public class NetInterface {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                super.onFailure(statusCode, headers, throwable, errorResponse);
                 listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
@@ -278,9 +272,9 @@ public class NetInterface {
                 PretreatmentResult result = pretreatmentResponse(context, response);
                 if (result.isSuccess) {
                     Gson gson = new Gson();
-                    ContributionBean bean = gson.fromJson(result.msg,ContributionBean.class);
-                    if (null != bean && null != bean.getData() && null != bean.getPageBean()){
-                        listener.onSuccess(bean.getPageBean(),bean.getData());
+                    ContributionBean bean = gson.fromJson(result.msg, ContributionBean.class);
+                    if (null != bean && null != bean.getData() && null != bean.getPageBean()) {
+                        listener.onSuccess(bean.getPageBean(), bean.getData());
                     } else {
                         listener.onFalse(context.getString(R.string.error_parsefalse));
                     }
@@ -310,9 +304,9 @@ public class NetInterface {
                 PretreatmentResult result = pretreatmentResponse(context, response);
                 if (result.isSuccess) {
                     Gson gson = new Gson();
-                    RankingListBean bean = gson.fromJson(result.msg,RankingListBean.class);
-                    if (null != bean && null != bean.getList() && null != bean.getList().getPageBean()){
-                        listener.onSuccess(bean.getList().getPageBean(),bean.getUser(),bean.getList().getData());
+                    RankingListBean bean = gson.fromJson(result.msg, RankingListBean.class);
+                    if (null != bean && null != bean.getList() && null != bean.getList().getPageBean()) {
+                        listener.onSuccess(bean.getList().getPageBean(), bean.getUser(), bean.getList().getData());
                     } else {
                         listener.onFalse(context.getString(R.string.error_parsefalse));
                     }
@@ -328,53 +322,53 @@ public class NetInterface {
         });
     }
 
-    public static interface OnLoginServerListener {
+    public interface OnLoginServerListener {
         void onSuccess(MCUser user);
 
         void onFalse(String msg);
     }
 
-    public static interface OnGetQrestionListener {
+    public interface OnGetQrestionListener {
         void onSuccess(Paper paper);
 
         void onFalse(String msg);
     }
 
 
-    public static interface OnReportListener {
+    public interface OnReportListener {
         void onSuccess(@NonNull MCUser myself, @Nullable MCUser user_pre, @Nullable MCUser user_next);
 
         void onFalse(String msg);
     }
 
-    public static interface OnGetUserInfoListener {
+    public interface OnGetUserInfoListener {
         void onSuccess(MCUser userInfo);
 
         void onFalse(String msg);
     }
 
-    public static interface OnGetContributionListener {
+    public interface OnGetContributionListener {
         void onSuccess(Page page, ArrayList<Question> questions);
 
         void onFalse(String msg);
     }
 
-    public static interface OnUploadQuestionListener {
+    public interface OnUploadQuestionListener {
         void onSuccess();
 
-        void onFalse(int requestCode,String msg);
+        void onFalse(int requestCode, String msg);
     }
 
-    public static interface OnGetRankingListener {
-        void onSuccess(Page page,MCUser myself,ArrayList<MCUser> rankingList);
+    public interface OnGetRankingListener {
+        void onSuccess(Page page, MCUser myself, ArrayList<MCUser> rankingList);
 
         void onFalse(String msg);
     }
 
-    public static interface OnUploadPicsListener {
+    public interface OnUploadPicsListener {
         void onSuccess(String url);
 
-        void onFalse(int requestCode,String msg);
+        void onFalse(int requestCode, String msg);
     }
 
     static class PretreatmentResult {
@@ -390,13 +384,13 @@ public class NetInterface {
         }
         if (response.has("state")) {
             try {
-                if (response.getString("state").equals("ok")){
+                if (response.getString("state").equals("ok")) {
                     result.isSuccess = true;
-                    if (response.has("dataObject")){
+                    if (response.has("dataObject")) {
                         result.msg = response.getString("dataObject");
                     }
                 } else {
-                    if (response.has("msg")){
+                    if (response.has("msg")) {
                         result.msg = response.getString("msg");
                     } else {
                         result.msg = context.getString(R.string.error_serverfalse_unknow);
@@ -407,14 +401,13 @@ public class NetInterface {
                 result.msg = context.getString(R.string.error_pretreatmentres_ponsefalse, e.getLocalizedMessage());
             }
         } else {
-                result.msg = context.getString(R.string.error_serverreturn_unkonw);
+            result.msg = context.getString(R.string.error_serverreturn_unkonw);
         }
 
         return result;
     }
 
-    private static InputStream Bitmap2IS(Bitmap bm)
-    {
+    private static InputStream Bitmap2IS(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         InputStream sbs = new ByteArrayInputStream(baos.toByteArray());

@@ -107,8 +107,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
 
     private void share(Bitmap bitmap) {
         String content = getString(R.string.share_content_usercenter, mApplication.user.getAnswerNum(),mApplication.user.getAllScore());
-        mShareService.setAppWebSite("http://www.mckuai.com");
-        mShareService.setShareContent(getString(R.string.share_title_usercenter));
+        mShareService.setAppWebSite(getString(R.string.share_url_download));
         mShareService.setShareContent(content);
         if (null != bitmap) {
             UMImage image = new UMImage(this, bitmap);
@@ -205,23 +204,9 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     }
 
     private void configPlatforms() {
-/*        String targetUrl = "http://www.mckuai.com/thread-" + post.getId() + ".html";
-        String title = "麦块for我的世界盒子";
-        String context = post.getTalkTitle();
-        UMImage image;
-        if (null != post.getMobilePic() && 10 < post.getMobilePic().length())
-        {
-            image = new UMImage(this, post.getMobilePic());
-        } else
-        {
-            image = new UMImage(this, R.drawable.icon_share_default);
-        }
-//         添加内容和图片
-        mShareService.setShareContent(context);
-        mShareService.setShareMedia(image);*/
 
-        String title = "MC哇";
-        String url = "http://www.mckuai.com";
+        String title = getString(R.string.share_title_rank);
+        String url = getString(R.string.share_url_download);
         String appID_QQ = "1104907496";
         String appAppKey_QQ = "DbdC0Qvfkj4yOLsG";
         // 添加qq

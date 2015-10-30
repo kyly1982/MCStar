@@ -49,7 +49,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private boolean isChecked = false;
     private int mIndex = 0;
     private int score = 0;
-    private final int LOCKTIME_RIGHT = 1000;
+    private final int LOCKTIME_RIGHT = 1500;
     private final int LOCKTIME_WRONG = 2000;
     private ArrayList<Question> mQuestions;
     private ArrayList<Integer> wrongQuestions = new ArrayList<>();
@@ -71,10 +71,8 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_answer, container, false);
         initView(view);
-//        Log.e(TAG,"onCreateView");
         return view;
     }
 
@@ -93,14 +91,12 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onPause() {
         super.onPause();
-//        Log.e(TAG, "onPause");
         mTimer.cancel();
         handler.removeMessages(2);
         handler.removeMessages(3);
     }
 
     private void initView(View view) {
-//        Log.e(TAG, "initView");
         mCover = (ImageButton) view.findViewById(R.id.usercover);
         mScore = (AppCompatTextView) view.findViewById(R.id.score);
         mScore_question = (AppCompatTextView) view.findViewById(R.id.questionscore);
@@ -144,7 +140,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void showQuestion() {
-//        Log.e(TAG, "showQuestion");
         isChecked = false;
         Question question = mQuestions.get(mIndex);
         ArrayList<String> answer = question.getOptionsEx();
@@ -170,10 +165,11 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 mOption_D.setVisibility(View.GONE);
                 break;
         }
-        mQuestionIndex.setText((mIndex + 1) + ".");
-        mScore_question.setText(getString(R.string.addscore, question.getScore()));
+        mQuestionIndex.setText(getString(R.string.questionindex,mIndex + 1));
+//        mScore_question.setText(getString(R.string.addscore, question.getScore()));
+        mScore_question.setVisibility(View.GONE);
         mContributioner.setText(getString(R.string.contributor, question.getAuthorName()));
-        mQuestionTitle.setText(question.getTitle() + "");
+        mQuestionTitle.setText(question.getTitle());
         if (null != question.getIcon() && 10 < question.getIcon().length()) {
             mLoader.displayImage(question.getIcon(), mImage);
             mImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -194,26 +190,39 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         answer.setChecked(true);
         if (answer.getText().equals(rightAnswer)) {
             //答对
-            rightQuestions.add(question.getId());
-            score += question.getScore();
-            mScore.setText(score + "");
-            handler.sendEmptyMessageDelayed(3, LOCKTIME_RIGHT);
+            handleRight(question);
         } else {
             //答错
-            wrongQuestions.add(question.getId());
-            answer.setBackgroundColor(getResources().getColor(R.color.red));
-            processWrong(question, answer);
-            handler.sendEmptyMessageDelayed(2, LOCKTIME_WRONG);
+//            answer.setBackgroundColor(getResources().getColor(R.color.red));
+            handleWrong(question, answer);
+//            handler.sendEmptyMessageDelayed(2, LOCKTIME_WRONG);
         }
     }
 
-    private void processWrong(Question question, AppCompatCheckedTextView answer) {
-//        Log.e(TAG, "processWrong");
+    private void handleRight(Question question){
+        rightQuestions.add(question.getId());
+        int time = Integer.valueOf(mTime.getText().toString());
+        int qs =  (int)(question.getScore() * time / 10f);
+        score += qs;
+        mScore_question.setTextColor(getResources().getColor(R.color.primary_text));
+        mScore_question.setText("+"+qs);
+        mScore_question.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.Flash).playOn(mScore_question);
+        mScore.setText(score + "");
+        handler.sendEmptyMessageDelayed(3, LOCKTIME_RIGHT);
+    }
+
+    private void handleWrong(Question question, AppCompatCheckedTextView answer) {
         feedback_false();
+        wrongQuestions.add(question.getId());
         if (null != answer) {
             YoYo.with(Techniques.Shake).playOn(answer);
             answer.setBackgroundColor(getResources().getColor(R.color.red));
         }
+        /*mScore_question.setTextColor(getResources().getColor(R.color.red));
+        mScore_question.setText(question.getScore() + "");
+        mScore_question.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.Shake).playOn(mScore_question);*/
         wrongQuestions.add(question.getId());
         String rightAnswer = question.getRightAnswer();
         if (mOption_A.getText().equals(rightAnswer)) {
@@ -229,19 +238,16 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void checkExaminationFinished(boolean isUserAction) {
-//        Log.e(TAG, "checkExaminationFinished");
         mIndex++;
         if (mIndex < mQuestions.size()) {
             showQuestion();
         } else {
             //已做完
-//            Log.e("AQ","问题已做完");
             finishExamination(isUserAction);
         }
     }
 
     private void finishExamination(boolean isUserFinished) {
-//        Log.e(TAG, "finishExamination");
         ExaminationActivity activity = (ExaminationActivity) getActivity();
 
         ExaminationActivity.score = this.score;
@@ -256,7 +262,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void countTime(int time) {
-//        Log.e(TAG, "countTime");
         if (null == mTimer) {
             mTimer = new CountDownTimer(time * 1000, 1000) {
                 @Override
@@ -272,7 +277,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                     mTime.setText("0");
                     isChecked = true;
                     isTimeOut = true;
-                    processWrong(mQuestions.get(mIndex), null);
+                    handleWrong(mQuestions.get(mIndex), null);
                 }
             };
         }

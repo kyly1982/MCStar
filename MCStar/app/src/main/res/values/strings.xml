@@ -34,11 +34,14 @@
     <string name="preferences_score">SCORE</string>
     <string name="preferences_answercount">ANSERCOUNT</string>
     <string name="preferences_uploadcount">UPLOADCOUNT</string>
+    <string name="preferences_scorerank">SCORERANK</string>
+    <string name="preferences_ranking">RANKING</string>
 
     <!--接口-->
     <!--测试 http://221.237.152.39:8081/-->
     <!--正式 http://wa.mckuai.com/ -->
     <string name="interface_domain">http://wa.mckuai.com/</string>
+    <string name="interface_domain_update">http://api.mckuai.com/</string>
     <string name="interface_loginserver">interface.do?act=login</string>
     <!--获取考卷 无参数-->
     <string name="interface_getquestionlist">interface.do?act=question</string>
@@ -120,6 +123,7 @@
 
     <!--答题-->
     <string name="addscore">+%1$d</string>
+    <string name="questionindex">%1$d.</string>
     <string name="contributor">贡献者：%1$s</string>
 
     <!--成绩-->
@@ -171,12 +175,13 @@
     <string name="data_empty">暂时还没有内容，向下动拉刷新！</string>
 
     <!--分享-->
-    <string name="share_title_score">一起来玩MC哇吧</string>
+    <string name="share_url_download">http://wa.mckuai.com/down</string>
+    <string name="share_title_score">MC哇——最好玩的我的世界百科知识问答游戏</string>
     <string name="share_content_score">我正在玩MC哇，刚刚获得了%1$d分，敢来比一比吗？</string>
-    <string name="share_title_rank">一起来玩MC哇吧</string>
+    <string name="share_title_rank">MC哇——最好玩的我的世界百科知识问答游戏</string>
     <string name="share_content_rank">我正在玩MC哇，我已经是第%1$d名了，敢来比一比吗？</string>
-    <string name="share_title_usercenter">一起来玩MC哇吧</string>
-    <string name="share_content_usercenter">我正在玩MC哇，已经回答了%1$d题，获得了%2$d分，敢来比一比吗？</string>
+    <string name="share_title_usercenter">MC哇——最好玩的我的世界百科知识问答游戏</string>
+    <string name="share_content_usercenter">我正在玩MC哇，已经完成了%1$d次，获得了%2$d分，敢来比一比吗？</string>
 
     <!-- 更新-->
     <string name="download_failure">下载新版本失败 !</string>
