@@ -229,7 +229,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onFalse(String msg) {
-        feedback_false();
+        feedback(false,false);
         MobclickAgent.onEvent(this, "reqPaper_F");
         isLoading = false;
         Toast.makeText(this,msg,Toast.LENGTH_LONG).show();

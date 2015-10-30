@@ -15,7 +15,7 @@ import com.tars.mcwa.fragment.ResulltFragment;
 
 import java.util.ArrayList;
 
-public class ExaminationActivity extends BaseActivity {
+public class ExaminationActivity extends BaseActivity implements AnswerFragment.OnAnswerQuestionListener {
     private FragmentManager mFragmentManager;
     private int mPosition = 0;  //页面
     private ResulltFragment resulltFragment;
@@ -49,6 +49,18 @@ public class ExaminationActivity extends BaseActivity {
         } else if (null == resulltFragment){
             this.finish();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadSound();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mApplication.stopMusic();
     }
 
     @Override
@@ -89,11 +101,13 @@ public class ExaminationActivity extends BaseActivity {
             case 1:
                 mToolBar.setVisibility(View.GONE);
                 AnswerFragment questionFragment = new AnswerFragment();
+                questionFragment.setOnAnswerQuestionListener(this);
                 Bundle bundle1 = new Bundle();
                 bundle1.putString(getString(R.string.tag_name), getString(R.string.title_answer));
-                bundle1.putSerializable(getString(R.string.tag_questions),paper.getQuestion());
+                bundle1.putSerializable(getString(R.string.tag_questions), paper.getQuestion());
                 questionFragment.setArguments(bundle1);
                 mFragmentManager.beginTransaction().remove(mFragmentManager.findFragmentByTag(getString(R.string.title_ready))).replace(R.id.context, questionFragment, getString(R.string.title_answer)).commit();
+                mApplication.playMusic();
                 break;
             case 2:
                 mToolBar.setVisibility(View.VISIBLE);
@@ -115,4 +129,15 @@ public class ExaminationActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_examination,menu);
         return true;
     }
+
+    @Override
+    public void onSelectedSuccess() {
+        feedback(true,true);
+    }
+
+    @Override
+    public void onSelectedWrong() {
+        feedback(false,true);
+    }
+
 }

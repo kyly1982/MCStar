@@ -223,7 +223,6 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         MobclickAgent.onEvent(getActivity(),"uploadSC_F");
         isUploaded = false;
         isLoading = false;
-        feedback_false();
     }
 
     private void shareScore(Bitmap bitmap){

@@ -383,7 +383,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                         uploadQuestion();
                     } else {
                         Log.e("UQ", "参数不正确");
-                        feedback_false();
+                        feedback(false,false);
                     }
                 }
                 break;
@@ -445,7 +445,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     @Override
     public void onFalse(int requestCode, String msg) {
-        feedback_false();
+        feedback(false,false);
         hideProgress();
         isUpload = false;
         switch (requestCode) {

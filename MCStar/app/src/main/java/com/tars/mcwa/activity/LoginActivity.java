@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 @Override
                 public void onError(SocializeException e, SHARE_MEDIA share_media) {
                     MobclickAgent.onEvent(LoginActivity.this, "wxGetToken_F");
-                    feedback_false();
+                    feedback(false,true);
                     hint.setText(e.getMessage() + getString(R.string.error_code, e.getErrorCode()));
                     login.setEnabled(true);
                 }
@@ -132,7 +132,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 @Override
                 public void onCancel(SHARE_MEDIA share_media) {
                     MobclickAgent.onEvent(LoginActivity.this, "wxGetToken_F");
-                    feedback_false();
+                    feedback(false,true);
                     login.setEnabled(true);
                     hint.setText(getString(R.string.hint_canclelogin));
                 }
@@ -206,7 +206,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onFalse(String msg) {
-        feedback_false();
+        feedback(false,false);
         login.setEnabled(true);
         hint.setText(msg);
         hint.setVisibility(View.VISIBLE);

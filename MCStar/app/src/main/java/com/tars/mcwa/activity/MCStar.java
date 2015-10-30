@@ -133,17 +133,23 @@ public class MCStar extends Application {
 
     public void playMusic() {
         if (null == mPlayer) {
-            mPlayer = MediaPlayer.create(this, R.raw.music);
+            mPlayer = MediaPlayer.create(this, R.raw.background);
         }
         mPlayer.start();
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mPlayer.start();
+            }
+        });
     }
 
     public void stopMusic() {
         if (null != mPlayer) {
             mPlayer.stop();
+            mPlayer.release();
+            mPlayer = null;
         }
-        mPlayer.release();
-        mPlayer = null;
     }
 
     public boolean switchPlayPauseMusic() {

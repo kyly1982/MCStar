@@ -59,12 +59,22 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private ImageLoader mLoader = ImageLoader.getInstance();
     private CountDownTimer mTimer;
     private boolean isTimeOut = false;
+    private OnAnswerQuestionListener mListener;
 
 
 
 
     public AnswerFragment() {
         // Required empty public constructor
+    }
+
+    public interface  OnAnswerQuestionListener{
+        public void onSelectedSuccess();
+        public void onSelectedWrong();
+    }
+
+    public void setOnAnswerQuestionListener(OnAnswerQuestionListener listener){
+        this.mListener = listener;
     }
 
 
@@ -79,13 +89,16 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        Log.e(TAG, "onResume");
         mQuestions = (ArrayList<Question>) getArguments().getSerializable(getString(R.string.tag_questions));
         if (null != mQuestions && !mQuestions.isEmpty()) {
             mIndex = 0;
             showQuestion();
         }
         showUserInfo();
+        mApplication.playMusic();
+     /*   if (null != mListener){
+            mListener.onStart();
+        }*/
     }
 
     @Override
@@ -94,6 +107,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         mTimer.cancel();
         handler.removeMessages(2);
         handler.removeMessages(3);
+        mApplication.stopMusic();
     }
 
     private void initView(View view) {
@@ -165,8 +179,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 mOption_D.setVisibility(View.GONE);
                 break;
         }
-        mQuestionIndex.setText(getString(R.string.questionindex,mIndex + 1));
-//        mScore_question.setText(getString(R.string.addscore, question.getScore()));
+        mQuestionIndex.setText(getString(R.string.questionindex, mIndex + 1));
         mScore_question.setVisibility(View.GONE);
         mContributioner.setText(getString(R.string.contributor, question.getAuthorName()));
         mQuestionTitle.setText(question.getTitle());
@@ -178,13 +191,11 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mImage.setVisibility(View.GONE);
         }
         mTime.setText("10");
-        isTimeOut = false;
         countTime(10);
         isTimeOut = false;
     }
 
     private void processResult(AppCompatCheckedTextView answer) {
-//        Log.e(TAG, "processResult");
         Question question = mQuestions.get(mIndex);
         String rightAnswer = question.getRightAnswer();
         answer.setChecked(true);
@@ -193,27 +204,33 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             handleRight(question);
         } else {
             //答错
-//            answer.setBackgroundColor(getResources().getColor(R.color.red));
             handleWrong(question, answer);
-//            handler.sendEmptyMessageDelayed(2, LOCKTIME_WRONG);
         }
     }
 
     private void handleRight(Question question){
+        if (null != mListener){
+            mListener.onSelectedSuccess();
+        }
+//        feedback(true,true);
         rightQuestions.add(question.getId());
         int time = Integer.valueOf(mTime.getText().toString());
         int qs =  (int)(question.getScore() * time / 10f);
         score += qs;
         mScore_question.setTextColor(getResources().getColor(R.color.primary_text));
-        mScore_question.setText("+"+qs);
+        mScore_question.setText("+" + qs);
         mScore_question.setVisibility(View.VISIBLE);
-        YoYo.with(Techniques.Flash).playOn(mScore_question);
         mScore.setText(score + "");
+        YoYo.with(Techniques.Flash).playOn(mScore_question);
+        YoYo.with(Techniques.Flash).playOn(mScore);
         handler.sendEmptyMessageDelayed(3, LOCKTIME_RIGHT);
     }
 
     private void handleWrong(Question question, AppCompatCheckedTextView answer) {
-        feedback_false();
+//        feedback(false,true);
+        if (null != mListener){
+            mListener.onSelectedWrong();
+        }
         wrongQuestions.add(question.getId());
         if (null != answer) {
             YoYo.with(Techniques.Shake).playOn(answer);
@@ -266,13 +283,11 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
             mTimer = new CountDownTimer(time * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-//                    Log.e(TAG, "onTick:"+millisUntilFinished / 1000);
                     mTime.setText(millisUntilFinished / 1000 + "");
                 }
 
                 @Override
                 public void onFinish() {
-//                    Log.e(TAG, "ans_TimeOut");
                     MobclickAgent.onEvent(getActivity(),"ans_TimeOut");
                     mTime.setText("0");
                     isChecked = true;

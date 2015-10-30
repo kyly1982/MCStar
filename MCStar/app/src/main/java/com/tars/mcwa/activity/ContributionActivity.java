@@ -121,6 +121,6 @@ public class ContributionActivity extends BaseActivity implements Toolbar.OnMenu
     @Override
     public void onFalse(String msg) {
         MobclickAgent.onEvent(this,"reqCL_F");
-        feedback_false();
+        feedback(false,false);
     }
 }

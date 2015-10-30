@@ -24,6 +24,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 import com.umeng.message.local.UmengNotificationBuilder;
 
+import java.util.HashMap;
+
 /**
  * Created by kyly on 2015/9/29.
  */
@@ -33,6 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     protected static TextView mTitle;
     protected Vibrator vibrator;
     protected SoundPool soundPool;
+    protected HashMap<Integer,Integer> sound;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -50,6 +53,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopSound();
     }
 
     public void initToolBar() {
@@ -107,7 +116,7 @@ public class BaseActivity extends AppCompatActivity {
         if (null == vibrator) {
             vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         }
-        if (vibrator.hasVibrator() && isSuccess) {
+        if (vibrator.hasVibrator() && !isSuccess) {
             long[] pattern1 = {100, 300, 100, 300};
             vibrator.vibrate(pattern1, -1);
         }
@@ -116,29 +125,33 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void playBackgroundMusic(){
-        playSound(2);
+    protected void loadSound(){
+        if (null == soundPool) {
+            soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 5);
+            sound = new HashMap<>(2);
+            sound.put(0, soundPool.load(this, R.raw.error, 1));
+            sound.put(1, soundPool.load(this, R.raw.right, 1));
+        }
     }
 
 
-    protected void playSound(int type){
-        if (null == soundPool) {
-            soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 5);
-        }
-        int id;
-        switch (type){
-            case 0:
-                id =soundPool.load(this, R.raw.music,2);
-                soundPool.play(id,1,1,2,0,1);
-                break;
-            case 1:
-                id =soundPool.load(this, R.raw.music,2);
-                soundPool.play(id,1,1,2,0,1);
-                break;
-            case 2:
-                id =soundPool.load(this, R.raw.music,1);
-                soundPool.play(id,0.5f,0.5f,2,0,1);
-                break;
+
+    private void playSound(int type){
+        soundPool.play(sound.get(type), 1, 1, 2, 0, 1);
+    }
+
+    private void stopSound(){
+        if (null != soundPool){
+            try {
+                soundPool.stop(sound.get(0));
+                soundPool.stop(sound.get(1));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            sound.clear();
+            sound = null;
+            soundPool.release();
+            soundPool = null;
         }
     }
 

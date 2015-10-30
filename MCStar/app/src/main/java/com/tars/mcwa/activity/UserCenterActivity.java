@@ -61,27 +61,23 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
             initView();
             mLoader = ImageLoader.getInstance();
         }
-        showData();
+//        showData();
+//        loadData();
         mApplication.playMusic();
     }
 
     @Override
     protected void onPause() {
-        mApplication.pauseMusic();
+        mApplication.stopMusic();
         super.onPause();
     }
 
-    @Override
-    protected void onDestroy() {
-        mApplication.stopMusic();
-        super.onDestroy();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         UMSsoHandler ssoHandler = mShareService.getConfig().getSsoHandler(requestCode);
-        if (null != ssoHandler){
-            ssoHandler.authorizeCallBack(requestCode,resultCode,data);
+        if (null != ssoHandler) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -106,7 +102,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     }
 
     private void share(Bitmap bitmap) {
-        String content = getString(R.string.share_content_usercenter, mApplication.user.getAnswerNum(),mApplication.user.getAllScore());
+        String content = getString(R.string.share_content_usercenter, mApplication.user.getAnswerNum(), mApplication.user.getAllScore());
         mShareService.setAppWebSite(getString(R.string.share_url_download));
         mShareService.setShareContent(content);
         if (null != bitmap) {
@@ -190,7 +186,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     @Override
     public void onFalse(String msg) {
         MobclickAgent.onEvent(this, "reqUC_F");
-        feedback_false();
+        feedback(false, false);
         refreshLayout.setRefreshing(false);
         isLoading = false;
     }

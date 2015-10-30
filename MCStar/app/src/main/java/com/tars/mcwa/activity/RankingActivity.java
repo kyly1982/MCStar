@@ -143,7 +143,7 @@ public class RankingActivity extends BaseActivity implements UltimateRecyclerVie
     @Override
     public void onFalse(String msg) {
         MobclickAgent.onEvent(this,"reqRL_F");
-        feedback_false();
+        feedback(false,false);
         mList.setRefreshing(false);
     }
 }
