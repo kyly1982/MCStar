@@ -61,8 +61,8 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
             initView();
             mLoader = ImageLoader.getInstance();
         }
-//        showData();
-//        loadData();
+        showData();
+        loadData();
         mApplication.playMusic();
     }
 

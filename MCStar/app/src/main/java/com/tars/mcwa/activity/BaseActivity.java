@@ -167,7 +167,6 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             }
         }
-        Log.e("BA","onKeyUp");
         return super.onKeyUp(keyCode, event);
     }
 
