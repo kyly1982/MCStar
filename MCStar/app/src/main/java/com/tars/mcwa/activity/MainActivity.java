@@ -21,12 +21,23 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Paper;
+import com.tars.mcwa.utils.AutoUpgrade.AppUpdate;
+import com.tars.mcwa.utils.AutoUpgrade.AppUpdateService;
+import com.tars.mcwa.utils.AutoUpgrade.ResponseParser;
+import com.tars.mcwa.utils.AutoUpgrade.Version;
+import com.tars.mcwa.utils.AutoUpgrade.internal.SimpleJSONParser;
 import com.tars.mcwa.utils.CircleBitmap;
 import com.tars.mcwa.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.net.URLEncoder;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener {
     private boolean isLoading = false;
@@ -51,15 +62,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initToolBar();
         if (null == hint) {
             initView();
+//            checkUpgrade();
         }
         showUserInfo();
         YoYo.with(Techniques.Swing).playOn(hint);
     }
 
-    @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
-    }
 
     @Override
     protected void onStop() {
@@ -139,7 +147,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             default:
-                MobclickAgent.onEvent(this,"click_UC");
+                MobclickAgent.onEvent(this, "click_UC");
                 if (!mApplication.isLogined()) {
                     callLogin(REQUEST_USERCENTER);
                 } else {
@@ -175,8 +183,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         if (null != loadedImage) {
-//                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small))));
-                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmapWithStroke(MainActivity.this, loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small),0xffffff)));
+                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small))));
+//                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmapWithStroke(MainActivity.this, loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small),0xffffff)));
 
                         }
                     }
@@ -229,9 +237,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onFalse(String msg) {
-        feedback(false,false);
+        feedback(false, false);
         MobclickAgent.onEvent(this, "reqPaper_F");
         isLoading = false;
         Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+    }
+
+    private void checkUpgrade() {
+        AppUpdate updateService = AppUpdateService.getAppUpdate(this);
+        String url = getString(R.string.interface_domain_update) + getString(R.string.interface_checkupgread);
+        url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
+        updateService.checkLatestVersionQuiet(url, new MyJsonParser());
+    }
+
+    static class MyJsonParser extends SimpleJSONParser implements ResponseParser {
+        @Override
+        public Version parser(String response) {
+            try {
+                JSONTokener jsonParser = new JSONTokener(response);
+                JSONObject json = (JSONObject) jsonParser.nextValue();
+                Version version = null;
+                if (json.has("state") && json.has("dataObject")) {
+                    JSONObject dataField = json.getJSONObject("dataObject");
+                    int code = dataField.getInt("code");
+                    String name = dataField.getString("name");
+                    String feature = dataField.getString("feature");
+                    String targetUrl = dataField.getString("targetUrl");
+                    version = new Version(code, name, feature, targetUrl);
+                }
+                return version;
+            } catch (JSONException exp) {
+                exp.printStackTrace();
+                return null;
+            }
+        }
     }
 }

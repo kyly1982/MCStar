@@ -28,7 +28,6 @@ public class FoundVersionDialog {
 	public void show(){
         final Dialog dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(R.layout.dialog_found_version);
-        //Log.e("FoundVersionDialog", "activity:" + context.getClass().getName());
         dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         
         TextView title = (TextView) dialog.findViewById(R.id.title);
