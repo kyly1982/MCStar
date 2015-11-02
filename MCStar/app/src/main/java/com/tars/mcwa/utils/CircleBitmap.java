@@ -1,5 +1,8 @@
 package com.tars.mcwa.utils;
 
+import android.app.Notification;
+import android.content.Context;
+import android.content.pm.PackageItemInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -12,7 +15,7 @@ import android.support.annotation.NonNull;
  * Created by kyly on 2015/10/19.
  */
 public class CircleBitmap {
-    private static int BORDER_WIDTH = 2;
+
 
     static public Bitmap getCircleBitmap(@NonNull Bitmap bitmap){
 
@@ -49,6 +52,35 @@ public class CircleBitmap {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rectold, rectnew, paint);
 //        bitmap.recycle();
+        return  output;
+    }
+
+    static public Bitmap getCircleBitmapWithStroke(@NonNull Context context,@NonNull Bitmap src,int width,int color){
+        int BORDER_WIDTH = 2;
+        int strokeRadius = width / 2;
+        int imageRadius = strokeRadius - 2;
+
+        Rect srcRect = new Rect(0,0,src.getWidth(),src.getHeight());
+        Rect dstRect = new Rect(0,0,width - 4,width - 4);
+        Paint paint = new Paint();
+//        paint.setStrokeWidth(5);
+        paint.setColor(0xff0000);
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setDither(true);
+
+//        Bitmap output = getCircleBitmap(src,width - 4);
+        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas();
+        canvas.setBitmap(output);
+        canvas.drawARGB(0, 0, 0, 0);
+
+        canvas.drawCircle(imageRadius, imageRadius, imageRadius, paint);
+        //paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+//        canvas.drawBitmap(src, srcRect, dstRect, paint);
+       canvas.save();
+
         return  output;
     }
 

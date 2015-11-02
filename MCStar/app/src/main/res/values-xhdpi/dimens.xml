@@ -50,7 +50,7 @@
     <dimen name="usercover_radii_small">15dp</dimen>
     <dimen name="bottom_height">67dp</dimen>
     <dimen name="bottom_btn_padding">34.5dp</dimen>
-    <dimen name="score_paddint_bottom">64dp</dimen>
+    <dimen name="score_paddint_bottom">50dp</dimen>
     <!--Contribution-->
     <dimen name="item_contribution_height">110dp</dimen>
     <dimen name="item_contributiontitle_height">67dp</dimen>

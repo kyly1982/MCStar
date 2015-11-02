@@ -58,7 +58,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
-
         return super.onCreateView(name, context, attrs);
     }
 
@@ -176,7 +175,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         if (null != loadedImage) {
-                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small))));
+//                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(), CircleBitmap.getCircleBitmap(loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small))));
+                            mToolBar.setNavigationIcon(new BitmapDrawable(getResources(),CircleBitmap.getCircleBitmapWithStroke(MainActivity.this, loadedImage, getResources().getDimensionPixelSize(R.dimen.usercover_diameter_small),0xffffff)));
 
                         }
                     }
