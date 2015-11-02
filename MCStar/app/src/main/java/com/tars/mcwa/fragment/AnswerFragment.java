@@ -60,6 +60,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     private CountDownTimer mTimer;
     private boolean isTimeOut = false;
     private OnAnswerQuestionListener mListener;
+    private int stime;
 
 
 
@@ -214,8 +215,8 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         }
 //        feedback(true,true);
         rightQuestions.add(question.getId());
-        int time = Integer.valueOf(mTime.getText().toString());
-        int qs =  (int)(question.getScore() * time / 10f);
+//        int time = Integer.valueOf(mTime.getText().toString());
+        int qs =  (int)(question.getScore() * stime / 10f);
         score += qs;
         mScore_question.setTextColor(getResources().getColor(R.color.primary_text));
         mScore_question.setText("+" + qs);
@@ -280,10 +281,11 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
 
     private void countTime(int time) {
         if (null == mTimer) {
-            mTimer = new CountDownTimer(time * 1000, 1000) {
+            mTimer = new CountDownTimer(time * 1000, 500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    mTime.setText(millisUntilFinished / 1000 + "");
+                    stime = (int)millisUntilFinished / 1000;
+                    mTime.setText(stime + "");
                 }
 
                 @Override
