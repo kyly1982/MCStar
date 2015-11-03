@@ -10,19 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.tars.mcwa.R;
-import com.tars.mcwa.utils.AutoUpgrade.AppUpdate;
-import com.tars.mcwa.utils.AutoUpgrade.AppUpdateService;
-import com.tars.mcwa.utils.AutoUpgrade.ResponseParser;
-import com.tars.mcwa.utils.AutoUpgrade.Version;
-import com.tars.mcwa.utils.AutoUpgrade.internal.SimpleJSONParser;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class LeadActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView;
@@ -30,7 +20,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
     private ArrayList<ImageView> mIndications;
     private ArrayList<String> urls;
     int mLastPosition = 0;
-    private CountDownTimer timer;
+    public static CountDownTimer timer;
     private ImageLoader mLoader;
 
     @Override
@@ -52,7 +42,6 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
         super.onStart();
         countTime();
         mApplication.init();
-        checkUpgrade();
     }
 
     @Override
@@ -134,12 +123,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void checkUpgrade() {
-        AppUpdate updateService = AppUpdateService.getAppUpdate(this);
-        String url = getString(R.string.interface_domain_update) + getString(R.string.interface_checkupgread);
-        url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
-        updateService.checkLatestVersionQuiet(url, new MyJsonParser());
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -150,27 +134,6 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    static class MyJsonParser extends SimpleJSONParser implements ResponseParser {
-        @Override
-        public Version parser(String response) {
-            try {
-                JSONTokener jsonParser = new JSONTokener(response);
-                JSONObject json = (JSONObject) jsonParser.nextValue();
-                Version version = null;
-                if (json.has("state") && json.has("dataObject")) {
-                    JSONObject dataField = json.getJSONObject("dataObject");
-                    int code = dataField.getInt("code");
-                    String name = dataField.getString("name");
-                    String feature = dataField.getString("feature");
-                    String targetUrl = dataField.getString("targetUrl");
-                    version = new Version(code, name, feature, targetUrl);
-                }
-                return version;
-            } catch (JSONException exp) {
-                exp.printStackTrace();
-                return null;
-            }
-        }
-    }
+
 
 }

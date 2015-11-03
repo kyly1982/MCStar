@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -191,7 +192,8 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         } else {
             mImage.setVisibility(View.GONE);
         }
-        mTime.setText("10");
+        stime = 10;
+        mTime.setTextColor(getResources().getColor(R.color.primary_text));
         countTime(10);
         isTimeOut = false;
     }
@@ -213,9 +215,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
         if (null != mListener){
             mListener.onSelectedSuccess();
         }
-//        feedback(true,true);
         rightQuestions.add(question.getId());
-//        int time = Integer.valueOf(mTime.getText().toString());
         int qs =  (int)(question.getScore() * stime / 10f);
         score += qs;
         mScore_question.setTextColor(getResources().getColor(R.color.primary_text));
@@ -286,6 +286,10 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 public void onTick(long millisUntilFinished) {
                     stime = (int)millisUntilFinished / 1000;
                     mTime.setText(stime + "");
+                    if (2 ==stime){
+                        mTime.setTextColor(getResources().getColor(R.color.red));
+                        YoYo.with(Techniques.Flash).duration(2000).playOn(mTime);
+                    }
                 }
 
                 @Override
@@ -298,7 +302,7 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
                 }
             };
         }
-        mTime.setText(time + "");
+        mTime.setText(stime + "");
         mTimer.start();
     }
 
@@ -318,7 +322,6 @@ public class AnswerFragment extends BaseFragment implements View.OnClickListener
     };
 
     private void showUserInfo() {
-//        Log.e(TAG, "showUserInfo");
         if (mApplication.isLogined()) {
             final String cover = mApplication.user.getHeadImg();
             if (null != cover && 10 < cover.length()) {

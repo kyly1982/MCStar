@@ -109,6 +109,8 @@ public class AppUpdateService
 			task.setVisibleInDownloadsUi(true);
 			task.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
 			task.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, apkName);
+			task.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            task.setMimeType("application/vnd.android.package-archive");//下载完成后，点击会触发安装
 			downloadTaskId = downloader.enqueue(task);
 		}
 

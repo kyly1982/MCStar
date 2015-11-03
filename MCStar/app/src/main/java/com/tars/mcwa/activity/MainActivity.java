@@ -1,15 +1,11 @@
 package com.tars.mcwa.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,10 +45,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private ImageButton button;
     private AppCompatTextView hint ;
+    private boolean isCheckUpadte = false;
+    private AppUpdate updateService;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PushAgent.getInstance(this).enable();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -62,12 +62,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initToolBar();
         if (null == hint) {
             initView();
-//            checkUpgrade();
         }
         showUserInfo();
         YoYo.with(Techniques.Swing).playOn(hint);
+        if (!isCheckUpadte){
+            checkUpgrade();
+            isCheckUpadte = true;
+        }
+        if (null != updateService){
+            updateService.callOnResume();
+        }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (null != updateService){
+            updateService.callOnResume();
+        }
+    }
 
     @Override
     protected void onStop() {
@@ -244,10 +257,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void checkUpgrade() {
-        AppUpdate updateService = AppUpdateService.getAppUpdate(this);
+        updateService = AppUpdateService.getAppUpdate(this);
         String url = getString(R.string.interface_domain_update) + getString(R.string.interface_checkupgread);
         url = url + "&pushMan=" + URLEncoder.encode(getString(R.string.channel));
         updateService.checkLatestVersionQuiet(url, new MyJsonParser());
+        isCheckUpadte = true;
     }
 
     static class MyJsonParser extends SimpleJSONParser implements ResponseParser {

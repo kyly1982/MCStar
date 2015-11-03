@@ -318,8 +318,8 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 
     private boolean checkParams() {
         boolean result = false;
-        if (null != mQuestion.getTitle() && TOPIC_LENGTH_MIN <= mQuestion.getTitle().length() && TOPIC_LENGTH_MAX >= mQuestion.getTitle().length()) {
-            if (null != mQuestion.getAnswerOne() && OPTION_LENGTH_MIN <= mQuestion.getAnswerOne().length() && OPTION_LENGTH_MAX >= mQuestion.getAnswerOne().length()) {
+        if (null != mQuestion.getTitle() && TOPIC_LENGTH_MIN <= mQuestion.getTitle().trim().length() && TOPIC_LENGTH_MAX >= mQuestion.getTitle().trim().length()) {
+            if (null != mQuestion.getAnswerOne() && OPTION_LENGTH_MIN <= mQuestion.getAnswerOne().trim().length() && OPTION_LENGTH_MAX >= mQuestion.getAnswerOne().trim().length()) {
                 if (mQuestion.getQuestionType().equals("judge")) {
                     if (mQuestion.getAnswerOne().equals(getString(R.string.wrong)) || mQuestion.getAnswerOne().equals(getString(R.string.correct))) {
                         return true;
@@ -329,9 +329,9 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                         return false;
                     }
                 } else {
-                    if (null != mQuestion.getAnswerTwo() && OPTION_LENGTH_MIN <= mQuestion.getAnswerTwo().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerTwo().length()) {
-                        if (null != mQuestion.getAnswerThree() && OPTION_LENGTH_MIN <= mQuestion.getAnswerThree().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerThree().length()) {
-                            if (null != mQuestion.getAnswerFour() && OPTION_LENGTH_MIN <=mQuestion.getAnswerFour().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerFour().length()) {
+                    if (null != mQuestion.getAnswerTwo() && OPTION_LENGTH_MIN <= mQuestion.getAnswerTwo().trim().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerTwo().trim().length()) {
+                        if (null != mQuestion.getAnswerThree() && OPTION_LENGTH_MIN <= mQuestion.getAnswerThree().trim().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerThree().trim().length()) {
+                            if (null != mQuestion.getAnswerFour() && OPTION_LENGTH_MIN <=mQuestion.getAnswerFour().trim().length() && TOPIC_LENGTH_MAX >= mQuestion.getAnswerFour().trim().length()) {
                                 result = true;
                             } else {
                                 //D
