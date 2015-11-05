@@ -19,6 +19,8 @@
     <string name="tag_usercover">USER_COVER</string>
     <!--其它-->
     <string name="imagecache_dir">image</string>
+    <string name="exit">是否退出MC哇？</string>
+    <string name="action_exit">退出</string>
     <!--配置-->
     <string name="preferences_filename">config</string>
     <string name="preferences_accesstoken_wx">WXTOKEN</string>

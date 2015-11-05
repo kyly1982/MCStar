@@ -81,13 +81,10 @@ public class BaseActivity extends AppCompatActivity {
         Snackbar.make(null, msg, Snackbar.LENGTH_LONG).setAction(actionName, listener).show();
     }
 
-    public void AddNotification() {
-        UmengNotificationBuilder builder = new UmengNotificationBuilder();
+    public void showMessage(@NonNull View view,@StringRes int msg,@StringRes int actionName,@NonNull final View.OnClickListener listener){
+        Snackbar.make(view,msg,Snackbar.LENGTH_LONG).setAction(actionName,listener).setActionTextColor(getResources().getColor(R.color.red)).show();
     }
 
-    public void deleteNotification() {
-
-    }
 
 
     public static void setTitles(@StringRes final int titleId, @StringRes final int toolbarTitleId, @StringRes final int toolbarSubTitleId) {

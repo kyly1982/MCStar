@@ -216,8 +216,12 @@ public class NetInterface {
                 }
 
                 @Override
-                public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
-                    super.onPostProcessResponse(instance, response);
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
+                    if (totalSize > 0) {
+                        int progress = (int)(bytesWritten * 100 / totalSize);
+                        listener.onProgress(progress);
+                    }
                 }
 
                 @Override
@@ -367,8 +371,8 @@ public class NetInterface {
 
     public interface OnUploadPicsListener {
         void onSuccess(String url);
-
         void onFalse(int requestCode, String msg);
+        void onProgress(int progress);
     }
 
     static class PretreatmentResult {

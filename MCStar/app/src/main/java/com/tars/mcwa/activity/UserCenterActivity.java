@@ -63,12 +63,10 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         }
         showData();
         loadData();
-        mApplication.playMusic();
     }
 
     @Override
     protected void onPause() {
-        mApplication.stopMusic();
         super.onPause();
     }
 
@@ -139,6 +137,16 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_usercenter, menu);
+        MenuItem item = menu.findItem(R.id.action_playmusic);
+        if (null != item){
+            if (mApplication.isMusicPlaying()){
+                item.setIcon(R.mipmap.ic_menu_music_enable);
+                item.setTitle(R.string.music_disable);
+            } else {
+                item.setTitle(R.string.music_enable);
+                item.setIcon(R.mipmap.ic_menu_music_disable);
+            }
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

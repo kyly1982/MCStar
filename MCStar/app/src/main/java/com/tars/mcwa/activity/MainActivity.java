@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -44,7 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int REQUEST_ANSWER = 4;
 
     private ImageButton button;
-    private AppCompatTextView hint ;
+    private AppCompatTextView hint;
     private boolean isCheckUpadte = false;
     private AppUpdate updateService;
 
@@ -65,27 +66,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         showUserInfo();
         YoYo.with(Techniques.Swing).playOn(hint);
-        if (!isCheckUpadte){
+        if (!isCheckUpadte) {
             checkUpgrade();
             isCheckUpadte = true;
         }
-        if (null != updateService){
-            updateService.callOnResume();
-        }
+        mApplication.playMusic();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (null != updateService){
+        if (null != updateService) {
             updateService.callOnResume();
         }
     }
 
     @Override
-    protected void onStop() {
-        mApplication.saveProfile();
-        super.onStop();
+    public boolean onBackKeyPressed() {
+        showMessage(hint, R.string.exit, R.string.action_exit, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mApplication.saveProfile();
+                mApplication.stopMusic();
+                MainActivity.this.finish();
+            }
+        });
+        return true;
     }
 
     private void initView() {
@@ -132,7 +138,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_contribution:
-                MobclickAgent.onEvent(this,"click_RL");
+                MobclickAgent.onEvent(this, "click_RL");
                 if (!mApplication.isLogined()) {
                     callLogin(REQUEST_CONTRIBUTION);
                 } else {
@@ -141,7 +147,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.action_ranking:
-                MobclickAgent.onEvent(this,"click_CL");
+                MobclickAgent.onEvent(this, "click_CL");
                 intent = new Intent(this, RankingActivity.class);
                 startActivity(intent);
                 break;
@@ -172,7 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void loadData() {
-        MobclickAgent.onEvent(this,"reqPaper");
+        MobclickAgent.onEvent(this, "reqPaper");
         NetInterface.getQuestions(this, this);
         isLoading = true;
     }
@@ -239,7 +245,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onSuccess(Paper paper) {
-        MobclickAgent.onEvent(this,"reqPaper_S");
+        MobclickAgent.onEvent(this, "reqPaper_S");
         isLoading = false;
         Intent intent = new Intent(this, ExaminationActivity.class);
         Bundle bundle = new Bundle();
@@ -253,7 +259,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         feedback(false, false);
         MobclickAgent.onEvent(this, "reqPaper_F");
         isLoading = false;
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     private void checkUpgrade() {

@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -58,8 +56,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
     private static String pic;
     private Bitmap bitmap;
     private CircularProgressBar progressBar;
-    private TextView upload;
-    //    private ImageLoader mLoader = ImageLoader.getInstance();
+    private AppCompatTextView upload;
     private Vibrator vibrator;//振动
 
     private boolean isUpload = false;
@@ -177,7 +174,7 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
 //        judge = (AppCompatRadioButton) findViewById(R.id.type_judgment);
         hint = (AppCompatTextView) findViewById(R.id.questionimage_hint);
         progressBar = (CircularProgressBar) findViewById(R.id.cpb);
-        upload = (TextView) findViewById(R.id.upload);
+        upload = (AppCompatTextView) findViewById(R.id.upload);
 
         image = (ImageButton) findViewById(R.id.questionimage);
         type.setOnCheckedChangeListener(this);
@@ -457,6 +454,12 @@ public class QuestionActivity extends BaseActivity implements RadioGroup.OnCheck
                 break;
         }
         Log.e("UQ", msg);
+    }
+
+    @Override
+    public void onProgress(int progress) {
+        showProgress();
+        progressBar.setProgress(progress);
     }
 
     // 加载大图时,计算缩放比例,以免出现OOM

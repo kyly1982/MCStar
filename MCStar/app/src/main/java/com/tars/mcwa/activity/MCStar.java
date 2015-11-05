@@ -133,15 +133,14 @@ public class MCStar extends Application {
 
     public void playMusic() {
         if (null == mPlayer) {
-            mPlayer = MediaPlayer.create(this, R.raw.background);
+            mPlayer = MediaPlayer.create(this, R.raw.background);    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mPlayer.start();
+                }
+            });
+            mPlayer.start();
         }
-        mPlayer.start();
-        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mPlayer.start();
-            }
-        });
     }
 
     public void stopMusic() {
@@ -169,6 +168,13 @@ public class MCStar extends Application {
         if (null != mPlayer) {
             mPlayer.pause();
         }
+    }
+
+    public boolean isMusicPlaying(){
+        if (null != mPlayer){
+            return mPlayer.isPlaying();
+        }
+        return false;
     }
 
     public DisplayImageOptions getCircleOption() {
