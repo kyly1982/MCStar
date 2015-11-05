@@ -68,13 +68,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                MobclickAgent.onEvent(this,"wxLogin");
+                MobclickAgent.onEvent(this, "wxLogin");
                 login.setEnabled(false);
-                if (null == mApplication.user || null == mApplication.user.getUserName()) {
-                    loginWX();
-                } else {
-                    loginServer();
-                }
+                anonymousLogin();
                 break;
             default:
                 setResult(RESULT_CANCELED);
@@ -83,121 +79,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void loginAnonymous(){
-
+    private void anonymousLogin(){
+        NetInterface.anonymousLogin(this,this);
     }
-
-    private void loginWX() {
-        String appIDWX = "wxc49b6a0e3c78364d";
-        String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
-        UMWXHandler wxHandler = new UMWXHandler(this, appIDWX, appSecretWX);
-        wxHandler.addToSocialSDK();
-        if (wxHandler.isClientInstalled()) {
-            mController.doOauthVerify(this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMAuthListener() {
-                @Override
-                public void onStart(SHARE_MEDIA share_media) {
-                    hint.setText(getString(R.string.hint_loginwx_ready));
-                    hint.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onComplete(Bundle bundle, SHARE_MEDIA share_media) {
-                    MobclickAgent.onEvent(LoginActivity.this, "wxGetToken_S");
-                    initOpenIdAndToken(bundle);
-                    mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMDataListener() {
-                        @Override
-                        public void onStart() {
-                        }
-
-                        @Override
-                        public void onComplete(int status, Map<String, Object> userinfo) {
-                            if (200 == status && null != userinfo) {
-                                MobclickAgent.onEvent(LoginActivity.this, "wxVali_S");
-                                updateUserInfo(userinfo);
-                                loginServer();
-                            } else {
-                                MobclickAgent.onEvent(LoginActivity.this, "wxVali_F");
-                                hint.setText("微信验证失败，原因：" + status);
-                                login.setEnabled(true);
-                            }
-                        }
-
-                    });
-                }
-
-                @Override
-                public void onError(SocializeException e, SHARE_MEDIA share_media) {
-                    MobclickAgent.onEvent(LoginActivity.this, "wxGetToken_F");
-                    feedback(false,true);
-                    hint.setText(e.getMessage() + getString(R.string.error_code, e.getErrorCode()));
-                    login.setEnabled(true);
-                }
-
-                @Override
-                public void onCancel(SHARE_MEDIA share_media) {
-                    MobclickAgent.onEvent(LoginActivity.this, "wxGetToken_F");
-                    feedback(false,true);
-                    login.setEnabled(true);
-                    hint.setText(getString(R.string.hint_canclelogin));
-                }
-            });
-        } else {
-            Toast.makeText(this,getString(R.string.error_wxisuninstall),Toast.LENGTH_LONG).show();
-            login.setEnabled(true);
-            installWX();
-        }
-    }
-
-    private void initOpenIdAndToken(@NonNull Bundle bundle) {
-        user = new MCUser();
-        mApplication.mWXToken_Birthday = System.currentTimeMillis() - 600000;
-        String expires = bundle.getString("expires_in");
-        if (null != expires){
-            mApplication.mWXToken_Expires = Integer.valueOf(expires);
-        } else {
-            mApplication.mWXToken_Expires = 7200;
-        }
-        mApplication.mWXToken = bundle.getString("access_token");
-        user.setUserName(bundle.getString("openid"));
-    }
-
-    private void updateUserInfo(Map<String, Object> userinfo) {
-        user.setNickName((String) userinfo.get("nickname"));
-        user.setHeadImg((String) userinfo.get("headimgurl"));
-        int sex = (Integer) userinfo.get("sex");
-        switch (sex){
-            case 1:
-                user.setSex("男");
-                break;
-            default:
-                user.setSex("女");
-                break;
-        }
-        if (null == mApplication.user){
-            mApplication.user = user;
-        } else {
-            mApplication.user.clone(user);
-        }
-    }
-
-
-    private void loginServer() {
-        MobclickAgent.onEvent(this, "login");
-        NetInterface.loginServer(this, mApplication.user, mApplication.mWXToken, this);
-        hint.setText(getString(R.string.hint_loginserver));
-    }
-
-    private void installWX(){
-        StringBuilder localStringBuilder = new StringBuilder().append("market://details?id=com.tencent.mm");
-        Uri localUri = Uri.parse(localStringBuilder.toString());
-        Intent intent = new Intent("android.intent.action.VIEW", localUri);
-        List<ResolveInfo> localList = this.getPackageManager().queryIntentActivities(intent, PackageManager.GET_INTENT_FILTERS);
-        if (null != localList && 0 < localList.size()){
-            startActivity(intent);
-        }
-    }
-
-
 
     @Override
     public void onSuccess(MCUser user) {

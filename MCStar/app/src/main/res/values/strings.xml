@@ -44,6 +44,7 @@
     <!--正式 http://wa.mckuai.com/ -->
     <string name="interface_domain">http://wa.mckuai.com/</string>
     <string name="interface_domain_update">http://api.mckuai.com/</string>
+    <string name="interface_anonymouslogin">interface.do?act=tempLogin</string>
     <string name="interface_loginserver">interface.do?act=login</string>
     <!--获取考卷 无参数-->
     <string name="interface_getquestionlist">interface.do?act=question</string>

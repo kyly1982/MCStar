@@ -66,6 +66,30 @@ public class NetInterface {
         });
     }
 
+
+    public static void anonymousLogin(@NonNull final Context context, @NonNull final OnLoginServerListener listener) {
+        String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_anonymouslogin);
+        mClient.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                PretreatmentResult result = pretreatmentResponse(context, response);
+                if (result.isSuccess) {
+                    Gson gson = new Gson();
+                    MCUser userinfo = gson.fromJson(result.msg, MCUser.class);
+                    listener.onSuccess(userinfo);
+                } else {
+                    listener.onFalse(result.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
+            }
+        });
+    }
+
+
     public static void getQuestions(@NonNull final Context context, @NonNull final OnGetQrestionListener listener) {
         String url = context.getString(R.string.interface_domain) + context.getString(R.string.interface_getquestionlist);
         mClient.get(context, url, new JsonHttpResponseHandler() {
@@ -219,7 +243,7 @@ public class NetInterface {
                 public void onProgress(long bytesWritten, long totalSize) {
                     super.onProgress(bytesWritten, totalSize);
                     if (totalSize > 0) {
-                        int progress = (int)(bytesWritten * 100 / totalSize);
+                        int progress = (int) (bytesWritten * 100 / totalSize);
                         listener.onProgress(progress);
                     }
                 }
@@ -371,7 +395,9 @@ public class NetInterface {
 
     public interface OnUploadPicsListener {
         void onSuccess(String url);
+
         void onFalse(int requestCode, String msg);
+
         void onProgress(int progress);
     }
 
