@@ -83,6 +83,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
+    private void loginAnonymous(){
+
+    }
+
     private void loginWX() {
         String appIDWX = "wxc49b6a0e3c78364d";
         String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
