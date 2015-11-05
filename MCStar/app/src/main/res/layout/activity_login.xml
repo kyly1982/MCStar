@@ -23,7 +23,7 @@
             android:background="@color/green"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/fontsize_big"
-            android:text="@string/wx_login"
+            android:text="@string/login_anonymous"
             />
 
         <android.support.v7.widget.AppCompatTextView

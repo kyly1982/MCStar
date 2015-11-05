@@ -28,8 +28,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
-
 import java.util.ArrayList;
 
 
@@ -257,9 +255,9 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         qZoneSsoHandler.setTargetUrl(url);
         qZoneSsoHandler.addToSocialSDK();
 
-        String appIDWX = "wxc49b6a0e3c78364d";
+        /* String appIDWX = "wxc49b6a0e3c78364d";
         String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
-        // 添加微信
+       // 添加微信
         UMWXHandler wxHandler = new UMWXHandler(getActivity(), appIDWX, appSecretWX);
         wxHandler.setTargetUrl(url);
         wxHandler.setTitle(title);
@@ -271,8 +269,8 @@ public class ResulltFragment extends BaseFragment implements NetInterface.OnRepo
         wxCircleHandler.setTargetUrl(url);
         wxCircleHandler.setToCircle(true);
         wxHandler.showCompressToast(false);
-        wxCircleHandler.addToSocialSDK();
+        wxCircleHandler.addToSocialSDK();*/
         // 移除多余平台
-        mShareService.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.SINA);
+        mShareService.getConfig().removePlatform(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.TENCENT, SHARE_MEDIA.SINA);
     }
 }

@@ -34,6 +34,7 @@ public class MCStar extends Application {
     public long mWXToken_Expires;
     public String mWXToken;
     public boolean isFirstBoot = true;
+    public int userType = 0;
 
 
     private final int IMAGE_POOL_SIZE = 3;// 线程池数量
@@ -86,11 +87,12 @@ public class MCStar extends Application {
     public MCUser readPreference() {
         SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
         isFirstBoot = preferences.getBoolean(getString(R.string.preferences_isFirstBoot), true);
+        userType = preferences.getInt(getString(R.string.preferences_usertype), 1);//获取用户类型，0：微信，1：匿名
         if (!isFirstBoot) {
             mWXToken_Birthday = preferences.getLong(getString(R.string.preferences_tokentime), 0);
             mWXToken_Expires = preferences.getLong(getString(R.string.preferences_tokenexpires), 0);
             // 检查qq的token是否有效如果在有效期内则获取qqtoken
-            if (verificationTokenLife(mWXToken_Birthday, mWXToken_Expires)) {
+            if (1 == userType || (0 == userType && verificationTokenLife(mWXToken_Birthday, mWXToken_Expires))) {
                 user = new MCUser();
                 mWXToken = preferences.getString(getString(R.string.preferences_accesstoken_wx),null);
                 user.setUserName(preferences.getString(getString(R.string.preferences_username), null)); //姓名,实为wx的access_token
@@ -113,7 +115,10 @@ public class MCStar extends Application {
         if (null != user) {
             SharedPreferences preferences = getSharedPreferences(getString(R.string.preferences_filename), 0);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(getString(R.string.preferences_isFirstBoot),false);
+            if (isFirstBoot){
+                editor.putInt(getString(R.string.preferences_usertype),userType);
+                editor.putBoolean(getString(R.string.preferences_isFirstBoot), false);
+            }
             editor.putLong(getString(R.string.preferences_tokentime), mWXToken_Birthday);
             editor.putLong(getString(R.string.preferences_tokenexpires), mWXToken_Expires);
             editor.putInt(getString(R.string.preferences_scorerank), user.getScoreRank());

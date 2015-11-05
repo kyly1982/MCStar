@@ -23,6 +23,7 @@
     <string name="action_exit">退出</string>
     <!--配置-->
     <string name="preferences_filename">config</string>
+    <string name="preferences_usertype">USERTYPE</string>
     <string name="preferences_accesstoken_wx">WXTOKEN</string>
     <string name="preferences_isFirstBoot">FIRSTBOOT</string>
     <string name="preferences_tokentime">CERTIFIEDTIME</string>
@@ -106,6 +107,7 @@
     <!--登录-->
     <string name="qq_login">QQ账号登录</string>
     <string name="wx_login">使用微信账号登录</string>
+    <string name="login_anonymous">登录到服务器</string>
     <string name="login_hint1">MC 哇！</string>
     <string name="login_wa">挖，挖，挖……</string>
     <string name="hint_loginwx_ready">即将登录到微信…</string>

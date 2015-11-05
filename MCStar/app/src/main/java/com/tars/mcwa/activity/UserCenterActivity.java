@@ -25,7 +25,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, NetInterface.OnGetUserInfoListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
@@ -223,7 +222,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         qZoneSsoHandler.setTargetUrl(url);
         qZoneSsoHandler.addToSocialSDK();
 
-        String appIDWX = "wxc49b6a0e3c78364d";
+        /*String appIDWX = "wxc49b6a0e3c78364d";
         String appSecretWX = "d4624c36b6795d1d99dcf0547af5443d";
         // 添加微信
         UMWXHandler wxHandler = new UMWXHandler(this, appIDWX, appSecretWX);
@@ -238,7 +237,7 @@ public class UserCenterActivity extends BaseActivity implements Toolbar.OnMenuIt
         wxCircleHandler.setToCircle(true);
         wxHandler.showCompressToast(false);
         wxCircleHandler.addToSocialSDK();
-        // 移除多余平台
-        mShareService.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.SINA);
+        // 移除多余平台*/
+        mShareService.getConfig().removePlatform(SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.TENCENT, SHARE_MEDIA.SINA);
     }
 }

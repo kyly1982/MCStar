@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import com.tars.mcwa.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class LeadActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView;

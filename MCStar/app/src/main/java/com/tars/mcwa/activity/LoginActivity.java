@@ -1,29 +1,17 @@
 package com.tars.mcwa.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.MCUser;
 import com.tars.mcwa.utils.NetInterface;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.controller.listener.SocializeListeners;
-import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -81,12 +69,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void anonymousLogin(){
         NetInterface.anonymousLogin(this,this);
+        hint.setText(getString(R.string.hint_loginserver));
+        hint.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccess(MCUser user) {
         MobclickAgent.onEvent(this, "login_S");
-        MCStar.user.clone(user);
+        if (null == mApplication.user){
+            mApplication.user = user;
+        } else {
+            mApplication.user.clone(user);
+        }
         mApplication.saveProfile();
         setResult(RESULT_OK);
         this.finish();
