@@ -1,6 +1,7 @@
 package com.tars.mcwa.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.AppCompatButton;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
+import com.baidu.autoupdatesdk.UICheckUpdateCallback;
 import com.tars.mcwa.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
@@ -78,6 +81,7 @@ public class LeadActivity extends BaseActivity implements View.OnClickListener {
         this.finish();
 
     }
+
 
     private void init() {
         urls = new ArrayList<>(10);

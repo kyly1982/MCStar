@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tars.mcwa" >
+    package="com.tars.mcwa">
 
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -21,9 +21,9 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:normalScreens="true"
-        android:anyDensity = "true"/>
+        android:normalScreens="true" />
 
     <application
         android:name="com.tars.mcwa.activity.MCStar"
@@ -31,10 +31,10 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.tars.mcwa.activity.LeadActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,7 +50,7 @@
         <activity
             android:name="com.tars.mcwa.activity.ExaminationActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
@@ -58,7 +58,7 @@
         <activity
             android:name="com.tars.mcwa.activity.ContributionActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
@@ -66,7 +66,7 @@
         <activity
             android:name="com.tars.mcwa.activity.RankingActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity" >
+            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
@@ -75,7 +75,7 @@
             android:name="com.tars.mcwa.activity.QuestionActivity"
             android:label="@string/app_name"
             android:parentActivityName="com.tars.mcwa.activity.ContributionActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.ContributionActivity" />
@@ -90,19 +90,19 @@
                 android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
 
-        <!-- 配置腾讯的相关SDK -->
-
+        <!--百度升级-->
         <activity
-            android:name="com.tars.mcwa.wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:name="com.baidu.autoupdatesdk.ConfirmDialoigActivity"
+            android:exported="false"
+            android:screenOrientation="sensor"
+            android:theme="@style/bdp_update_dialog_style_fullscreen" />
+
+        <!-- 配置腾讯的相关SDK -->
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -116,8 +116,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.view.ShareActivity"
@@ -136,7 +135,7 @@
         <!-- 监听开机运行、网络连接变化、卸载的广播 -->
         <receiver
             android:name="com.umeng.message.SystemReceiver"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -154,7 +153,7 @@
         <receiver
             android:name="com.umeng.message.MessageReceiver"
             android:exported="false"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -163,7 +162,7 @@
         <!-- 监听宿主选举的广播 -->
         <receiver
             android:name="com.umeng.message.ElectionReceiver"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
 
@@ -175,12 +174,12 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <receiver
             android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.tars.mcwa.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
+        <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -192,7 +191,7 @@
             android:name="com.umeng.message.UmengService"
             android:exported="true"
             android:label="PushService"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="com.tars.mcwa.intent.action.START" />
             </intent-filter>
@@ -215,7 +214,7 @@
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
             android:exported="true"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -227,7 +226,7 @@
         <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
         <service
             android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
@@ -254,13 +253,26 @@
         <!-- 友盟消息配置完成 -->
 
 
+        <!--百度更新-->
+        <receiver
+            android:name="com.baidu.autoupdatesdk.receiver.BDBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.baidu.autoupdatesdk.ACTION_NEW_UPDATE" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_DOWNLOAD_COMPLETE" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_NEW_AS" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_AS_DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
+
         <!-- 配置各种appkey -->
 
 
         <!-- 友盟统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5629a1da67e58efa810009e0"/>
+            android:value="5629a1da67e58efa810009e0" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="@string/channel" />
@@ -269,6 +281,26 @@
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="ecb056db77ffc14f02333095590c5b76" />
+
+        <!--该死的百度-->
+        <meta-data
+            android:name="BDAPPID"
+            android:value="7198432" />
+        <meta-data
+            android:name="BDAPPKEY"
+            android:value="QxjlD2nn0RCm3sfiEk2wtY9UQGuNUffH" />
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="false" />
+        //不获取gps位置信息
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="false" />
+        //不获取基站位置信息
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="false" />
+        //不获取wifi位置信息
 
     </application>
 
