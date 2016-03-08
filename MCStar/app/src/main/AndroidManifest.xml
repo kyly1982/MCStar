@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!--suppress DeprecatedClassUsageInspection -->
+    <!-- suppress DeprecatedClassUsageInspection -->
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <supports-screens
@@ -26,14 +26,14 @@
         android:normalScreens="true" />
 
     <application
-        android:name="com.tars.mcwa.activity.MCStar"
+        android:name=".activity.MCStar"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.tars.mcwa.activity.LeadActivity"
+            android:name=".activity.LeadActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,55 +42,54 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tars.mcwa.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="com.tars.mcwa.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="com.tars.mcwa.activity.ExaminationActivity"
+            android:name=".activity.ExaminationActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.tars.mcwa.activity.ContributionActivity"
+            android:name=".activity.ContributionActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.tars.mcwa.activity.RankingActivity"
+            android:name=".activity.RankingActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.tars.mcwa.activity.QuestionActivity"
+            android:name=".activity.QuestionActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.ContributionActivity"
+            android:parentActivityName=".activity.ContributionActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.ContributionActivity" />
         </activity>
-
         <activity
-            android:name="com.tars.mcwa.activity.UserCenterActivity"
+            android:name=".activity.UserCenterActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.tars.mcwa.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tars.mcwa.activity.MainActivity" />
         </activity>
 
-        <!--百度升级-->
+        <!-- 百度升级 -->
         <activity
             android:name="com.baidu.autoupdatesdk.ConfirmDialoigActivity"
             android:exported="false"
@@ -116,7 +115,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.view.ShareActivity"
@@ -253,7 +252,7 @@
         <!-- 友盟消息配置完成 -->
 
 
-        <!--百度更新-->
+        <!-- 百度更新 -->
         <receiver
             android:name="com.baidu.autoupdatesdk.receiver.BDBroadcastReceiver"
             android:exported="false">
@@ -264,7 +263,6 @@
                 <action android:name="com.baidu.autoupdatesdk.ACTION_AS_DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
-
 
         <!-- 配置各种appkey -->
 
@@ -282,7 +280,7 @@
             android:name="UMENG_MESSAGE_SECRET"
             android:value="ecb056db77ffc14f02333095590c5b76" />
 
-        <!--该死的百度-->
+        <!-- 该死的百度 -->
         <meta-data
             android:name="BDAPPID"
             android:value="7198432" />
@@ -301,7 +299,10 @@
             android:name="BaiduMobAd_WIFI_LOCATION"
             android:value="false" />
         //不获取wifi位置信息
-
+        <service
+            android:name=".service.DLSerivce"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

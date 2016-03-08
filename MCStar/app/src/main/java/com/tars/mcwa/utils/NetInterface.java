@@ -10,8 +10,8 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.ResponseHandlerInterface;
 import com.tars.mcwa.R;
+import com.tars.mcwa.bean.Ad;
 import com.tars.mcwa.bean.ContributionBean;
 import com.tars.mcwa.bean.MCUser;
 import com.tars.mcwa.bean.Page;
@@ -19,9 +19,8 @@ import com.tars.mcwa.bean.Paper;
 import com.tars.mcwa.bean.Question;
 import com.tars.mcwa.bean.RankingListBean;
 
-import org.apache.http.HttpResponse;
-import org.json.JSONObject;
 import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -95,7 +94,7 @@ public class NetInterface {
         mClient.get(context, url, new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 PretreatmentResult result = pretreatmentResponse(context, response);
                 if (result.isSuccess) {
                     Gson gson = new Gson();
@@ -111,7 +110,7 @@ public class NetInterface {
             }
 
             @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 listener.onFalse(context.getString(R.string.error_requestfalse, throwable.getLocalizedMessage()));
             }
         });
@@ -435,6 +434,40 @@ public class NetInterface {
         }
 
         return result;
+    }
+
+    public interface OnGetAdResponse {
+        void onGetAdSuccess(Ad ad);
+
+        void onGetAdFailure(String msg);
+    }
+
+    public static void getAd(final Context context, final OnGetAdResponse listener) {
+        String url = "http://api.mckuai.com/interface.do?act=adv";
+        mClient.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                PretreatmentResult result = pretreatmentResponse(context, response);
+                if (result.isSuccess) {
+                    Gson gson = new Gson();
+                    Ad ad = gson.fromJson(result.msg, Ad.class);
+                    if (null != ad) {
+                        listener.onGetAdSuccess(ad);
+                    } else {
+                        listener.onGetAdFailure("返回数据解析失败！");
+                    }
+                } else {
+                    listener.onGetAdFailure(result.msg);
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                //super.onFailure(statusCode, headers, responseString, throwable);
+                listener.onGetAdFailure(throwable.getLocalizedMessage());
+            }
+        });
     }
 
     private static InputStream Bitmap2IS(Bitmap bm) {

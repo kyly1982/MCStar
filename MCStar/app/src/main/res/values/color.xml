@@ -26,5 +26,7 @@
     <color name="radiobutton_checked">#696296</color>
     <color name="login_textcolor">#7B6EB2</color>
     <color name="lab_rank">#8582C7</color>
+    <color name="exitdialog_textcolor">#4D4D4D</color>
+    <color name="exitdialog_defaultcolor">#E3E3E3</color>
 
 </resources>

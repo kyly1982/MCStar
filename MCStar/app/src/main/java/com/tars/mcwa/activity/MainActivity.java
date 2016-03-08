@@ -19,17 +19,20 @@ import com.baidu.autoupdatesdk.UICheckUpdateCallback;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.tars.mcwa.R;
+import com.tars.mcwa.bean.Ad;
 import com.tars.mcwa.bean.Paper;
 import com.tars.mcwa.utils.CircleBitmap;
 import com.tars.mcwa.utils.NetInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.tars.mcwa.utils.NotificationUtil;
+import com.tars.mcwa.widget.ExitDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, NetInterface.OnGetQrestionListener,NetInterface.OnGetAdResponse {
     private boolean isLoading = false;
     private static final int REQUEST_USERCENTER = 1;
     private static final int REQUEST_CONTRIBUTION = 2;
@@ -40,12 +43,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private AppCompatTextView hint;
     private boolean isCheckUpadte = false;
 
+    private ExitDialog exitDialog;
+    private Ad ad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         PushAgent.getInstance(this).enable();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        exitDialog = new ExitDialog();
     }
 
     @Override
@@ -62,19 +69,47 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             isCheckUpadte = true;
         }
         mApplication.playMusic();
+        if (null == ad){
+            NetInterface.getAd(this, this);
+        }
     }
 
 
     @Override
     public boolean onBackKeyPressed() {
-        showMessage(hint, R.string.exit, R.string.action_exit, new View.OnClickListener() {
+        /*showMessage(hint, R.string.exit, R.string.action_exit, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mApplication.saveProfile();
                 mApplication.stopMusic();
                 MainActivity.this.finish();
             }
+        });*/
+        MobclickAgent.onEvent(this, "showExitDialog");
+        exitDialog.init("是否退出MC哇", "http://pic1.nipic.com/2008-12-09/200812910493588_2.jpg", "下载", new ExitDialog.OnClickListener() {
+            @Override
+            public void onCanclePressed() {
+                MobclickAgent.onEvent(MainActivity.this,"ExitDialog_C");
+                exitDialog.dismiss();
+            }
+
+            @Override
+            public void onExitPressed() {
+                MobclickAgent.onEvent(MainActivity.this,"ExitDialog_E");
+                exitDialog.dismiss();
+                finish();
+            }
+
+            @Override
+            public void onDownloadPressed() {
+                //showMessage(hint, R.string.exit, R.string.action_exit, null);
+                MobclickAgent.onEvent(MainActivity.this,"ExitDialog_D");
+                NotificationUtil.notificationForDLAPK(MainActivity.this,ad);
+                exitDialog.dismiss();
+                finish();
+            }
         });
+        exitDialog.show(getFragmentManager(), "exit");
         return true;
     }
 
@@ -244,6 +279,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         MobclickAgent.onEvent(this, "reqPaper_F");
         isLoading = false;
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onGetAdSuccess(Ad ad) {
+        this.ad = ad;
+    }
+
+    @Override
+    public void onGetAdFailure(String msg) {
+
     }
 
     private void checkUpgrade() {
