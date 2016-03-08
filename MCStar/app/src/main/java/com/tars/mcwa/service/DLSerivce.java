@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.tars.mcwa.R;
 import com.tars.mcwa.bean.Ad;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -32,7 +33,6 @@ public class DLSerivce extends Service {
         final Ad ad = (Ad) intent.getSerializableExtra("AD");
         path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/";
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
 
         builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -59,8 +59,11 @@ public class DLSerivce extends Service {
             @Override
             public void onFinish(File file) {
                 builder.setProgress(0, 0, false);
-                builder.setContentIntent(getIntent(file));
-                //nm.cancel(ad.getId());
+                if (null != file && file.exists()) {
+                    MobclickAgent.onEvent(getApplicationContext(),"installADFile");
+                    installFile(file);
+                }
+                nm.cancel(ad.getId());
             }
 
         });
@@ -73,11 +76,11 @@ public class DLSerivce extends Service {
     }
 
 
-    private PendingIntent getIntent(File file){
+    private void installFile(File file){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
-        return PendingIntent.getActivity(this,0,intent,0);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
 }

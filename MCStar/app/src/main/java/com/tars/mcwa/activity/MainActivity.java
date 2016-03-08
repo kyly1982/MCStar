@@ -74,6 +74,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mApplication.stopMusic();
+    }
 
     @Override
     public boolean onBackKeyPressed() {
@@ -97,16 +102,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             public void onExitPressed() {
                 MobclickAgent.onEvent(MainActivity.this,"ExitDialog_E");
                 exitDialog.dismiss();
-                finish();
+                MainActivity.this.finish();
             }
 
             @Override
             public void onDownloadPressed() {
                 //showMessage(hint, R.string.exit, R.string.action_exit, null);
                 MobclickAgent.onEvent(MainActivity.this,"ExitDialog_D");
-                NotificationUtil.notificationForDLAPK(MainActivity.this,ad);
+                NotificationUtil.notificationForDLAPK(MainActivity.this, ad);
                 exitDialog.dismiss();
-                finish();
+                //MainActivity.this.finish();
             }
         });
         exitDialog.show(getFragmentManager(), "exit");
